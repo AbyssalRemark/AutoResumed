@@ -1,11 +1,17 @@
 from flask import Flask, request
+from flask_json import FlaskJSON
 
 app = Flask(__name__)
+json = FlaskJSON(app)
 
 # Bearer token is sent with every request, and check against the DB
+
 @app.route("/login", methods=["POST", "GET"])
 def login() -> str:
-    print(request)
+    if request.method == "POST":
+        data = request.get_json()
+        print(data)
+
     return "Login"
 
 @app.route("/logout")
