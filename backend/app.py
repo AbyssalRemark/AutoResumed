@@ -4,7 +4,7 @@ from flask_json import FlaskJSON
 app = Flask(__name__)
 json = FlaskJSON(app)
 
-# Bearer token is sent with every request, and check against the DB
+# Bearer token is sent with every request, and checked against the DB
 
 @app.route("/login", methods=["POST", "GET"])
 def login() -> str:
