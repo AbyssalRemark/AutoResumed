@@ -59,6 +59,20 @@ async = ["asgiref (>=3.2)"]
 dotenv = ["python-dotenv"]
 
 [[package]]
+name = "flask-json"
+version = "0.4.0"
+description = "Better JSON support for Flask"
+optional = false
+python-versions = "*"
+files = [
+    {file = "Flask-JSON-0.4.0.tar.gz", hash = "sha256:07945d66024f3b77694ce1db5d1fe83940f2aa3bcad8a608535686be67e4bc48"},
+    {file = "Flask_JSON-0.4.0-py3-none-any.whl", hash = "sha256:1c1b87a657daa2179fc19f1ffc78204a716c7c5139673dc5038772db4d9f1988"},
+]
+
+[package.dependencies]
+Flask = ">=2.2.0"
+
+[[package]]
 name = "greenlet"
 version = "3.0.3"
 description = "Lightweight in-process concurrent programming"
@@ -344,4 +358,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "567f896a805f7b4fb9b3bcaf38565cba61c4e45b81200068da785afbd74e2ad7"
+content-hash = "6fed05e75df68a892c1e3b06dca52ea25ad66d26d6e7b2107364752efecc8021"
