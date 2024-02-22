@@ -1,5 +1,5 @@
-from flask import Flask, request
-from flask_json import FlaskJSON
+from flask import Flask, Response, request
+from flask_json import FlaskJSON, json_response
 
 app = Flask(__name__)
 json = FlaskJSON(app)
@@ -9,12 +9,15 @@ json = FlaskJSON(app)
 # Takes username and password
 # Returns user ID and bearer token
 @app.route("/login", methods=["POST"])
-def login() -> str:
+def login() -> Response:
     if request.method == "POST":
         data = request.get_json()
         print(data)
 
-    return "Login"
+    # Check database
+
+    # Return user ID and bearer token
+    return json_response(uuid=1234, token=1234)
 
 # Takes user ID and bearer token
 @app.route("/logout", methods=["POST"])
@@ -24,8 +27,17 @@ def logout() -> str:
 # Takes username and password
 # Returns user ID and bearer token
 @app.route("/register", methods=["POST"])
-def register() -> str:
-    return "Register"
+def register() -> Response:
+    if request.method == "POST":
+        data = request.get_json()
+        print(data)
+
+    # Create user entry in database
+
+    # Return user ID and bearer token
+    return json_response(uuid=1234, token=1234)
+
+
 
 @app.route("/resume", methods=["GET", "POST", "DELETE"])
 def resume() -> str:
