@@ -4,9 +4,11 @@ from flask_json import FlaskJSON
 app = Flask(__name__)
 json = FlaskJSON(app)
 
-# Bearer token is sent with every request, and checked against the DB
+# User ID and bearer token are sent with every request, and checked against the DB
 
-@app.route("/login", methods=["POST", "GET"])
+# Takes username and password
+# Returns user ID and bearer token
+@app.route("/login", methods=["POST"])
 def login() -> str:
     if request.method == "POST":
         data = request.get_json()
@@ -14,11 +16,14 @@ def login() -> str:
 
     return "Login"
 
-@app.route("/logout")
+# Takes user ID and bearer token
+@app.route("/logout", methods=["POST"])
 def logout() -> str:
-    return "Logout"
+    return "Sucessfully logged out"
 
-@app.route("/register")
+# Takes username and password
+# Returns user ID and bearer token
+@app.route("/register", methods=["POST"])
 def register() -> str:
     return "Register"
 
