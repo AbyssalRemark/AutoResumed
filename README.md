@@ -1,4 +1,4 @@
-<h1>#AutoResumed</h1>
+<h1>AutoResumed</h1>
 A comprehensive web application for managing multiple user's resume data and producing resumes via tag selection.
 
 # AutoResumed - CLI
