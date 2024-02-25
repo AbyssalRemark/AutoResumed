@@ -1,0 +1,254 @@
+generator client {
+  provider             = "prisma-client-py"
+  interface            = "asyncio"
+  recursive_type_depth = 5
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  email      String      @unique
+  passHash   String      @db.VarChar(32)
+  resume     Resume?
+  Authorized Authorized?
+}
+
+model Resume {
+  id          Int           @id @default(autoincrement())
+  belongsToId Int           @unique
+  belongsTo   User          @relation(fields: [belongsToId], references: [id])
+  createdAt   DateTime      @default(now())
+  basic       Basic?
+  work        Work[]
+  volunteer   Volunteer[]
+  education   Education[]
+  award       Award[]
+  certificate Certificate[]
+  publication Publication[]
+  skill       Skill[]
+  language    Language[]
+  interest    Interest[]
+  reference   Reference[]
+  project     Project[]
+  Label       Label[]
+  Summary     Summary[]
+  Location    Location[]
+  Profile     Profile[]
+}
+
+model Basic {
+  id          Int       @id @default(autoincrement())
+  belongsToId Int       @unique
+  belongsTo   Resume    @relation(fields: [belongsToId], references: [id])
+  createdAt   DateTime  @default(now())
+  name        String
+  label       Label[]
+  image       String
+  email       String
+  phone       String
+  url         String
+  summary     Summary[]
+  location    Location?
+  profiles    Profile[]
+  locationId  Int
+}
+
+model Label {
+  id          Int      @id @default(autoincrement())
+  belongsToId Int
+  belongsTo   Basic    @relation(fields: [belongsToId], references: [id])
+  createdAt   DateTime @default(now())
+  tags        String[]
+  label       String
+  Resume      Resume?  @relation(fields: [resumeId], references: [id])
+  resumeId    Int?
+}
+
+model Summary {
+  id          Int      @id @default(autoincrement())
+  belongsToId Int
+  belongsTo   Basic    @relation(fields: [belongsToId], references: [id])
+  createdAt   DateTime @default(now())
+  tags        String[]
+  Summary     String
+  Resume      Resume?  @relation(fields: [resumeId], references: [id])
+  resumeId    Int?
+}
+
+model Location {
+  id          Int      @id @default(autoincrement())
+  belongsToId Int      @unique
+  belongsTo   Basic    @relation(fields: [belongsToId], references: [id])
+  createdAt   DateTime @default(now())
+  addresss    String
+  postalCode  String
+  city        String
+  countryCode String
+  region      String
+  Resume      Resume?  @relation(fields: [resumeId], references: [id])
+  resumeId    Int?
+}
+
+model Profile {
+  id          Int      @id @default(autoincrement())
+  belongsToId Int
+  belongsTo   Basic    @relation(fields: [belongsToId], references: [id])
+  createdAt   DateTime @default(now())
+  tags        String[]
+  network     String
+  username    String
+  url         String
+  Resume      Resume?  @relation(fields: [resumeId], references: [id])
+  resumeId    Int?
+}
+
+model Work {
+  id          Int      @id @default(autoincrement())
+  belongsToId Int
+  belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+  createdAt   DateTime @default(now())
+  tags        String[]
+  name        String
+  position    String
+  url         String
+  startDate   String
+  endDate     String
+  summary     String
+  highlights  String[]
+}
+
+model Volunteer {
+  id           Int      @id @default(autoincrement())
+  belongsToId  Int
+  belongsTo    Resume   @relation(fields: [belongsToId], references: [id])
+  createdAt    DateTime @default(now())
+  tags         String[]
+  organization String
+  position     String
+  url          String
+  startDate    String
+  endDate      String
+  summary      String
+  highlights   String[]
+}
+
+model Education {
+  id          Int      @id @default(autoincrement())
+  belongsToId Int
+  belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+  createdAt   DateTime @default(now())
+  tags        String[]
+  institution String
+  url         String
+  area        String
+  studyType   String
+  startDate   String
+  endDate     String
+  score       String
+  courses     String[]
+}
+
+model Award {
+  id          Int      @id @default(autoincrement())
+  belongsToId Int
+  belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+  createdAt   DateTime @default(now())
+  tags        String[]
+  title       String
+  date        String
+  awader      String
+  summary     String
+}
+
+model Certificate {
+  id          Int      @id @default(autoincrement())
+  belongsToId Int
+  belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+  createdAt   DateTime @default(now())
+  tags        String[]
+  name        String
+  date        String
+  issuer      String
+  url         String
+}
+
+model Publication {
+  id          Int      @id @default(autoincrement())
+  belongsToId Int
+  belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+  createdAt   DateTime @default(now())
+  tags        String[]
+  name        String
+  publisher   String
+  releaseDate String
+  url         String
+  summary     String
+}
+
+model Skill {
+  id          Int      @id @default(autoincrement())
+  belongsToId Int
+  belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+  createdAt   DateTime @default(now())
+  tags        String[]
+  name        String
+  level       String
+  keywords    String[]
+}
+
+model Language {
+  id          Int      @id @default(autoincrement())
+  belongsToId Int
+  belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+  createdAt   DateTime @default(now())
+  tags        String[]
+  language    String
+  fluency     String
+}
+
+model Interest {
+  id          Int      @id @default(autoincrement())
+  belongsToId Int
+  belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+  createdAt   DateTime @default(now())
+  tags        String[]
+  name        String
+  keywords    String[]
+}
+
+model Reference {
+  id          Int      @id @default(autoincrement())
+  belongsToId Int
+  belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+  createdAt   DateTime @default(now())
+  tags        String[]
+  name        String
+  reference   String
+}
+
+model Project {
+  id          Int      @id @default(autoincrement())
+  belongsToId Int
+  belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+  createdAt   DateTime @default(now())
+  tags        String[]
+  name        String
+  startDate   String
+  endDate     String
+  description String
+  highlights  String[]
+  url         String
+}
+
+model Authorized {
+  id          Int      @id @default(autoincrement())
+  belongsToId Int      @unique
+  belongsTo   User     @relation(fields: [belongsToId], references: [id])
+  createdAt   DateTime @default(now())
+  token       String   @db.VarChar(32)
+}
