@@ -5,11 +5,11 @@ Inspired by and dependent upon JSON Resume https://jsonresume.org/
 Check out our tagged-resume.json to understand the tag-wrapped schema we implement to generate JSON Resume complient resumes.
 
 <h1>Dependencies</h1>
-Python Prisma client  
-Flask  
-postgres  
-react  
-JSON Resume - https://jsonresume.org/  
+Python Prisma client<br>
+Flask<br>
+postgres<br>
+react<br>
+JSON Resume - https://jsonresume.org/<br>
 
 # AutoResumed - CLI
 A small automation tool build around jsonresume and Resumed for automating creation of multiple resumes via tag selection
