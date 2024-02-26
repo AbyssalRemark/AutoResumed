@@ -18,10 +18,17 @@ expects json as follows:
 
 async def create_user(db, user) -> str:
     input_obj = json.loads(user)
-    salt = ''.join(random.choices(string.ascii_uppercase+string.digits, k=10))
-    pass_hash = md5(bytes((input_obj["password"]+salt), 'utf-8')).hexdigest()
-    user_obj = {"email":input_obj["email"], "passHash":pass_hash,"salt":salt}
+    salt = ''.join(
+        random.choices(string.ascii_uppercase + string.digits, k = 10)
+    )
+    pass_hash = md5(bytes((input_obj["password"] + salt), 'utf-8')).hexdigest()
+    user_obj = {
+        "email": input_obj["email"],
+        "passHash": pass_hash,
+        "salt": salt
+    }
     user_in_db = await db.user.create(user_obj)
+
     return user_in_db
 
 """
@@ -29,6 +36,7 @@ returns all user entries
 """
 async def get_users(db):
     users_in_db = await db.user.find_many()
+
     return users_in_db
 
 
@@ -39,10 +47,11 @@ expects an a str or int, see int() cast
 
 async def get_user(db, userId):
     user_in_db = await db.user.find_unique(
-            where={
-                'id':int(userId),
-                }
-        )
+        where = {
+            'id': int(userId),
+        }
+    )
+
     return user_in_db
 
 
@@ -100,6 +109,7 @@ expects python dictionary object as follows:
 
 async def create_location(db, location):
     created_location = await db.location.create(location)
+
     return created_location
 
 """
@@ -108,20 +118,21 @@ expects userId as int or string, see int() cast
 """
 
 async def create_resume(db, userId):
-    created_resume = await db.resume.create(data={
-                'belongsToId': int(userId)
-            })
+    created_resume = await db.resume.create(data = {
+        'belongsToId': int(userId)
+    })
     
     created_resume = await db.resume.update(
-        where={
+        where = {
             'belongsToId': int(userId),
         },
-        data={
+        data = {
             'belongsTo': {
-                'connect':{'id':int(userId)},
+                'connect': {'id': int(userId)},
             }
         },
     )
+
     return (created_resume)
 
 """
@@ -129,10 +140,11 @@ delete resume by userId
 """
 async def delete_resume(db, userId):
     deleted_resume = await db.resume.delete(
-    where={
-        'belongsToId':int(userId),
-    },
-)
+        where = {
+            'belongsToId':int(userId),
+        },
+    )
+
     return deleted_resume
 
 """
@@ -142,23 +154,25 @@ expects an a str or int, see int() cast
 
 async def get_resume(db, userId):
     resume_in_db = await db.user.find_unique(
-            where={
-                'belongsToId':int(userId),
-                }
-        )
+        where = {
+            'belongsToId': int(userId),
+        }
+    )
+
     return resume_in_db
 
 """
-initializes db connection
+Initializes db connection
 """
 
 async def connect():
     db = Prisma()
     await db.connect()
+
     return db
 
 """
-handles cli testing of interface during development
+Handles cli testing of interface during development
 """
 
 async def main(arg1,arg2):
