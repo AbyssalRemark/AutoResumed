@@ -7,9 +7,9 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-Flask = "^3.0.2"
-SQLAlchemy = "^2.0.27"
+Flask = { version = "^3.0.2", extras = ["async"]}
 flask-json = "^0.4.0"
+prisma = "^0.12.0"
 
 
 [build-system]

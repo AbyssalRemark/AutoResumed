@@ -8,9 +8,7 @@ from prisma import Prisma
 
 
 """
-creates a user entry, generating some salt and hashing password+salt            print("wrong use, try harder")
-creates a blank resume, calling create_resume
-expects json as follows:
+expects dictionary as follows:
 {
     "email": "email@server.tld"
     "password": "abc123"
@@ -24,6 +22,7 @@ async def create_user(db, user) -> str:
     user_in_db = await db.user.create(user_obj)
     resume_in_db =  await create_resume(db, user_in_db.id)
     return user_in_db, resume_in_db
+
 
 """
 returns all user entries 
@@ -123,7 +122,7 @@ async def create_resume(db, userId):
             }
         }
     )
-    return (created_resume1)
+    return (created_resume1)n
 
 """
 delete resume by userId
@@ -182,6 +181,7 @@ async def main(arg0,arg1):
         case "delete_resume":
             deleted_resume = await delete_resume(db,arg2)
             return deleted_resume
+
         case "get_resume":
             resume = await get_resume(db, arg2)
             return resume
