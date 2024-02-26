@@ -13,9 +13,10 @@ model User {
   id         Int         @id @default(autoincrement())
   createdAt  DateTime    @default(now())
   email      String      @unique
-  passHash   String      @db.VarChar(32)
+  passHash   String      @db.Char(32)
+  salt  String @db.Char(10)
   resume     Resume?
-  Authorized Authorized?
+  authorized Authorized?
 }
 
 model Resume {
@@ -35,10 +36,6 @@ model Resume {
   interest    Interest[]
   reference   Reference[]
   project     Project[]
-  Label       Label[]
-  Summary     Summary[]
-  Location    Location[]
-  Profile     Profile[]
 }
 
 model Basic {
@@ -55,7 +52,6 @@ model Basic {
   summary     Summary[]
   location    Location?
   profiles    Profile[]
-  locationId  Int
 }
 
 model Label {
@@ -65,8 +61,6 @@ model Label {
   createdAt   DateTime @default(now())
   tags        String[]
   label       String
-  Resume      Resume?  @relation(fields: [resumeId], references: [id])
-  resumeId    Int?
 }
 
 model Summary {
@@ -76,8 +70,6 @@ model Summary {
   createdAt   DateTime @default(now())
   tags        String[]
   Summary     String
-  Resume      Resume?  @relation(fields: [resumeId], references: [id])
-  resumeId    Int?
 }
 
 model Location {
@@ -90,8 +82,6 @@ model Location {
   city        String
   countryCode String
   region      String
-  Resume      Resume?  @relation(fields: [resumeId], references: [id])
-  resumeId    Int?
 }
 
 model Profile {
@@ -103,8 +93,6 @@ model Profile {
   network     String
   username    String
   url         String
-  Resume      Resume?  @relation(fields: [resumeId], references: [id])
-  resumeId    Int?
 }
 
 model Work {
