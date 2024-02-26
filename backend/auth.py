@@ -35,11 +35,13 @@ async def register():
     try:
         email = str(data["email"])
         password = str(data["password"])
+
+        user = { "email": email, "password": password }
     except (KeyError, TypeError, ValueError):
         raise JsonError(description='Invalid value.')
 
     # Create user entry in database
-    await dbtool.create_user(app.db, data)
+    await dbtool.create_user(app.db, user)
 
     # Return registration confirmation
     return json_response(status="200", msg="Registration sucessful")
