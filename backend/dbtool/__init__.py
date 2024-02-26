@@ -122,7 +122,7 @@ async def create_resume(db, userId):
             }
         }
     )
-    return (created_resume1)n
+    return (created_resume1)
 
 """
 delete resume by userId
