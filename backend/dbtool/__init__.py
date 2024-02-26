@@ -15,20 +15,24 @@ expects dictionary as follows:
 }
 """
 
-async def create_user(db, user) -> str:
+async def create_user(user):
+    db = await connect()
     salt = ''.join(random.choices(string.ascii_uppercase+string.digits, k=10))
     passHash = md5(bytes((user["password"]+salt), 'utf-8')).hexdigest()
     user_obj = {"email":user["email"], "passHash":passHash,"salt":salt}
-    user_in_db = await db.user.create(user_obj)
-    resume_in_db =  await create_resume(db, user_in_db.id)
+    user_in_db = await db.user.create(data=user_obj)
+    resume_in_db =  await create_resume(user_in_db.id)
+    await db.disconnect()
     return user_in_db, resume_in_db
 
 
 """
 returns all user entries 
 """
-async def get_users(db):
+async def get_users():
+    db = await connect()
     users_in_db = await db.user.find_many()
+    await db.disconnect()
     return users_in_db
 
 
@@ -37,12 +41,14 @@ returns a user entry by id
 expects an a str or int, see int() cast
 """
 
-async def get_user(db, userId):
+async def get_user(userId):
+    db = await connect()
     user_in_db = await db.user.find_unique(
             where={
                 'id':int(userId),
                 }
         )
+    await db.disconnect()
     return user_in_db
 
 
@@ -83,7 +89,9 @@ expects dictionary object as follows:
 }
 """
 
-async def create_basic(db, basics):
+async def create_basic(basics):
+    db = await connect()
+    await db.disconnect()
     print("todo")
 
 """
@@ -98,8 +106,10 @@ expects python dictionary object as follows:
 }
 """
 
-async def create_location(db, location):
+async def create_location(location):
+    db = await connect()
     created_location = await db.location.create(location)
+    await db.disconnect()
     return created_location
 
 """
@@ -107,7 +117,8 @@ creates an empty resume for user
 expects userId as int or string, see int() cast
 """
 
-async def create_resume(db, userId):
+async def create_resume(userId):
+    db = await connect()
     created_resume = await db.resume.create(data={
                 'belongsToId': int(userId)
             })
@@ -122,17 +133,20 @@ async def create_resume(db, userId):
             }
         }
     )
-    return (created_resume1)n
+    await db.disconnect()
+    return (created_resume1)
 
 """
 delete resume by userId
 """
-async def delete_resume(db, userId):
+async def delete_resume(userId):
+    db = await connect()
     deleted_resume = await db.resume.delete(
     where={
         'belongsToId':int(userId),
     },
 )
+    await db.disconnect()
     return deleted_resume
 
 """
@@ -140,12 +154,14 @@ returns a resume entry by id
 expects an a str or int, see int() cast
 """
 
-async def get_resume(db, userId):
+async def get_resume(userId):
+    db = await connect()
     resume_in_db = await db.resume.find_unique(
             where={
                 'belongsToId':int(userId),
                 }
         )
+    await db.disconnect()
     return resume_in_db
 
 """
@@ -164,26 +180,25 @@ handles cli testing of interface during development
 async def main(arg0,arg1):
     function = arg0
     arg2 = json.loads(arg1)
-    db = await connect()
     match function:
         case "create_user":
-            created_user = await create_user(db, arg2)
+            created_user = await create_user(arg2)
             return created_user
         case "get_users":
-            users = await get_users(db)
+            users = await get_users()
             return users
         case "get_user":
-            user = await get_user(db,arg2)
+            user = await get_user(arg2)
             return user
         case "create_resume":
-            created_resume = await create_resume(db, arg2)
+            created_resume = await create_resume(arg2)
             return created_resume
         case "delete_resume":
-            deleted_resume = await delete_resume(db,arg2)
+            deleted_resume = await delete_resume(arg2)
             return deleted_resume
 
         case "get_resume":
-            resume = await get_resume(db, arg2)
+            resume = await get_resume(arg2)
             return resume
         case _:
             return "wrong use, try harder"
