@@ -1,5 +1,4 @@
 import dbtool
-import app
 
 from flask import Blueprint, Response, request
 from flask_json import json_response, JsonError
@@ -41,7 +40,7 @@ async def register():
         raise JsonError(description='Invalid value.')
 
     # Create user entry in database
-    await dbtool.create_user(app.db, user)
+    await dbtool.create_user(user)
 
     # Return registration confirmation
     return json_response(status="200", msg="Registration sucessful")
