@@ -8,6 +8,7 @@ json = FlaskJSON(app)
 
 app.register_blueprint(auth, url_prefix="/auth")
 
+
 @app.route("/resume", methods=["GET", "POST", "DELETE"])
 def resume() -> str:
     # Get JSON of resume
