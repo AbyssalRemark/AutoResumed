@@ -8,7 +8,8 @@ from prisma import Prisma
 
 
 """
-creates a user entry, generating some salt and hashing password+salt
+creates a user entry, generating some salt and hashing password+salt            print("wrong use, try harder")
+creates a blank resume, calling create_resume
 expects json as follows:
 {
     "email": "email@server.tld"
@@ -17,12 +18,12 @@ expects json as follows:
 """
 
 async def create_user(db, user) -> str:
-    input_obj = json.loads(user)
     salt = ''.join(random.choices(string.ascii_uppercase+string.digits, k=10))
-    passHash = md5(bytes((input_obj["password"]+salt), 'utf-8')).hexdigest()
-    user_obj = {"email":input_obj["email"], "passHash":passHash,"salt":salt}
+    passHash = md5(bytes((user["password"]+salt), 'utf-8')).hexdigest()
+    user_obj = {"email":user["email"], "passHash":passHash,"salt":salt}
     user_in_db = await db.user.create(user_obj)
-    return user_in_db
+    resume_in_db =  await create_resume(db, user_in_db.id)
+    return user_in_db, resume_in_db
 
 """
 returns all user entries 
@@ -48,7 +49,7 @@ async def get_user(db, userId):
 
 """ 
 creates basic in db
-expects JSON object as follows:
+expects dictionary object as follows:
 {
 "basics": {
         "name": "John Doe",
@@ -112,7 +113,7 @@ async def create_resume(db, userId):
                 'belongsToId': int(userId)
             })
     
-    created_resume = await db.resume.update(
+    created_resume1 = await db.resume.update(
         where={
             'belongsToId': int(userId),
         },
@@ -120,9 +121,9 @@ async def create_resume(db, userId):
             'belongsTo': {
                 'connect':{'id':int(userId)},
             }
-        },
+        }
     )
-    return (created_resume)
+    return (created_resume1)
 
 """
 delete resume by userId
@@ -141,7 +142,7 @@ expects an a str or int, see int() cast
 """
 
 async def get_resume(db, userId):
-    resume_in_db = await db.user.find_unique(
+    resume_in_db = await db.resume.find_unique(
             where={
                 'belongsToId':int(userId),
                 }
@@ -161,8 +162,9 @@ async def connect():
 handles cli testing of interface during development
 """
 
-async def main(arg1,arg2):
-    function = arg1
+async def main(arg0,arg1):
+    function = arg0
+    arg2 = json.loads(arg1)
     db = await connect()
     match function:
         case "create_user":
@@ -180,9 +182,10 @@ async def main(arg1,arg2):
         case "delete_resume":
             deleted_resume = await delete_resume(db,arg2)
             return deleted_resume
-
+        case "get_resume":
+            resume = await get_resume(db, arg2)
+            return resume
         case _:
-            print("wrong use, try harder")
             return "wrong use, try harder"
 
 
