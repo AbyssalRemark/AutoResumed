@@ -19,8 +19,8 @@ expects json as follows:
 async def create_user(db, user) -> str:
     input_obj = json.loads(user)
     salt = ''.join(random.choices(string.ascii_uppercase+string.digits, k=10))
-    passHash = md5(bytes((input_obj["password"]+salt), 'utf-8')).hexdigest()
-    user_obj = {"email":input_obj["email"], "passHash":passHash,"salt":salt}
+    pass_hash = md5(bytes((input_obj["password"]+salt), 'utf-8')).hexdigest()
+    user_obj = {"email":input_obj["email"], "passHash":pass_hash,"salt":salt}
     user_in_db = await db.user.create(user_obj)
     return user_in_db
 
