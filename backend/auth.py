@@ -65,8 +65,9 @@ async def register() -> Response:
     data = request.get_json()
     try:
         # Check JSON data has email and password fields, and that email is a valid email address
-        if not is_valid_email(data["email"]):
-            raise JsonError(description=f"'{data["email"]}' is not a valid email address")
+        email = data["email"]
+        if not is_valid_email(email):
+            raise JsonError(description=f"'{email}' is not a valid email address")
         data["password"]
     except (KeyError, TypeError, ValueError):
         # TODO: Return more specific errors
