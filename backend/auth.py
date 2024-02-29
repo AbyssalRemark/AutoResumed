@@ -7,36 +7,57 @@ from prisma.errors import UniqueViolationError
 auth = Blueprint("auth", __name__)
 
 
-# Takes username and password
-# Returns user ID and bearer token
 @auth.route("/login", methods=["POST"])
 async def login() -> Response:
-    if request.method == "POST":
-        data = request.get_json()
-        print(data)
+    """
+    Takes email and password
+    Returns bearer token
+    """
 
-    # Check database
-
-    # Return user ID and bearer token
-    return json_response(uuid=1234, token=1234)
-
-
-# Takes a bearer token
-@auth.route("/logout", methods=["POST"])
-async def logout() -> str:
-    # TODO: Invalidate the bearer token in the DB
-    return "Sucessfully logged out"
-
-
-# Takes username and password
-# Returns a confirmation of registration
-@auth.route("/register", methods=["POST"])
-async def register():
     data = request.get_json()
     try:
         # Pull email and password out of JSON data
-        email = str(data["email"])
-        password = str(data["password"])
+        email = str(data.get("email"))
+        password = str(data.get("password"))
+    except (KeyError, TypeError, ValueError):
+        raise JsonError(description="Invalid JSON value")
+
+    # TODO: Check database
+
+    # Return bearer token
+    return json_response(token=1234)
+
+
+@auth.route("/logout", methods=["POST"])
+async def logout():
+    """
+    Takes a bearer token
+    Returns a confirmation of logout
+    """
+
+    data = request.get_json()
+    try:
+        token = str(data.get("token"))
+    except (KeyError, TypeError, ValueError):
+        raise JsonError(description="Invalid JSON value")
+
+    # TODO: Invalidate the bearer token in the DB
+
+    return json_response(status=200, msg="Loguout sucessful")
+
+
+@auth.route("/register", methods=["POST"])
+async def register():
+    """
+    Takes a username and password
+    Returns a confirmation of registration
+    """
+
+    data = request.get_json()
+    try:
+        # Pull email and password out of JSON data
+        email = str(data.get("email"))
+        password = str(data.get("password"))
 
         user = { "email": email, "password": password }
     except (KeyError, TypeError, ValueError):
