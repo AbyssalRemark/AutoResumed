@@ -17,8 +17,8 @@ async def create_user(user: dict[str, str]):
     """
     db = await connect()
     salt = "".join(random.choices(string.ascii_uppercase + string.digits, k=10))
-    passHash = md5(bytes((user["password"] + salt), "utf-8")).hexdigest()
-    user_obj = {"email": user["email"], "passHash": passHash, "salt": salt}
+    pass_hash = md5(bytes((user["password"] + salt), "utf-8")).hexdigest()
+    user_obj = {"email": user["email"], "passHash": pass_hash, "salt": salt}
     user_in_db = await db.user.create(data=user_obj)
     resume_in_db = await create_resume(user_in_db.id)
     await db.disconnect()
@@ -44,6 +44,9 @@ async def get_user(userId: str | int):
     user_in_db = await db.user.find_unique(
         where={
             "id": int(userId),
+        },
+        include={
+           'resume':True
         }
     )
     await db.disconnect()
@@ -118,7 +121,7 @@ async def create_resume(userId: str | int):
     db = await connect()
     created_resume = await db.resume.create(data={"belongsToId": int(userId)})
 
-    created_resume1 = await db.resume.update(
+    created_resume = await db.resume.update(
         where={
             "belongsToId": int(userId),
         },
@@ -129,7 +132,7 @@ async def create_resume(userId: str | int):
         },
     )
     await db.disconnect()
-    return created_resume1
+    return created_resume
 
 
 async def delete_resume(userId: str | int):
@@ -156,10 +159,48 @@ async def get_resume(userId: str | int):
     resume_in_db = await db.resume.find_unique(
         where={
             "belongsToId": int(userId),
+        },
+        include={
+            "belongsTo":True
         }
     )
     await db.disconnect()
     return resume_in_db
+
+async def login(credential):
+    """
+    Returns an auth token
+    Expects a dictionary of form:
+    {
+        email:email@email.com
+        password:password
+    }
+    """
+    db = await connect()
+    user = await db.user.find_unique(
+        where={
+            "email":credential["email"]
+        }
+    )
+    print(user.email)
+    token = None
+    if(check_pass_hash(user,credential["password"])):
+        seedA = "".join(random.choices(string.ascii_uppercase + string.digits, k=100))
+        tokenA = md5(bytes((seedA), "utf-8")).hexdigest()
+        seedB = "".join(random.choices(string.ascii_uppercase + string.digits, k=100))
+        tokenB = md5(bytes((seedB), "utf-8")).hexdigest()
+        token = tokenA+tokenB
+    await db.disconnect()
+    return token
+
+def check_pass_hash(user,password):
+    salt = user.salt
+    pass_hash = md5(bytes((password + salt), "utf-8")).hexdigest()
+    if (pass_hash == user.passHash):
+        return True
+    else:
+        return False
+
 
 
 async def connect():
@@ -197,6 +238,9 @@ async def main(arg0, arg1):
         case "get_resume":
             resume = await get_resume(arg2)
             return resume
+        case "login":
+            token = await login(arg2)
+            return token
         case _:
             return "wrong use, try harder"
 
