@@ -29,8 +29,10 @@ async def login() -> Response:
 
 
 @auth.route("/logout", methods=["POST"])
-async def logout():
+async def logout() -> Response:
     """
+    Invalidates the user's bearer token
+
     Takes a bearer token
     Returns a confirmation of logout
     """
@@ -47,9 +49,11 @@ async def logout():
 
 
 @auth.route("/register", methods=["POST"])
-async def register():
+async def register() -> Response:
     """
-    Takes a username and password
+    Registers the user in the DB
+
+    Takes an email and password
     Returns a confirmation of registration
     """
 
