@@ -20,24 +20,23 @@ async def login() -> Response:
         # Check JSON data has email and password fields, and that email is a valid email address
         email = data["email"]
         if not is_valid_email(email):
-            raise JsonError(description=f"'{email}' is not a valid email address")
+            return Response(f"'{email}' is not a valid email address", 400)
         data["password"]
     except (KeyError, TypeError, ValueError):
-        raise JsonError(description="Invalid JSON value")
+        return Response("Invalid JSON value", 400)
 
     try:
         token = await dbtool.login(data)
     # An AttributeError is raised if the user doesn't exist, because Prisma returns None
     except AttributeError:
-        raise JsonError(
-            status=401,
-            description="A username with the given email and password doesn't exist. "
-                        "Please retry with different credentials, or register a user"
+        return Response(
+            "A username with the given email and password doesn't exist. Please retry with different credentials, or register a user",
+            401
         )
 
 
     if not token:
-        raise JsonError(status=401, description="Incorrect credentials. Please try again.")
+        return Response("Incorrect credentials. Please try again.", 401)
     else:
         # Return bearer token
         return json_response(token=token)
@@ -57,7 +56,7 @@ async def logout() -> Response:
         # Check that the JSON data has a token field
         data["token"]
     except (KeyError, TypeError, ValueError):
-        raise JsonError(description="Invalid JSON value")
+        return Response("Invalid JSON value", 400)
 
     # TODO: Invalidate the bearer token in the DB
 
@@ -78,17 +77,17 @@ async def register() -> Response:
         # Check JSON data has email and password fields, and that email is a valid email address
         email = data["email"]
         if not is_valid_email(email):
-            raise JsonError(description=f"'{email}' is not a valid email address")
+            return Response(f"'{email}' is not a valid email address", 400)
         data["password"]
     except (KeyError, TypeError, ValueError):
         # TODO: Return more specific errors
-        raise JsonError(description="Invalid JSON value")
+        return Response("Invalid JSON value", 400)
 
     # Create user entry in database
     try:
         await dbtool.create_user(data)
     except UniqueViolationError:
-        raise JsonError(description="Error creating user. A user with the same email already exists.")
+        return Response("Error creating user. A user with the same email already exists.", 409)
 
     # Return registration confirmation
     return Response("Registration sucessful")
