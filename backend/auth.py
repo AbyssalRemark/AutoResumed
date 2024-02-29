@@ -32,12 +32,13 @@ async def logout() -> str:
 async def register():
     data = request.get_json()
     try:
+        # Pull email and password out of JSON data
         email = str(data["email"])
         password = str(data["password"])
 
         user = { "email": email, "password": password }
     except (KeyError, TypeError, ValueError):
-        raise JsonError(description='Invalid value.')
+        raise JsonError(description="Invalid JSON value")
 
     # Create user entry in database
     await dbtool.create_user(user)
