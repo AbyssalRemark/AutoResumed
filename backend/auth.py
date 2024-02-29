@@ -2,6 +2,7 @@ import dbtool
 
 from flask import Blueprint, Response, request
 from flask_json import json_response, JsonError
+from prisma.errors import UniqueViolationError
 
 auth = Blueprint("auth", __name__)
 
@@ -20,9 +21,10 @@ async def login() -> Response:
     return json_response(uuid=1234, token=1234)
 
 
-# Takes user ID and bearer token
+# Takes a bearer token
 @auth.route("/logout", methods=["POST"])
 async def logout() -> str:
+    # TODO: Invalidate the bearer token in the DB
     return "Sucessfully logged out"
 
 
@@ -41,7 +43,10 @@ async def register():
         raise JsonError(description="Invalid JSON value")
 
     # Create user entry in database
-    await dbtool.create_user(user)
+    try:
+        await dbtool.create_user(user)
+    except UniqueViolationError:
+        raise JsonError(description="Error creating user. A user with the same email already exists.")
 
     # Return registration confirmation
     return json_response(status="200", msg="Registration sucessful")
