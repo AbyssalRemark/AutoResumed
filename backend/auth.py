@@ -25,10 +25,19 @@ async def login() -> Response:
     except (KeyError, TypeError, ValueError):
         raise JsonError(description="Invalid JSON value")
 
-    token = await dbtool.login(data)
+    try:
+        token = await dbtool.login(data)
+    # An AttributeError is raised if the user doesn't exist, because Prisma returns None
+    except AttributeError:
+        raise JsonError(
+            status=401,
+            description="A username with the given email and password doesn't exist. "
+                        "Please retry with different credentials, or register a user"
+        )
+
 
     if not token:
-        raise JsonError(description="Incorrect credentials. Please try again.")
+        raise JsonError(status=401, description="Incorrect credentials. Please try again.")
     else:
         # Return bearer token
         return json_response(token=token)
