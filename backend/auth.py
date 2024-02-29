@@ -1,8 +1,10 @@
 import dbtool
 
+from json import loads as deserialize
 from flask import Blueprint, Response, request
 from flask_json import json_response, JsonError
 from prisma.errors import UniqueViolationError
+from util import is_valid_email
 
 auth = Blueprint("auth", __name__)
 
@@ -21,6 +23,9 @@ async def login() -> Response:
         password = str(data.get("password"))
     except (KeyError, TypeError, ValueError):
         raise JsonError(description="Invalid JSON value")
+
+    if not is_valid_email(email):
+        raise JsonError(description=f"'{email}' is not a valid email address")
 
     # TODO: Check database
 
@@ -59,17 +64,17 @@ async def register() -> Response:
 
     data = request.get_json()
     try:
-        # Pull email and password out of JSON data
-        email = str(data.get("email"))
-        password = str(data.get("password"))
-
-        user = { "email": email, "password": password }
+        # Check JSON data has email and password fields, and that email is a valid email address
+        if not is_valid_email(data["email"]):
+            raise JsonError(description=f"'{data["email"]}' is not a valid email address")
+        data["password"]
     except (KeyError, TypeError, ValueError):
+        # TODO: Return more specific errors
         raise JsonError(description="Invalid JSON value")
 
     # Create user entry in database
     try:
-        await dbtool.create_user(user)
+        await dbtool.create_user(data)
     except UniqueViolationError:
         raise JsonError(description="Error creating user. A user with the same email already exists.")
 
