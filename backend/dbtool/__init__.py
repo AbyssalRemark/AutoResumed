@@ -7,7 +7,7 @@ from hashlib import md5
 from prisma import Prisma
 
 
-async def create_user(user):
+async def create_user(user: dict[str, str]):
     """
     Expects dictionary as follows:
     {
@@ -35,7 +35,7 @@ async def get_users():
     return users_in_db
 
 
-async def get_user(userId):
+async def get_user(userId: str | int):
     """
     Returns a user entry by id
     Expects a str or int, see int() cast
@@ -110,7 +110,7 @@ async def create_location(location):
     return created_location
 
 
-async def create_resume(userId):
+async def create_resume(userId: str | int):
     """
     Creates an empty resume for user
     Expects userId as int or string, see int() cast
@@ -132,9 +132,10 @@ async def create_resume(userId):
     return created_resume1
 
 
-async def delete_resume(userId):
+async def delete_resume(userId: str | int):
     """
     Delete resume by userId
+    Expects userId as int or string, see int() cast
     """
     db = await connect()
     deleted_resume = await db.resume.delete(
@@ -146,7 +147,7 @@ async def delete_resume(userId):
     return deleted_resume
 
 
-async def get_resume(userId):
+async def get_resume(userId: str | int):
     """
     Returns a resume entry by id
     Expects a str or int, see int() cast
