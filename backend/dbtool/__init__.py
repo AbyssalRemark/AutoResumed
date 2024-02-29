@@ -167,7 +167,7 @@ async def get_resume(userId: str | int):
     await db.disconnect()
     return resume_in_db
 
-async def login(credential):
+async def login(credential) -> str | None:
     """
     Returns an auth token
     Expects a dictionary of form:

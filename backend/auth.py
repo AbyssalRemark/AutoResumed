@@ -18,19 +18,21 @@ async def login() -> Response:
 
     data = request.get_json()
     try:
-        # Pull email and password out of JSON data
-        email = str(data.get("email"))
-        password = str(data.get("password"))
+        # Check JSON data has email and password fields, and that email is a valid email address
+        email = data["email"]
+        if not is_valid_email(email):
+            raise JsonError(description=f"'{email}' is not a valid email address")
+        data["password"]
     except (KeyError, TypeError, ValueError):
         raise JsonError(description="Invalid JSON value")
 
-    if not is_valid_email(email):
-        raise JsonError(description=f"'{email}' is not a valid email address")
+    token = await dbtool.login(data)
 
-    # TODO: Check database
-
-    # Return bearer token
-    return json_response(token=1234)
+    if not token:
+        raise JsonError(description="Incorrect credentials. Please try again.")
+    else:
+        # Return bearer token
+        return json_response(token=token)
 
 
 @auth.route("/logout", methods=["POST"])
