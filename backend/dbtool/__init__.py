@@ -182,16 +182,36 @@ async def login(credential):
             "email":credential["email"]
         }
     )
-    print(user.email)
     token = None
+    authorized = None
     if(check_pass_hash(user,credential["password"])):
+        
         seedA = "".join(random.choices(string.ascii_uppercase + string.digits, k=100))
         tokenA = md5(bytes((seedA), "utf-8")).hexdigest()
         seedB = "".join(random.choices(string.ascii_uppercase + string.digits, k=100))
         tokenB = md5(bytes((seedB), "utf-8")).hexdigest()
         token = tokenA+tokenB
+        auth_obj={"belongsToId":user.id,"token":token}
+        authorized = await db.authorized.create(data=auth_obj)
+        authorized = await db.authorized.update(
+            where={"belongsToId":authorized.belongsToId},
+            data={"belongsTo":{"connect":{"id":user.id}}}
+        )
     await db.disconnect()
     return token
+
+    
+"""
+    auth_in_db = await db.authorized.find_unique(
+        where={
+            "id":authorized.id,
+        },
+        include={
+            'belongsTo':True
+        }
+    )
+    print(auth_in_db)
+"""
 
 def check_pass_hash(user,password):
     salt = user.salt
