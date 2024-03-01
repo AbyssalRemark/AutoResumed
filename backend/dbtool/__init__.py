@@ -7,177 +7,235 @@ from hashlib import md5
 from prisma import Prisma
 
 
-"""
-expects dictionary as follows:
-{
-    "email": "email@server.tld"
-    "password": "abc123"
-}
-"""
-
-async def create_user(user):
+async def create_user(user: dict[str, str]):
+    """
+    Expects dictionary as follows:
+    {
+        "email": "email@server.tld"
+        "password": "abc123"
+    }
+    """
     db = await connect()
-    salt = ''.join(random.choices(string.ascii_uppercase+string.digits, k=10))
-    passHash = md5(bytes((user["password"]+salt), 'utf-8')).hexdigest()
-    user_obj = {"email":user["email"], "passHash":passHash,"salt":salt}
+    salt = "".join(random.choices(string.ascii_uppercase + string.digits, k=10))
+    pass_hash = md5(bytes((user["password"] + salt), "utf-8")).hexdigest()
+    user_obj = {"email": user["email"], "passHash": pass_hash, "salt": salt}
     user_in_db = await db.user.create(data=user_obj)
-    resume_in_db =  await create_resume(user_in_db.id)
+    resume_in_db = await create_resume(user_in_db.id)
     await db.disconnect()
     return user_in_db, resume_in_db
 
 
-"""
-returns all user entries 
-"""
 async def get_users():
+    """
+    Returns all user entries
+    """
     db = await connect()
     users_in_db = await db.user.find_many()
     await db.disconnect()
     return users_in_db
 
 
-"""
-returns a user entry by id
-expects an a str or int, see int() cast
-"""
-
-async def get_user(userId):
+async def get_user(userId: str | int):
+    """
+    Returns a user entry by id
+    Expects a str or int, see int() cast
+    """
     db = await connect()
     user_in_db = await db.user.find_unique(
-            where={
-                'id':int(userId),
-                }
-        )
+        where={
+            "id": int(userId),
+        },
+        include={
+           'resume':True
+        }
+    )
     await db.disconnect()
     return user_in_db
 
 
-""" 
-creates basic in db
-expects dictionary object as follows:
-{
-"basics": {
-        "name": "John Doe",
-        "label": [{
-        "tags":["tag"],
-        "label":"Programmer"
-        }],
-        "image": "https://somesite.tld/img.png",
-        "email": "john@gmail.com",
-        "phone": "(912) 555-4321",
-        "url": "https://johndoe.com",
-        "summary": [{
-        "tags":["tag"],
-        "summary":"A summary of John Doe…"
-        }],
-        "location": {
+async def create_basic(basics):
+    """
+    Creates basic in db
+    Expects dictionary object as follows:
+    {
+    "basics": {
+            "name": "John Doe",
+            "label": [{
+            "tags":["tag"],
+            "label":"Programmer"
+            }],
+            "image": "https://somesite.tld/img.png",
+            "email": "john@gmail.com",
+            "phone": "(912) 555-4321",
+            "url": "https://johndoe.com",
+            "summary": [{
+            "tags":["tag"],
+            "summary":"A summary of John Doe…"
+            }],
+            "location": {
+            "address": "2712 Broadway St",
+            "postalCode": "CA 94115",
+            "city": "San Francisco",
+            "countryCode": "US",
+            "region": "California"
+            },
+            "profiles": [{
+            "tags": ["tag"],
+            "network": "Twitter",
+            "username": "john",
+            "url": "https://twitter.com/john"
+            }]
+        },
+    "userId":"123",
+    "token":"abc123"
+    }
+    """
+    db = await connect()
+    await db.disconnect()
+    print("todo")
+
+
+async def create_location(location):
+    """
+    Helper for create_basic, creates a location in db
+    Expects python dictionary object as follows:
+    {
         "address": "2712 Broadway St",
         "postalCode": "CA 94115",
         "city": "San Francisco",
         "countryCode": "US",
         "region": "California"
-        },
-        "profiles": [{
-        "tags": ["tag"], 
-        "network": "Twitter",
-        "username": "john",
-        "url": "https://twitter.com/john"
-        }]
-    },
-"userId":"123",
-"token":"abc123"
-}
-"""
-
-async def create_basic(basics):
-    db = await connect()
-    await db.disconnect()
-    print("todo")
-
-"""
-helper for create_basic, creates a location in db
-expects python dictionary object as follows:
-{
-    "address": "2712 Broadway St",
-    "postalCode": "CA 94115",
-    "city": "San Francisco",
-    "countryCode": "US",
-    "region": "California"
-}
-"""
-
-async def create_location(location):
+    }
+    """
     db = await connect()
     created_location = await db.location.create(location)
     await db.disconnect()
     return created_location
 
-"""
-creates an empty resume for user
-expects userId as int or string, see int() cast
-"""
 
-async def create_resume(userId):
+async def create_resume(userId: str | int):
+    """
+    Creates an empty resume for user
+    Expects userId as int or string, see int() cast
+    """
     db = await connect()
-    created_resume = await db.resume.create(data={
-                'belongsToId': int(userId)
-            })
-    
-    created_resume1 = await db.resume.update(
+    created_resume = await db.resume.create(data={"belongsToId": int(userId)})
+
+    created_resume = await db.resume.update(
         where={
-            'belongsToId': int(userId),
+            "belongsToId": int(userId),
         },
         data={
-            'belongsTo': {
-                'connect':{'id':int(userId)},
+            "belongsTo": {
+                "connect": {"id": int(userId)},
             }
-        }
+        },
     )
     await db.disconnect()
-    return (created_resume1)
+    return created_resume
 
-"""
-delete resume by userId
-"""
-async def delete_resume(userId):
+
+async def delete_resume(userId: str | int):
+    """
+    Delete resume by userId
+    Expects userId as int or string, see int() cast
+    """
     db = await connect()
     deleted_resume = await db.resume.delete(
-    where={
-        'belongsToId':int(userId),
-    },
-)
+        where={
+            "belongsToId": int(userId),
+        },
+    )
     await db.disconnect()
     return deleted_resume
 
-"""
-returns a resume entry by id
-expects an a str or int, see int() cast
-"""
 
-async def get_resume(userId):
+async def get_resume(userId: str | int):
+    """
+    Returns a resume entry by id
+    Expects a str or int, see int() cast
+    """
     db = await connect()
     resume_in_db = await db.resume.find_unique(
-            where={
-                'belongsToId':int(userId),
-                }
-        )
+        where={
+            "belongsToId": int(userId),
+        },
+        include={
+            "belongsTo":True
+        }
+    )
     await db.disconnect()
     return resume_in_db
 
+async def login(credential) -> str | None:
+    """
+    Returns an auth token
+    Expects a dictionary of form:
+    {
+        email:email@email.com
+        password:password
+    }
+    """
+    db = await connect()
+    user = await db.user.find_unique(
+        where={
+            "email":credential["email"]
+        }
+    )
+    token = None
+    authorized = None
+    if(check_pass_hash(user,credential["password"])):
+        
+        seedA = "".join(random.choices(string.ascii_uppercase + string.digits, k=100))
+        tokenA = md5(bytes((seedA), "utf-8")).hexdigest()
+        seedB = "".join(random.choices(string.ascii_uppercase + string.digits, k=100))
+        tokenB = md5(bytes((seedB), "utf-8")).hexdigest()
+        token = tokenA+tokenB
+        auth_obj={"belongsToId":user.id,"token":token}
+        authorized = await db.authorized.create(data=auth_obj)
+        authorized = await db.authorized.update(
+            where={"belongsToId":authorized.belongsToId},
+            data={"belongsTo":{"connect":{"id":user.id}}}
+        )
+    await db.disconnect()
+    return token
+
+    
 """
-initializes db connection
+    auth_in_db = await db.authorized.find_unique(
+        where={
+            "id":authorized.id,
+        },
+        include={
+            'belongsTo':True
+        }
+    )
+    print(auth_in_db)
 """
 
+def check_pass_hash(user,password):
+    salt = user.salt
+    pass_hash = md5(bytes((password + salt), "utf-8")).hexdigest()
+    if (pass_hash == user.passHash):
+        return True
+    else:
+        return False
+
+
+
 async def connect():
+    """
+    Initializes DB connection
+    """
     db = Prisma()
     await db.connect()
     return db
 
-"""
-handles cli testing of interface during development
-"""
 
-async def main(arg0,arg1):
+async def main(arg0, arg1):
+    """
+    Handles CLI testing of interface during development
+    """
     function = arg0
     arg2 = json.loads(arg1)
     match function:
@@ -200,11 +258,13 @@ async def main(arg0,arg1):
         case "get_resume":
             resume = await get_resume(arg2)
             return resume
+        case "login":
+            token = await login(arg2)
+            return token
         case _:
             return "wrong use, try harder"
 
 
-
 if __name__ == "__main__":
-    ret =  asyncio.run(main(sys.argv[1],sys.argv[2]))
+    ret = asyncio.run(main(sys.argv[1], sys.argv[2]))
     print(ret)
