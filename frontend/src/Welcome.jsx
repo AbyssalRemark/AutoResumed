@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
 const Welcome = () => {
     return (
-      <Link to={`/welcome`} className="pet">
-      <div className="info">
-        <h1>a welcome</h1>
-      </div>
-    </Link>
+        <div>
+
+       
+<div className="welcomeScreen">
+ Welcome to AutoResumed
+</div>
+
+</div>
     );
   };
   
