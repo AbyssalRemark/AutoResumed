@@ -20,23 +20,40 @@ async def login() -> Response:
         # Check JSON data has email and password fields, and that email is a valid email address
         email = data["email"]
         if not is_valid_email(email):
-            return Response(f"'{email}' is not a valid email address", 400)
+            raise JsonError(
+                400,
+                error="invalid-email-address",
+                message=f"'{email}' is not a valid email address.",
+                detail="Try an email address in this form: me@example.com.",
+            )
         data["password"]
     except (KeyError, TypeError, ValueError):
-        return Response("Invalid JSON. We expect { \"email\": <email>, \"password\": <password> }.", 400)
+        raise JsonError(
+            400,
+            error="invalid-json",
+            message="Invalid JSON data",
+            detail="We expect { \"email\": <email>, \"password\": <password> }.",
+        )
 
     try:
         token = await dbtool.login(data)
     # An AttributeError is raised if the user doesn't exist, because Prisma returns None
     except AttributeError:
-        return Response(
-            "A username with the given email and password doesn't exist. Please retry with different credentials, or register a user",
-            401
+        raise JsonError(
+            401,
+            error="nonexistent-user",
+            message="A username with the given email and password doesn't exist",
+            detail="Please retry with a different email address, or register a user.",
         )
 
 
     if not token:
-        return Response("Incorrect credentials. Please try again.", 401)
+        raise JsonError(
+            401,
+            error="incorrect-credentials",
+            message="The given credentials are incorrect.",
+            detail="Please retry with different credentials.",
+        )
     else:
         # Return bearer token
         return json_response(token=token)
@@ -56,11 +73,16 @@ async def logout() -> Response:
         # Check that the JSON data has a token field
         data["token"]
     except (KeyError, TypeError, ValueError):
-        return Response("Invalid JSON value", 400)
+        raise JsonError(
+            400,
+            error="invalid-json",
+            message="Invalid JSON data",
+            detail="We expect { \"token\": <bearer-token> }.",
+        )
 
     # TODO: Invalidate the bearer token in the DB
 
-    return Response("Logout sucessful")
+    return json_response(message="Logout sucessful.")
 
 
 @auth.route("/register", methods=["POST"])
@@ -77,16 +99,31 @@ async def register() -> Response:
         # Check JSON data has email and password fields, and that email is a valid email address
         email = data["email"]
         if not is_valid_email(email):
-            return Response(f"'{email}' is not a valid email address", 400)
+            raise JsonError(
+                400,
+                error="invalid-email-address",
+                message=f"'{email}' is not a valid email address.",
+                detail="Try an email address in this form: me@example.com.",
+            )
         data["password"]
     except (KeyError, TypeError, ValueError):
-        return Response("Invalid JSON. We expect { \"email\": <email>, \"password\": <password> }.", 400)
+        raise JsonError(
+            400,
+            error="invalid-json",
+            message="Invalid JSON data",
+            detail="We expect { \"email\": <email>, \"password\": <password> }.",
+        )
 
     # Create user entry in database
     try:
         await dbtool.create_user(data)
     except UniqueViolationError:
-        return Response("Error creating user. A user with the same email already exists.", 409)
+        raise JsonError(
+            409,
+            error="user-exists",
+            message="Error creating user.",
+            detail="A user with the same email already exists.",
+        )
 
     # Return registration confirmation
-    return Response("Registration sucessful")
+    return json_response(message="Registration successful.")
