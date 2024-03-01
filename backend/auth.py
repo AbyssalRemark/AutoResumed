@@ -31,8 +31,8 @@ async def login() -> Response:
         raise JsonError(
             400,
             error="invalid-json",
-            message="Invalid JSON data",
-            detail="We expect { \"email\": <email>, \"password\": <password> }.",
+            message="Invalid JSON data.",
+            detail="We expect { \"email\": \"<email>\", \"password\": \"<password>\" }.",
         )
 
     try:
@@ -76,7 +76,7 @@ async def logout() -> Response:
         raise JsonError(
             400,
             error="invalid-json",
-            message="Invalid JSON data",
+            message="Invalid JSON data.",
             detail="We expect { \"token\": <bearer-token> }.",
         )
 
@@ -111,7 +111,7 @@ async def register() -> Response:
             400,
             error="invalid-json",
             message="Invalid JSON data",
-            detail="We expect { \"email\": <email>, \"password\": <password> }.",
+            detail="We expect { \"email\": \"<email>\", \"password\": \"<password>\" }.",
         )
 
     # Create user entry in database
