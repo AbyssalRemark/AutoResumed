@@ -46,7 +46,6 @@ async def login() -> Response:
             detail="Please retry with a different email address, or register a user.",
         )
 
-
     if not token:
         raise JsonError(
             401,
@@ -77,7 +76,7 @@ async def logout() -> Response:
             400,
             error="invalid-json",
             message="Invalid JSON data.",
-            detail="We expect { \"token\": <bearer-token> }.",
+            detail="We expect { 'token': '<bearer-token>' }.",
         )
 
     # TODO: Invalidate the bearer token in the DB
