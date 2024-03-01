@@ -1,5 +1,6 @@
 from flask import Flask, request
 from flask_json import FlaskJSON, JsonError
+from flask_cors import CORS
 
 
 from auth import auth
@@ -8,6 +9,7 @@ from auth import auth
 
 app = Flask(__name__)
 json = FlaskJSON(app)
+CORS(app)
 
 app.register_blueprint(auth, url_prefix="/auth")
 
