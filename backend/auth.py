@@ -23,7 +23,7 @@ async def login() -> Response:
             return Response(f"'{email}' is not a valid email address", 400)
         data["password"]
     except (KeyError, TypeError, ValueError):
-        return Response("Invalid JSON value", 400)
+        return Response("Invalid JSON. We expect { \"email\": <email>, \"password\": <password> }.", 400)
 
     try:
         token = await dbtool.login(data)
@@ -80,8 +80,7 @@ async def register() -> Response:
             return Response(f"'{email}' is not a valid email address", 400)
         data["password"]
     except (KeyError, TypeError, ValueError):
-        # TODO: Return more specific errors
-        return Response("Invalid JSON value", 400)
+        return Response("Invalid JSON. We expect { \"email\": <email>, \"password\": <password> }.", 400)
 
     # Create user entry in database
     try:
