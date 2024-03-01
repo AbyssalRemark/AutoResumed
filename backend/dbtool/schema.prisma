@@ -238,5 +238,6 @@ model Authorized {
     belongsToId Int      @unique
     belongsTo   User     @relation(fields: [belongsToId], references: [id])
     createdAt   DateTime @default(now())
-    token       String   @db.VarChar(32)
+    lastAccessed DateTime @default(now())
+    token       String   @db.VarChar(64)
 }
