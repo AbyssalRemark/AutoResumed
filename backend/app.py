@@ -3,7 +3,7 @@ from flask_json import FlaskJSON, JsonError
 
 
 from auth import auth
-import dbtool
+# import dbtool
 
 app = Flask(__name__)
 json = FlaskJSON(app)
