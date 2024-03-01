@@ -6,11 +6,14 @@ import PreviousButton from './PreviousButton.jsx';
 
 const LoginPage = () => {
   const [passwordVisibility, setPasswordVisibility] = useState("password")
+  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("")
+
 
   const handleClick = () => {
     useNavigate("/");
 
-
+  const 
   }
 
 
@@ -22,7 +25,7 @@ const LoginPage = () => {
       <Form>
         <Form.Group className="mb-3" controlId="loginForm.email">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="name@example.com" />
+          <Form.Control type="email" placeholder="name@example.com" value={email}/>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="loginForm.password">
