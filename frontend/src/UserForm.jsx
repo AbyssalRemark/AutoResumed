@@ -1,20 +1,25 @@
-import {Form, Button} from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import PreviousButton from './PreviousButton.jsx';
+import Award from './resume_components/Award.jsx';
+import Accordion from 'react-bootstrap/Accordion';
 
-const UserForm = ({ label, controlId, placeholder}) => {
+const UserForm = () => {
 
-    return (
+  return (
 
-      <div>
-   <Form>
-      <Form.Group className="mb-3" controlId={controlId}>
-        <Form.Label>{label}</Form.Label>
-        <Form.Control type="text" placeholder={placeholder} />
-      </Form.Group>
-    </Form>
-      </div>
-    );
-  };
-  
-  export default UserForm;
+    <div>
+      <Accordion defaultActiveKey="0">
+        <Accordion.Item eventKey="0">
+
+          <Accordion.Header>Awards</Accordion.Header>
+          <Accordion.Body>
+            <Award></Award>
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
+    </div>
+  );
+};
+
+export default UserForm;

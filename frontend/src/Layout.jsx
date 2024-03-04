@@ -3,6 +3,7 @@ import { Nav, Navbar, NavDropdown, Container, Button } from "react-bootstrap";
 import Welcome from "./Welcome.jsx"
 import LoginPage from "./LoginPage.jsx"
 import RegistrationPage from "./RegistrationPage.jsx"
+import UserForm from "./UserForm.jsx";
 
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -46,6 +47,10 @@ const Layout = () => {
               <Link to="/register"><Button variant="outline-danger">register</Button></Link>
             </Nav.Item>
 
+
+            <Nav.Item>
+              <Link to="/create"><Button variant="outline-danger">create</Button></Link>
+            </Nav.Item>
           </Nav>
         </Container>
 

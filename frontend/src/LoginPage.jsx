@@ -16,13 +16,14 @@ const LoginPage = () => {
   async function sendLoginRequest(email_input, password_input) {
 
     //const url = "https://autoresumed.com/auth/login";
-    const url = " http://127.0.0.1:5000/auth/login"
+    const url = " http://autoresumed.com/auth/login"
     const response = await fetch(url, {
       method: "POST",
       mode: "cors",
       credentials: "same-origin",
       headers: {
         "Content-Type": "application/json;",
+        "Access-Control-Allow-Origin": "*",
       },
       redirect: "follow",
       referrerPolicy: "no-referrer",
