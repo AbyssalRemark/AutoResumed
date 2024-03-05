@@ -19,13 +19,6 @@ async def login() -> Response:
     try:
         # Check JSON data has email and password fields, and that email is a valid email address
         email = data["email"]
-        if not is_valid_email(email):
-            raise JsonError(
-                400,
-                error="invalid-email-address",
-                message=f"'{email}' is not a valid email address.",
-                detail="Try an email address in this form: me@example.com.",
-            )
         data["password"]
     except (KeyError, TypeError, ValueError):
         raise JsonError(
@@ -33,6 +26,15 @@ async def login() -> Response:
             error="invalid-json",
             message="Invalid JSON data.",
             detail="We expect { 'email': '<email>', 'password': '<password>' }.",
+        )
+
+    # Validate email address
+    if not is_valid_email(email):
+        raise JsonError(
+            400,
+            error="invalid-email-address",
+            message=f"'{email}' is not a valid email address.",
+            detail="Try an email address in this form: me@example.com.",
         )
 
     try:
@@ -55,13 +57,7 @@ async def login() -> Response:
         )
     else:
         # Return bearer token
-        response =  auth.response_class (
-            response=json_response(token=token),
-            status = 200,
-            mimetype = "application/json"
-                                        )
-        response.headers.add("Access-Control-Allow-Origin", "*")
-        return response
+        return json_response(token=token)
 
 
 @auth.route("/logout", methods=["POST"])
@@ -103,13 +99,6 @@ async def register() -> Response:
     try:
         # Check JSON data has email and password fields, and that email is a valid email address
         email = data["email"]
-        if not is_valid_email(email):
-            raise JsonError(
-                400,
-                error="invalid-email-address",
-                message=f"'{email}' is not a valid email address.",
-                detail="Try an email address in this form: me@example.com.",
-            )
         data["password"]
     except (KeyError, TypeError, ValueError):
         raise JsonError(
@@ -117,6 +106,15 @@ async def register() -> Response:
             error="invalid-json",
             message="Invalid JSON data",
             detail="We expect { 'email': '<email>', 'password': '<password>' }.",
+        )
+
+    # Validate email address
+    if not is_valid_email(email):
+        raise JsonError(
+            400,
+            error="invalid-email-address",
+            message=f"'{email}' is not a valid email address.",
+            detail="Try an email address in this form: me@example.com.",
         )
 
     # Create user entry in database
