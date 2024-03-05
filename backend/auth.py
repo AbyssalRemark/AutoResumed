@@ -128,7 +128,7 @@ async def register() -> Response:
             409,
             error="user-exists",
             message="Error creating user.",
-            detail="A user with the same email already exists.",
+            detail="A user with the same email address already exists.",
         )
 
     # Return registration confirmation
