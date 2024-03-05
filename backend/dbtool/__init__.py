@@ -35,7 +35,7 @@ async def get_users():
     return users_in_db
 
 
-async def get_user(userId: str | int):
+async def get_user(user_id: str | int):
     """
     Returns a user entry by id
     Expects a str or int, see int() cast
@@ -43,11 +43,9 @@ async def get_user(userId: str | int):
     db = await connect()
     user_in_db = await db.user.find_unique(
         where={
-            "id": int(userId),
+            "id": int(user_id),
         },
-        include={
-           'resume':True
-        }
+        include={"resume": True},
     )
     await db.disconnect()
     return user_in_db
@@ -160,12 +158,11 @@ async def get_resume(userId: str | int):
         where={
             "belongsToId": int(userId),
         },
-        include={
-            "belongsTo":True
-        }
+        include={"belongsTo": True},
     )
     await db.disconnect()
     return resume_in_db
+
 
 async def login(credential) -> str | None:
     """
@@ -177,31 +174,28 @@ async def login(credential) -> str | None:
     }
     """
     db = await connect()
-    user = await db.user.find_unique(
-        where={
-            "email":credential["email"]
-        }
-    )
+    user = await db.user.find_unique(where={"email": credential["email"]})
     token = None
     authorized = None
-    if(check_pass_hash(user,credential["password"])):
-        
+    if check_pass_hash(user, credential["password"]):
         seedA = "".join(random.choices(string.ascii_uppercase + string.digits, k=100))
-        tokenA = md5(bytes((seedA), "utf-8")).hexdigest()
+        tokenA = str(md5(bytes((seedA), "utf-8")).hexdigest())
         seedB = "".join(random.choices(string.ascii_uppercase + string.digits, k=100))
-        tokenB = md5(bytes((seedB), "utf-8")).hexdigest()
-        token = tokenA+tokenB
-        auth_obj={"belongsToId":user.id,"token":token}
+        tokenB = str(md5(bytes((seedB), "utf-8")).hexdigest())
+        token = str(tokenA + tokenB)
+        auth_obj = {"belongsToId": user.id, "token": token}
         authorized = await db.authorized.create(data=auth_obj)
         authorized = await db.authorized.update(
-            where={"belongsToId":authorized.belongsToId},
-            data={"belongsTo":{"connect":{"id":user.id}}}
+            where={"belongsToId": authorized.belongsToId},
+            data={"belongsTo": {"connect": {"id": user.id}}},
         )
     await db.disconnect()
     return token
 
-    
+
 """
+IGNORE THIS TEST CODE BUT DO NOT REMOVE IT
+
     auth_in_db = await db.authorized.find_unique(
         where={
             "id":authorized.id,
@@ -213,14 +207,65 @@ async def login(credential) -> str | None:
     print(auth_in_db)
 """
 
-def check_pass_hash(user,password):
+
+async def logout(token):
+    db = await connect()
+    authorized = await db.authorized.find_unique(where={"token": token["token"]})
+    print(authorized)
+    authorized = await db.authorized.delete(where={"token": token["token"]})
+    await db.disconnect()
+    return authorized
+
+
+def check_pass_hash(user, password):
     salt = user.salt
     pass_hash = md5(bytes((password + salt), "utf-8")).hexdigest()
-    if (pass_hash == user.passHash):
+    if pass_hash == user.passHash:
         return True
     else:
         return False
 
+
+async def get_all_authorized():
+    db = await connect()
+    all_authorized = await db.authorized.find_many()
+    await db.disconnect()
+    return all_authorized
+
+
+async def get_authorized_user_id(user_id):
+    db = await connect()
+    authorized = await db.authorized.find_unique(where={"belongsToId": int(user_id)})
+    await db.disconnect()
+    return authorized
+
+
+async def get_authorized_token(token):
+    db = await connect()
+    authorized = await db.authorized.find_unique(where={"token": token})
+    await db.disconnect()
+    return authorized
+
+
+"""
+async def get_autho_hardcode():
+    NOW DEPRECIATED
+    this test code helped determine that the token 
+    must be cast as a string prior to storage in 
+    the authorize function
+
+    db = await connect()
+    autho = await db.authorized.find_unique(
+        where={'id':2}
+    )
+    print(autho)
+    print(autho.token)
+    authorized = await db.authorized.find_unique(
+        where={"token":autho.token}
+    )
+    await db.disconnect()
+    return authorized
+"""
 
 
 async def connect():
@@ -236,8 +281,9 @@ async def main(arg0, arg1):
     """
     Handles CLI testing of interface during development
     """
+    if arg0 != "get_authorized_token":
+        arg2 = json.loads(arg1)
     function = arg0
-    arg2 = json.loads(arg1)
     match function:
         case "create_user":
             created_user = await create_user(arg2)
@@ -261,6 +307,18 @@ async def main(arg0, arg1):
         case "login":
             token = await login(arg2)
             return token
+        case "logout":
+            confirm = await logout(arg2)
+            return confirm
+        case "get_all_authorized":
+            all_authorized = await get_all_authorized()
+            return all_authorized
+        case "get_authorized_user_id":
+            authorized = await get_authorized_user_id(arg2)
+            return authorized
+        case "get_authorized_token":
+            authorized = await get_authorized_token(arg1)
+            return authorized
         case _:
             return "wrong use, try harder"
 
