@@ -74,7 +74,7 @@ async def logout() -> Response:
 
     # Check that the JSON data has a token field
     try:
-        data["token"]
+        token = data["token"]
     except (KeyError, TypeError, ValueError):
         raise JsonError(
             400,
@@ -83,7 +83,8 @@ async def logout() -> Response:
             detail="We expect { 'token': '<bearer-token>' }.",
         )
 
-    # TODO: Invalidate the bearer token in the DB
+    # Removes the bearer token from the DB, making the user no longer authorized
+    await dbtool.logout(token)
 
     return json_response(message="Logout sucessful.")
 
