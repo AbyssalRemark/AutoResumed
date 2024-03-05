@@ -1,4 +1,4 @@
-import {Form, Button} from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import PreviousButton from './PreviousButton.jsx';
 import UserForm from './UserForm.jsx';
@@ -17,36 +17,71 @@ const RegistrationPage = () => {
     setConfirmationInput(e.target.value);
   }
 
-    return (
+  async function sendLoginRequest(email_input, password_input) {
 
-      <div className="info">
-        <PreviousButton></PreviousButton>
-        <UserForm label="first name" controlId="regForm.firstName" placeholder="Otto"></UserForm>
-        <UserForm label="last name" controlId="regForm.lastName" placeholder="Resumed"></UserForm>
-        <Form>
+    //const url = "https://autoresumed.com/auth/login";
+    const url = "http://127.0.0.1:5000/auth/login"
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json;",
+        "Access-Control-Allow-Origin": "*",
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify({
+        "email": "abc@123.com",
+        "password": "password"
+      }),
+    });
+    return response.json();
+  };
 
-      <Form.Group className="mb-3" controlId="regForm.email">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="name@example.com" />
-      </Form.Group>
-      
-      <Form.Group className="mb-3" controlId="regForm.password">
-        <Form.Label>password</Form.Label>
-        <Form.Control type={passwordVisibility} value={input} onInput={handleInput}/>
-        </Form.Group>  
+  const handleSubmit = event => {
+    event.preventDefault();
+    if ("" == "") {
+      sendLoginRequest("example@example.com", "password").then((data) => {
+        console.log(data);
+      });
+    } else {
+      console.log("Email or password was empty");
+    }
+  };
+
+  return (
+
+    <div className="info">
+      <PreviousButton></PreviousButton>
+      <UserForm label="first name" controlId="regForm.firstName" placeholder="Otto"></UserForm>
+      <UserForm label="last name" controlId="regForm.lastName" placeholder="Resumed"></UserForm>
+      <Form>
+
+        <Form.Group className="mb-3" controlId="regForm.email">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control type="email" placeholder="name@example.com" />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="regForm.password">
+          <Form.Label>password</Form.Label>
+          <Form.Control type={passwordVisibility} value={input} onInput={handleInput} />
+        </Form.Group>
 
 
         <Form.Group className="mb-3" controlId="regForm.passwordConfirmation">
-        <Form.Label>confirm password</Form.Label>
-        <Form.Control type={passwordVisibility} value={confirmationInput} onInput={handleConfirmationInput}/>
-        
-        { passwordMatch ? "" : "PASSWORDS DO NOT MATCH"}
-        <Button variant="danger" type="button" onClick={()=>setPasswordVisibility(passwordVisibility=="password" ? "textarea" : "password")}>{passwordVisibility=="password" ? "show" : "hide"}</Button>
-      </Form.Group>
-    
-    </Form>
-      </div>
-    );
-  };
-  
-  export default RegistrationPage;
+          <Form.Label>confirm password</Form.Label>
+          <Form.Control type={passwordVisibility} value={confirmationInput} onInput={handleConfirmationInput} />
+
+          {passwordMatch ? "" : "PASSWORDS DO NOT MATCH"}
+
+          <Button variant="danger" type="button" onClick={() => setPasswordVisibility(passwordVisibility == "password" ? "textarea" : "password")}>{passwordVisibility == "password" ? "show" : "hide"}</Button>
+          <Button type="submit" onClick={handleSubmit}>Submit</Button>
+        </Form.Group>
+
+      </Form>
+    </div>
+  );
+};
+
+export default RegistrationPage;

@@ -16,7 +16,7 @@ const LoginPage = () => {
   async function sendLoginRequest(email_input, password_input) {
 
     //const url = "https://autoresumed.com/auth/login";
-    const url = " http://autoresumed.com/auth/login"
+    const url = "http://127.0.0.1:5000/auth/login"
     const response = await fetch(url, {
       method: "POST",
       mode: "cors",
@@ -28,8 +28,8 @@ const LoginPage = () => {
       redirect: "follow",
       referrerPolicy: "no-referrer",
       body: JSON.stringify({
-        "email": "abc@123.com",
-        "password": "password"
+        email: "abc@123.com",
+        password: "password"
       }),
     });
     return response.json();
@@ -39,8 +39,14 @@ const LoginPage = () => {
     event.preventDefault();
     if (email != "" && password != "") {
       sendLoginRequest(email, password).then((data) => {
-        console.log(data);
+        if (data) {
+          console.log(type(data));
+        } else {
+          console.log("no data");
+        }
       });
+    } else {
+      console.log("Email or password was empty");
     }
   };
 

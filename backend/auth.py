@@ -55,7 +55,13 @@ async def login() -> Response:
         )
     else:
         # Return bearer token
-        return json_response(token=token)
+        response =  auth.response_class (
+            response=json_response(token=token),
+            status = 200,
+            mimetype = "application/json"
+                                        )
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
 
 
 @auth.route("/logout", methods=["POST"])
