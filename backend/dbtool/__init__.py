@@ -187,9 +187,9 @@ async def login(credential) -> str | None:
     if(check_pass_hash(user,credential["password"])):
         
         seedA = "".join(random.choices(string.ascii_uppercase + string.digits, k=100))
-        tokenA = md5(bytes((seedA), "utf-8")).hexdigest()
+        tokenA = str(md5(bytes((seedA), "utf-8")).hexdigest())
         seedB = "".join(random.choices(string.ascii_uppercase + string.digits, k=100))
-        tokenB = md5(bytes((seedB), "utf-8")).hexdigest()
+        tokenB = str(md5(bytes((seedB), "utf-8")).hexdigest())
         token = str(tokenA+tokenB)
         auth_obj={"belongsToId":user.id,"token":token}
         authorized = await db.authorized.create(data=auth_obj)
