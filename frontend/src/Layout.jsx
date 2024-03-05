@@ -1,9 +1,5 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { Nav, Navbar, NavDropdown, Container, Button } from "react-bootstrap";
-import Welcome from "./Welcome.jsx"
-import LoginPage from "./LoginPage.jsx"
-import RegistrationPage from "./RegistrationPage.jsx"
-import UserForm from "./UserForm.jsx";
 
 import 'bootstrap/dist/css/bootstrap.css';
 

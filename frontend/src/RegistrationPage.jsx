@@ -1,7 +1,6 @@
 import { Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import PreviousButton from './PreviousButton.jsx';
-import UserForm from './UserForm.jsx';
 
 const RegistrationPage = () => {
   const [passwordVisibility, setPasswordVisibility] = useState("password")
@@ -20,7 +19,7 @@ const RegistrationPage = () => {
   async function sendLoginRequest(email_input, password_input) {
 
     //const url = "https://autoresumed.com/auth/login";
-    const url = "http://127.0.0.1:5000/auth/login"
+    const url = "http://127.0.0.1:5000/auth/register"
     const response = await fetch(url, {
       method: "POST",
       mode: "cors",
@@ -53,9 +52,6 @@ const RegistrationPage = () => {
   return (
 
     <div className="info">
-      <PreviousButton></PreviousButton>
-      <UserForm label="first name" controlId="regForm.firstName" placeholder="Otto"></UserForm>
-      <UserForm label="last name" controlId="regForm.lastName" placeholder="Resumed"></UserForm>
       <Form>
 
         <Form.Group className="mb-3" controlId="regForm.email">

@@ -1,10 +1,17 @@
 import { Form, Button } from 'react-bootstrap';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PreviousButton from './PreviousButton.jsx';
 import Award from './resume_components/Award.jsx';
 import Accordion from 'react-bootstrap/Accordion';
 
 const UserForm = () => {
+
+  useEffect(() => {
+    console.log("TO-DO: Fetch Edit Page")
+      , []
+  });
+
+
 
   return (
 
