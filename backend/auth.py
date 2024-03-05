@@ -16,8 +16,9 @@ async def login() -> Response:
     """
 
     data = request.get_json()
+
+    # Check that JSON data has email and password fields
     try:
-        # Check JSON data has email and password fields, and that email is a valid email address
         email = data["email"]
         data["password"]
     except (KeyError, TypeError, ValueError):
@@ -70,8 +71,9 @@ async def logout() -> Response:
     """
 
     data = request.get_json()
+
+    # Check that the JSON data has a token field
     try:
-        # Check that the JSON data has a token field
         data["token"]
     except (KeyError, TypeError, ValueError):
         raise JsonError(
@@ -96,8 +98,9 @@ async def register() -> Response:
     """
 
     data = request.get_json()
+
+    # Check that JSON data has email and password fields
     try:
-        # Check JSON data has email and password fields, and that email is a valid email address
         email = data["email"]
         data["password"]
     except (KeyError, TypeError, ValueError):
