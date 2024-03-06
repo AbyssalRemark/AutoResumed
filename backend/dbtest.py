@@ -12,6 +12,10 @@ async def main(argA, argB, argC):
         arg1 = json.loads(argB)
     except:
         arg1 = argB
+    try:
+        arg2 = json.loads(argC)
+    except:
+        arg2 = argC
 
     match argA:
         case "create_user":
@@ -57,8 +61,17 @@ async def main(argA, argB, argC):
             user = await dbtool.user_from_token(arg1["token"])
             return user
         case "create_location":
-            location = await dbtool.create_location(arg1,argC)
+            location = await dbtool.create_location(arg1,arg2)
             return location
+        case "create_basic":
+            basic = await dbtool.create_basic(arg1,arg2)
+            return basic
+        case "get_basic":
+            basic = await dbtool.get_basic(arg1)
+            return basic
+        case "get_all_basic":
+            basics = await dbtool.get_all_basic()
+            return basics
         case _:
             return "wrong use, try harder"
 

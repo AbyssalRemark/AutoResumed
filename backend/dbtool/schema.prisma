@@ -36,6 +36,7 @@ model Resume {
     interest    Interest[]
     reference   Reference[]
     project     Project[]
+    tags        String[]
 }
 
 model Basic {
@@ -77,7 +78,7 @@ model Location {
     belongsToId Int      @unique
     belongsTo   Basic    @relation(fields: [belongsToId], references: [id])
     createdAt   DateTime @default(now())
-    addresss    String
+    address    String
     postalCode  String
     city        String
     countryCode String
@@ -238,6 +239,6 @@ model Authorized {
     belongsToId Int      @unique
     belongsTo   User     @relation(fields: [belongsToId], references: [id])
     createdAt   DateTime @default(now())
-    lastAccessed DateTime @default(now())
+    lastAccessed DateTime @updatedAt
     token       String   @unique
 }
