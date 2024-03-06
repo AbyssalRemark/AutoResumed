@@ -239,5 +239,5 @@ model Authorized {
     belongsTo   User     @relation(fields: [belongsToId], references: [id])
     createdAt   DateTime @default(now())
     lastAccessed DateTime @default(now())
-    token       String   @db.VarChar(64)
+    token       String   @unique
 }
