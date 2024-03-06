@@ -33,7 +33,7 @@ CONST_FIELDS: Final = ["basics", "work", "volunteer", "education", "awards", "ce
 #==============================================================================#
 
 # creates a Resume 
-def genResume(js, tags):
+def flatenResume(js, tags):
     res = parseResume(js, tags)
     res = stripTags(js)
     return res
@@ -154,8 +154,8 @@ if __name__ == "__main__":
     #parsed = parseResume(js,["tech"])
     #pprint(parsed, sort_dicts=False)
     #pprint(stripTags(parsed), sort_dicts=False)
-    pprint(genResume(js, ["tech"]), sort_dicts=False)
+    #pprint(flatenResume(js, ["tech"]), sort_dicts=False)
     #print("")
     #print("")
     #print("")
-    pprint(genResume(js, ["craft"]), sort_dicts=False)
+    #pprint(flatenResume(js, ["craft"]), sort_dicts=False)
