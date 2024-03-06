@@ -6,7 +6,7 @@ import random
 from hashlib import md5
 from prisma import Prisma
 
-async def create_user(db, user):
+async def create_user(user):
     """
     Expects dictionary as follows:
     {
@@ -14,39 +14,42 @@ async def create_user(db, user):
         "password": "abc123"
     }
     """
-    salt = "".join(random.choices(string.ascii_uppercase + string.digits, k=10))
-    pass_hash = md5(bytes((user["password"] + salt), "utf-8")).hexdigest()
-    user_obj = {"email": user["email"], "passHash": pass_hash, "salt": salt}
-    user_in_db = await db.user.create(data=user_obj)
-    resume_in_db = await create_resume(user_in_db.id)
-    return user_in_db, resume_in_db
+    async with Prisma() as db:
+        salt = "".join(random.choices(string.ascii_uppercase + string.digits, k=10))
+        pass_hash = md5(bytes((user["password"] + salt), "utf-8")).hexdigest()
+        user_obj = {"email": user["email"], "passHash": pass_hash, "salt": salt}
+        user_in_db = await db.user.create(data=user_obj)
+        resume_in_db = await create_resume(user_in_db.id)
+        return user_in_db, resume_in_db
 
 
-async def get_all_users(db):
+async def get_all_users():
     """
     Returns all user entries
     """
-    users_in_db = await db.user.find_many()
-    return users_in_db
+    async with Prisma() as db:
+        users_in_db = await db.user.find_many()
+        return users_in_db
 
 
-async def get_user(db, user_id):
+async def get_user(user_id):
     """
     Returns a user entry by id
     Expects a str or int, see int() cast
     """
-    user_in_db = await db.user.find_unique(
-        where={
-            "id": int(user_id),
-        },
-        include={
-           'resume':True
-        }
-    )
-    return user_in_db
+    async with Prisma() as db:
+        user_in_db = await db.user.find_unique(
+            where={
+                "id": int(user_id),
+            },
+            include={
+            'resume':True
+            }
+        )
+        return user_in_db
 
 
-async def create_basic(db, basics):
+async def create_basic(basics):
     """
     Creates basic in db
     Expects dictionary object as follows:
@@ -83,10 +86,11 @@ async def create_basic(db, basics):
     "token":"abc123"
     }
     """
-    print("todo")
+    async with Prisma() as db:
+        print("todo")
 
 
-async def create_location(db, location, token):
+async def create_location(location, token):
     """
     Helper for create_basic, creates a location in db
     Expects python dictionary object as follows:
@@ -98,58 +102,62 @@ async def create_location(db, location, token):
         "region": "California"
     }
     """
-    created_location = await db.location.create(location)
-    return created_location
+    async with Prisma() as db:
+        created_location = await db.location.create(location)
+        return created_location
 
 
-async def create_resume(db, userId):
+async def create_resume(userId):
     """
     Creates an empty resume for user
     Expects userId as int or string, see int() cast
     """
-    created_resume = await db.resume.create(data={"belongsToId": int(userId)})
-    created_resume = await db.resume.update(
-        where={
-            "belongsToId": int(userId),
-        },
-        data={
-            "belongsTo": {
-                "connect": {"id": int(userId)},
-            }
-        },
-    )
-    return created_resume
+    async with Prisma() as db:
+        created_resume = await db.resume.create(data={"belongsToId": int(userId)})
+        created_resume = await db.resume.update(
+            where={
+                "belongsToId": int(userId),
+            },
+            data={
+                "belongsTo": {
+                    "connect": {"id": int(userId)},
+                }
+            },
+        )
+        return created_resume
 
 
-async def delete_resume(db, userId):
+async def delete_resume(userId):
     """
     Delete resume by userId
     Expects userId as int or string, see int() cast
     """
-    deleted_resume = await db.resume.delete(
-        where={
-            "belongsToId": int(userId),
-        },
-    )
-    return deleted_resume
+    async with Prisma() as db:
+        deleted_resume = await db.resume.delete(
+            where={
+                "belongsToId": int(userId),
+            },
+        )
+        return deleted_resume
 
 
-async def get_resume(db, userId):
+async def get_resume(userId):
     """
     Returns a resume entry by id
     Expects a str or int, see int() cast
     """
-    resume_in_db = await db.resume.find_unique(
-        where={
-            "belongsToId": int(userId),
-        },
-        include={
-            "belongsTo":True
-        }
-    )
-    return resume_in_db
+    async with Prisma() as db:
+        resume_in_db = await db.resume.find_unique(
+            where={
+                "belongsToId": int(userId),
+            },
+            include={
+                "belongsTo":True
+            }
+        )
+        return resume_in_db
 
-async def login(db, credential):
+async def login(credential):
     """
     Returns an auth token
     Expects a dictionary of form:
@@ -158,55 +166,54 @@ async def login(db, credential):
         password:password
     }
     """
-    user = await db.user.find_unique(
-        where={
-            "email":credential["email"]
-        }
-    )
-    token = None
-    authorized = None
-    if(check_pass_hash(user,credential["password"])):
-        
-        seedA = "".join(random.choices(string.ascii_uppercase + string.digits, k=100))
-        tokenA = str(md5(bytes((seedA), "utf-8")).hexdigest())
-        seedB = "".join(random.choices(string.ascii_uppercase + string.digits, k=100))
-        tokenB = str(md5(bytes((seedB), "utf-8")).hexdigest())
-        token = str(tokenA+tokenB)
-        auth_obj={"belongsToId":user.id,"token":token}
-        authorized = await db.authorized.create(data=auth_obj)
-        authorized = await db.authorized.update(
-            where={"belongsToId":authorized.belongsToId},
-            data={"belongsTo":{"connect":{"id":user.id}}}
+    async with Prisma() as db:
+        user = await db.user.find_unique(
+            where={
+                "email":credential["email"]
+            }
         )
-    return token
+        token = None
+        authorized = None
+        if(check_pass_hash(user,credential["password"])):
+            
+            seedA = "".join(random.choices(string.ascii_uppercase + string.digits, k=100))
+            tokenA = str(md5(bytes((seedA), "utf-8")).hexdigest())
+            seedB = "".join(random.choices(string.ascii_uppercase + string.digits, k=100))
+            tokenB = str(md5(bytes((seedB), "utf-8")).hexdigest())
+            token = str(tokenA+tokenB)
+            auth_obj={"belongsToId":user.id,"token":token}
+            authorized = await db.authorized.create(data=auth_obj)
+            authorized = await db.authorized.update(
+                where={"belongsToId":authorized.belongsToId},
+                data={"belongsTo":{"connect":{"id":user.id}}}
+            )
+        return token
 
-async def user_from_token(db, token):
+async def user_from_token(token):
     """
     returns the user entry related to a token
     """
-    auth_in_db = await db.authorized.find_unique(
-        where={
-            "token":token,
-        },
-        include={
-            'belongsTo':True,
-        }
-    )
-    return auth_in_db.belongsTo
+    async with Prisma() as db:
+        auth_in_db = await db.authorized.find_unique(
+            where={
+                "token":token,
+            },
+            include={
+                'belongsTo':True,
+            }
+        )
+        return auth_in_db.belongsTo
 
  
-async def logout(db, token):
+async def logout(token):
     """
     logs you out using token
     """
-    authorized = await db.authorized.find_unique(
-        where={"token":token["token"]}
-    )
-    print(authorized)
-    authorized = await db.authorized.delete(
-        where={"token":token["token"]}
-    )
-    return authorized
+    async with Prisma() as db:
+        authorized = await db.authorized.delete(
+            where={"token":token}
+        )
+        return authorized
 
 
 def check_pass_hash(user,password):
@@ -217,25 +224,33 @@ def check_pass_hash(user,password):
     else:
         return False
 
-async def get_all_authorized(db):
-    all_authorized = await db.authorized.find_many()
-    return all_authorized
+async def get_all_authorized():
+    async with Prisma() as db:
+        all_authorized = await db.authorized.find_many()
+        return all_authorized
 
-async def get_authorized_by_user_id(db, user_id):
-    authorized = await db.authorized.find_unique(
-        where={"belongsToId":int(user_id)}
-    )
-    return authorized
+async def get_authorized_by_user_id(user_id):
+    async with Prisma() as db:
+        authorized = await db.authorized.find_unique(
+            where={"belongsToId":int(user_id)}
+        )
+        return authorized
 
-async def get_authorized_token(db, token):
-    authorized = await db.authorized.find_unique(
-        where={"token":token}
-    )
-    return authorized
+async def get_authorized_token(token):
+    async with Prisma() as db:
+        authorized = await db.authorized.find_unique(
+            where={"token":token}
+        )
+        return authorized
 
-async def is_authorized(db, token):
+async def is_authorized(token):
+    """
+    Confirms a user is authorized by token
+    """
     try:
-        authorized = await get_authorized_token(db, token)
+        authorized = await get_authorized_token(token)
+        if authorized ==  None:
+            return False
         return True
     except:
         return False
@@ -260,65 +275,52 @@ async def get_autho_hardcode():
     return authorized
 """
 
-async def connect():
-    """
-    Initializes DB connection
-    """
-    db = Prisma()
-    await db.connect()
-    return db
-
-
-db = asyncio.run(connect())
-
-
 async def main(arg0, arg1):
     """
     CLI tool, argument handler
     Handles CLI testing of interface during development
     """
-    global db
     arg2 = json.loads(arg1)
     function = arg0
     match function:
         case "create_user":
-            created_user = await create_user(db, arg2)
+            created_user = await create_user(arg2)
             return created_user
         case "get_all_users":
-            users = await get_all_users(db)
+            users = await get_all_users()
             return users
         case "get_user":
-            user = await get_user(db,arg2)
+            user = await get_user(arg2)
             return user
         case "create_resume":
-            created_resume = await create_resume(db,arg2)
+            created_resume = await create_resume(arg2)
             return created_resume
         case "delete_resume":
-            deleted_resume = await delete_resume(db,arg2)
+            deleted_resume = await delete_resume(arg2)
             return deleted_resume
         case "get_resume":
-            resume = await get_resume(db,arg2)
+            resume = await get_resume(arg2)
             return resume
         case "login":
-            token = await login(db,arg2)
+            token = await login(arg2)
             return token
         case "logout":
-            confirm = await logout(db,arg2["token"])
+            confirm = await logout(arg2["token"])
             return confirm
         case "get_all_authorized":
             all_authorized = await get_all_authorized()
             return all_authorized
         case "get_authorized_by_user_id":
-            authorized = await get_authorized_by_user_id(db,arg2)
+            authorized = await get_authorized_by_user_id(arg2)
             return authorized
         case "get_authorized_token":
-            authorized = await get_authorized_token(db,arg2["token"])
+            authorized = await get_authorized_token(arg2["token"])
             return authorized
         case "is_authorized":
-            is_authorized_state = await is_authorized(db,arg2["token"])
+            is_authorized_state = await is_authorized(arg2["token"])
             return is_authorized_state
         case "user_from_token":
-            user = await user_from_token(db,arg1)
+            user = await user_from_token(arg2["token"])
             return user
         case _:
             return "wrong use, try harder"
