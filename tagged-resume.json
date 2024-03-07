@@ -73,6 +73,9 @@
     ],
     "education": [
         {
+            "tags": [
+                "tag"
+            ],
             "institution": "University",
             "url": "https://institution.com/",
             "area": "Software Development",
