@@ -33,7 +33,7 @@ CONST_FIELDS: Final = ["basics", "work", "volunteer", "education", "awards", "ce
 #==============================================================================#
 
 # creates a Resume 
-def flatenResume(js, tags):
+def flatten_resume(js, tags):
     res = parseResume(js, tags)
     res = stripTags(res)
     return res

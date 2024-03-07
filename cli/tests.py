@@ -26,7 +26,7 @@ def testStripTags(js, tags):
 
 def testFlatten(js, tags):
     pprint("## Flaten Test ##")
-    pprint(flatenResume(js, tags), sort_dicts=False)
+    pprint(flatten_resume(js, tags), sort_dicts=False)
 
 if __name__ == "__main__":
     with open("test.json", 'r') as file:

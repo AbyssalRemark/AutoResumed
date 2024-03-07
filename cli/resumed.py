@@ -4,7 +4,7 @@ import os
 import tempfile
 
 
-def convert(resume: dict, theme: str) -> str:
+def to_html(resume: dict, theme: str) -> str:
     """
     Converts the given resume to HTML
     """
