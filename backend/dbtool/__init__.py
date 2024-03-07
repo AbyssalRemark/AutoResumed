@@ -17,7 +17,7 @@ async def create_user(user):
         pass_hash = md5(bytes((user["password"] + salt), "utf-8")).hexdigest()
         user_obj = {"email": user["email"], "passHash": pass_hash, "salt": salt}
         user_in_db = await db.user.create(data=user_obj)
-        resume_in_db = await create_resume(user_in_db.id)
+        resume_in_db = await create_resume_blank(user_in_db.id,db)
         return user_in_db, resume_in_db
 
 
@@ -46,7 +46,11 @@ async def get_user(user_id):
         )
         return user_in_db
 
+
 async def delete_user_cascade(token, db=None):
+    """
+    Deletes user account and all associated data from our database
+    """
     if db==None:
         async with Prisma() as db:
             deleted_user = await delete_user_cascade(token,db)
@@ -63,7 +67,7 @@ async def delete_user_cascade(token, db=None):
 
 """
 async def delete_user(token):
-    DEPRECIATED
+    DEPRECIATED  ->> Left for ppham's amusement
     deletes a user by token
     best practice is to use delete_user_cascade function
     async with Prisma() as db:
@@ -96,13 +100,20 @@ async def delete_user(token):
 """
 
 
-async def create_resume(user_id):
+async def create_resume_blank(user_id,db=None):
     """
-    Creates an empty resume for user
+    Creates an empty resume upon user creation
     Expects userId as int or string, see int() cast
+    Cannot use token because user is not logged in automatically
     """
-    async with Prisma() as db:
+    if db==None:
+        async with Prisma() as db:
+            created_resume = await create_resume_blank(user_id, db)
+    else:
         created_resume = await db.resume.create(data={"belongsToId": int(user_id)})
+        """
+        Turns out this relational connection is automatic!!
+
         created_resume = await db.resume.update(
             where={
                 "belongsToId": int(user_id),
@@ -113,18 +124,20 @@ async def create_resume(user_id):
                 }
             },
         )
-        return created_resume
+        """
+    return created_resume
 
 
-async def delete_resume(user_id):
+async def delete_resume(token):
     """
     Delete resume by userId
     Expects userId as int or string, see int() cast
     """
     async with Prisma() as db:
+        user = await user_from_token(token)
         deleted_resume = await db.resume.delete(
             where={
-                "belongsToId": user_id,
+                "belongsToId": user.id,
             },
         )
         return deleted_resume
@@ -137,17 +150,11 @@ async def get_resume(token,db=None):
     """
     if db == None:
         async with Prisma() as db:
-            user = await user_from_token(token,db)
-            resume_in_db = await db.resume.find_unique(
-                where={
-                    "belongsToId": user.id,
-                },
-                include={
-                    "belongsTo":True
-                }
-            )
+            resume_in_db = await get_resume(token,db)
     else:
         user = await user_from_token(token,db)
+
+        #Note the include= keyword in the find_unique call, critical stuff
         resume_in_db = await db.resume.find_unique(
             where={
                 "belongsToId": user.id,
@@ -162,7 +169,7 @@ async def create_basic(basic, token, db=None):
     """
     Creates basic in db
     Expects dictionary object as follows:
-    basics = {
+    basic = {
             "name": "John Doe",
             "label": [{
                 "tags":["tag"],
@@ -193,16 +200,7 @@ async def create_basic(basic, token, db=None):
     """
     if db == None:
         async with Prisma() as db:
-            resume = await get_resume(token, db)
-            basic_obj = {
-                "belongsToId": resume.id,
-                "name":basic["name"],
-                "image":basic["image"],
-                "email":basic["email"],
-                "phone":basic["phone"],
-                "url":basic["url"],
-            }
-            basic_in_db = await db.basic.create(data=basic_obj)
+            basic_in_db,location_in_db,summary_in_db,label_in_db,profile_in_db = await create_basic(basic,token,db)
 
     else:
         resume = await get_resume(token, db)
@@ -214,28 +212,44 @@ async def create_basic(basic, token, db=None):
             "phone":basic["phone"],
             "url":basic["url"],
         }
+        #create the basic
         basic_in_db = await db.basic.create(data=basic_obj)
-    return basic_in_db
+        basic_id = basic_in_db.id
 
+        #create the location
+        loc_obj = basic["location"]
+        location_in_db = await create_location(loc_obj, basic_id, db)
+
+        #create the summary or summaries
+        summary_obj = basic["summary"]
+        summary_in_db = []
+        for summary_entry in summary_obj:
+            created_summary = await create_summary(summary_entry, basic_id, db)
+            summary_in_db.append(created_summary)
+        
+        #create the label or labels
+        label_obj = basic["label"]
+        label_in_db = []
+        for label_entry in label_obj:
+            created_label = await create_label(label_entry, basic_id, db)
+            label_in_db.append(created_label)
+
+        #create the profile or profiles
+        profile_obj = basic["profiles"]
+        profile_in_db = []
+        for profile_entry in profile_obj:
+            created_profile = await create_profile(profile_entry, basic_id, db)
+            profile_in_db.append(created_profile)
+
+    return basic_in_db,location_in_db,summary_in_db,label_in_db,profile_in_db
 
 async def get_basic(token, db=None):
     """
     gets a basic table entry from a token
     """
     if db == None:
-        db = await connect()
-        resume = await get_resume(token, db)
-        basic = await db.basic.find_unique(
-            where={
-                "belongsToId":resume.id
-            },
-            include={
-                "label":True,
-                "summary":True,
-                "location":True,
-                "profiles":True
-            }
-        )
+        async with Prisma() as db:
+            basic = await get_basic(token,db)
     else:
         resume = await get_resume(token, db)
         basic = await db.basic.find_unique(
@@ -243,6 +257,7 @@ async def get_basic(token, db=None):
                 "belongsToId":resume.id
             },
             include={
+                "belongsTo":True,
                 "label":True,
                 "summary":True,
                 "location":True,
@@ -252,55 +267,82 @@ async def get_basic(token, db=None):
     return basic    
 
 async def get_all_basic():
+    """
+    utility function for cli/admin
+    """
     db = await connect()
     basics = await db.basic.find_many()
     return basics
 
-async def create_location(location, token, db=None):
+async def delete_basic(token, db=None):
     """
-    Helper for create_basic, creates a location in db
-    Expects python dictionary object as follows:
-    {
-        "address": "2712 Broadway St",
-        "postalCode": "CA 94115",
-        "city": "San Francisco",
-        "countryCode": "US",
-        "region": "California"
-    }
-    """
-    if db == None:
-        async with Prisma() as db:
-            basic = await get_basic(token,db)
-            location["belongsToId"] = basic.id
-            created_location = await db.location.create(data=location)
-    else:
-        basic = await get_basic(token,db)
-        location["belongsToId"] = basic.id
-        created_location = await db.location.create(location)
-    return created_location
-
-async def create_summary(summary, token, db=None):
-    """
-    creates summary, expending token and a summary dictionary as follows:
-    {
-        "tags":['tag'],
-        "summary":"summary statement here"
-    }
+    utility function for cli/admin
     """
     if db==None:
         async with Prisma() as db:
-            summary_in_db = await create_summary(summary,token,db)
+            deleted_basic = await delete_basic(token,db)
     else:
         basic = await get_basic(token,db)
-        print(summary)
-        summary["belongsToId"]=basic.id
+        deleted_basic = await db.basic.delete(
+            where={
+                "id":basic.id
+            }
+        )
+    return deleted_basic
+
+
+async def create_location(location, basic_id, db=None):
+    """
+    Helper for create_basic, creates a location
+    """
+    if db == None:
+        async with Prisma() as db:
+            created_location = await create_location(location, basic_id, db)
+    else:
+        location["belongsToId"] = basic_id
+        created_location = await db.location.create(location)
+    return created_location
+
+async def create_summary(summary, basic_id, db=None):
+    """
+    Helper for create basic creates a summary
+    """
+    if db==None:
+        async with Prisma() as db:
+            summary_in_db = await create_summary(summary,basic_id,db)
+    else:
+        summary["belongsToId"]=basic_id
         summary_in_db = await db.summary.create(summary)
     return summary_in_db
 
-async def create_label(label, token, db=None):
-    print("todo")
-async def create_profile(profile, token, db=None):
-    print("todo")
+async def create_label(label, basic_id, db=None):
+    """
+    Helper for create basic, creates a label
+    """
+    if db==None:
+        async with Prisma() as db:
+            label_in_db = await create_label(label,basic_id,db)
+    else:
+        label["belongsToId"]=basic_id
+        label_in_db = await db.label.create(label)
+    return label_in_db
+
+async def create_profile(profile, basic_id, db=None):
+    """
+    Helper for create basic, creates profile(s)
+    """
+    if db==None:
+        async with Prisma() as db:
+            profile_in_db = await create_profile(profile,basic_id,db)
+    else:
+        profile["belongsToId"]=basic_id
+        profile_in_db = await db.profile.create(profile)
+    return profile_in_db
+
+
+
+
+
 
 async def login(credential):
     """

@@ -33,8 +33,8 @@ async def dbtest(argA, argB, argC):
         case "delete_user_cascade":
             deleted_user = await dbtool.delete_user_cascade(arg1)
             return deleted_user
-        case "create_resume":
-            created_resume = await dbtool.create_resume(arg1)
+        case "create_resume_blank":
+            created_resume = await dbtool.create_resume_blank(arg1)
             return created_resume
         case "delete_resume":
             deleted_resume = await dbtool.delete_resume(arg1)
@@ -46,8 +46,8 @@ async def dbtest(argA, argB, argC):
             token = await dbtool.login(arg1)
             return token
         case "logout":
-            confirm = await dbtool.logout(arg1["token"])
-            return confirm
+            logged_out = await dbtool.logout(arg1["token"])
+            return logged_out
         case "get_all_authorized":
             all_authorized = await dbtool.get_all_authorized()
             return all_authorized
@@ -78,6 +78,9 @@ async def dbtest(argA, argB, argC):
         case "create_summary":
             summary = await dbtool.create_summary(arg1,arg2)
             return summary
+        case "delete_basic":
+            deleted_basic = await dbtool.delete_basic(arg1)
+            return deleted_basic
         case _:
             return "wrong use, try harder"
 
