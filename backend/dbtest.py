@@ -81,8 +81,14 @@ async def dbtest(argA, argB, argC):
         case "delete_basic":
             deleted_basic = await dbtool.delete_basic(arg1)
             return deleted_basic
+        case "update_basic":
+            new_basic = await dbtool.update_basic(arg1,arg2)
+            return new_basic
+        case "get_resume_json":
+            resume_json = await dbtool.get_resume_json(arg1)
+            return resume_json
         case _:
-            return "wrong use, try harder"
+            return "incorrect function load"
 
 
 if __name__ == "__main__":
@@ -96,4 +102,5 @@ if __name__ == "__main__":
         case 4:
             ret = asyncio.run(dbtest(sys.argv[1], sys.argv[2], sys.argv[3]))
             print(ret)
-
+        case _:
+            print("oopsie, not a viable use!")

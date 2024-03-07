@@ -1,4 +1,5 @@
 import json
+from re import DOTALL
 import string
 import random
 from hashlib import md5
@@ -112,8 +113,8 @@ async def create_resume_blank(user_id,db=None):
     else:
         created_resume = await db.resume.create(data={"belongsToId": int(user_id)})
         """
-        Turns out this relational connection is automatic!!
-
+        Turns out the relational connection is automatic!!
+        had to figure that out the beat-your-head-against-the-wall way
         created_resume = await db.resume.update(
             where={
                 "belongsToId": int(user_id),
@@ -145,8 +146,7 @@ async def delete_resume(token):
 
 async def get_resume(token,db=None):
     """
-    Returns a resume entry by id, includes user
-    Expects a str or int, see int() cast
+    Returns a resume entry by token, cli/admin function
     """
     if db == None:
         async with Prisma() as db:
@@ -160,7 +160,9 @@ async def get_resume(token,db=None):
                 "belongsToId": user.id,
             },
             include={
-                "belongsTo":True
+                "basic":True,
+                "work":True,
+                "volunteer":True
             }
         )
     return resume_in_db
@@ -198,6 +200,7 @@ async def create_basic(basic, token, db=None):
             }]
             }
     """
+
     if db == None:
         async with Prisma() as db:
             basic_in_db,location_in_db,summary_in_db,label_in_db,profile_in_db = await create_basic(basic,token,db)
@@ -257,7 +260,6 @@ async def get_basic(token, db=None):
                 "belongsToId":resume.id
             },
             include={
-                "belongsTo":True,
                 "label":True,
                 "summary":True,
                 "location":True,
@@ -265,6 +267,16 @@ async def get_basic(token, db=None):
             }
         )
     return basic    
+
+async def get_resume_json(token,db=None):
+    if db==None:
+        async with Prisma() as db:
+            resume_json = await get_resume_json(token,db)
+    else:
+        resume = await get_resume(token,db)
+        resume_json = resume.model_dump(mode='python')
+    return resume_json
+
 
 async def get_all_basic():
     """
@@ -340,7 +352,18 @@ async def create_profile(profile, basic_id, db=None):
     return profile_in_db
 
 
-
+async def update_basic(new_basic, token, db=None):
+    """
+    updates a basic, requiring a new basic complient as in create_basic
+    deleting and making anew is honestly cheaper than comparing bit by bit
+    """
+    if db==None:
+        async with Prisma() as db:
+            new_basic_in_db = await update_basic(new_basic,token,db)
+    else:
+        await delete_basic(token, db)
+        new_basic_in_db = await create_basic(new_basic, token, db)
+    return new_basic_in_db
 
 
 
@@ -385,14 +408,7 @@ async def user_from_token(token,db=None):
     """
     if db == None:
         async with Prisma() as db:
-            auth_in_db = await db.authorized.find_unique(
-                where={
-                    "token":token,
-                },
-                include={
-                    'belongsTo':True,
-                }
-            )
+            auth_in_db = await user_from_token(token,db)
     else:
         auth_in_db = await db.authorized.find_unique(
             where={
