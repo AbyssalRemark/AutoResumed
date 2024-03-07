@@ -22,7 +22,7 @@ model User {
 model Resume {
     id          Int           @id @default(autoincrement())
     belongsToId Int           @unique
-    belongsTo   User          @relation(fields: [belongsToId], references: [id])
+    belongsTo   User          @relation(fields: [belongsToId], references: [id], onDelete:Cascade)
     createdAt   DateTime      @default(now())
     basic       Basic?
     work        Work[]
@@ -42,7 +42,7 @@ model Resume {
 model Basic {
     id          Int       @id @default(autoincrement())
     belongsToId Int       @unique
-    belongsTo   Resume    @relation(fields: [belongsToId], references: [id])
+    belongsTo   Resume    @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
     createdAt   DateTime  @default(now())
     name        String
     label       Label[]
@@ -58,7 +58,7 @@ model Basic {
 model Label {
     id          Int      @id @default(autoincrement())
     belongsToId Int
-    belongsTo   Basic    @relation(fields: [belongsToId], references: [id])
+    belongsTo   Basic    @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
     createdAt   DateTime @default(now())
     tags        String[]
     label       String
@@ -67,16 +67,16 @@ model Label {
 model Summary {
     id          Int      @id @default(autoincrement())
     belongsToId Int
-    belongsTo   Basic    @relation(fields: [belongsToId], references: [id])
+    belongsTo   Basic    @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
     createdAt   DateTime @default(now())
     tags        String[]
-    Summary     String
+    summary     String
 }
 
 model Location {
     id          Int      @id @default(autoincrement())
     belongsToId Int      @unique
-    belongsTo   Basic    @relation(fields: [belongsToId], references: [id])
+    belongsTo   Basic    @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
     createdAt   DateTime @default(now())
     address    String
     postalCode  String
@@ -88,7 +88,7 @@ model Location {
 model Profile {
     id          Int      @id @default(autoincrement())
     belongsToId Int
-    belongsTo   Basic    @relation(fields: [belongsToId], references: [id])
+    belongsTo   Basic    @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
     createdAt   DateTime @default(now())
     tags        String[]
     network     String
@@ -99,7 +99,7 @@ model Profile {
 model Work {
     id          Int      @id @default(autoincrement())
     belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
     createdAt   DateTime @default(now())
     tags        String[]
     name        String
@@ -114,7 +114,7 @@ model Work {
 model Volunteer {
     id           Int      @id @default(autoincrement())
     belongsToId  Int
-    belongsTo    Resume   @relation(fields: [belongsToId], references: [id])
+    belongsTo    Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
     createdAt    DateTime @default(now())
     tags         String[]
     organization String
@@ -129,7 +129,7 @@ model Volunteer {
 model Education {
     id          Int      @id @default(autoincrement())
     belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
     createdAt   DateTime @default(now())
     tags        String[]
     institution String
@@ -145,7 +145,7 @@ model Education {
 model Award {
     id          Int      @id @default(autoincrement())
     belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
     createdAt   DateTime @default(now())
     tags        String[]
     title       String
@@ -157,7 +157,7 @@ model Award {
 model Certificate {
     id          Int      @id @default(autoincrement())
     belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
     createdAt   DateTime @default(now())
     tags        String[]
     name        String
@@ -169,7 +169,7 @@ model Certificate {
 model Publication {
     id          Int      @id @default(autoincrement())
     belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
     createdAt   DateTime @default(now())
     tags        String[]
     name        String
@@ -182,7 +182,7 @@ model Publication {
 model Skill {
     id          Int      @id @default(autoincrement())
     belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
     createdAt   DateTime @default(now())
     tags        String[]
     name        String
@@ -193,7 +193,7 @@ model Skill {
 model Language {
     id          Int      @id @default(autoincrement())
     belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
     createdAt   DateTime @default(now())
     tags        String[]
     language    String
@@ -203,7 +203,7 @@ model Language {
 model Interest {
     id          Int      @id @default(autoincrement())
     belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
     createdAt   DateTime @default(now())
     tags        String[]
     name        String
@@ -213,7 +213,7 @@ model Interest {
 model Reference {
     id          Int      @id @default(autoincrement())
     belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
     createdAt   DateTime @default(now())
     tags        String[]
     name        String
@@ -223,7 +223,7 @@ model Reference {
 model Project {
     id          Int      @id @default(autoincrement())
     belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id])
+    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
     createdAt   DateTime @default(now())
     tags        String[]
     name        String
@@ -237,7 +237,7 @@ model Project {
 model Authorized {
     id          Int      @id @default(autoincrement())
     belongsToId Int      @unique
-    belongsTo   User     @relation(fields: [belongsToId], references: [id])
+    belongsTo   User     @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
     createdAt   DateTime @default(now())
     lastAccessed DateTime @updatedAt
     token       String   @unique

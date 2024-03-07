@@ -3,7 +3,7 @@ import asyncio
 import json
 import dbtool
 
-async def main(argA, argB, argC):
+async def dbtest(argA, argB, argC):
     """
     CLI tool, argument handler
     Handles CLI testing of interface during development
@@ -28,7 +28,10 @@ async def main(argA, argB, argC):
             user = await dbtool.get_user(arg1)
             return user
         case "delete_user":
-            deleted_user = await dbtool.delete_user(arg1["token"])
+            deleted_user = await dbtool.delete_user(arg1)
+            return deleted_user
+        case "delete_user_cascade":
+            deleted_user = await dbtool.delete_user_cascade(arg1)
             return deleted_user
         case "create_resume":
             created_resume = await dbtool.create_resume(arg1)
@@ -72,6 +75,9 @@ async def main(argA, argB, argC):
         case "get_all_basic":
             basics = await dbtool.get_all_basic()
             return basics
+        case "create_summary":
+            summary = await dbtool.create_summary(arg1,arg2)
+            return summary
         case _:
             return "wrong use, try harder"
 
@@ -79,12 +85,12 @@ async def main(argA, argB, argC):
 if __name__ == "__main__":
     match len(sys.argv):
         case 2:
-            ret = asyncio.run(main(sys.argv[1], "", ""))
+            ret = asyncio.run(dbtest(sys.argv[1], "", ""))
             print(ret)
         case 3:
-            ret = asyncio.run(main(sys.argv[1], sys.argv[2], ""))
+            ret = asyncio.run(dbtest(sys.argv[1], sys.argv[2], ""))
             print(ret)
         case 4:
-            ret = asyncio.run(main(sys.argv[1], sys.argv[2], sys.argv[3]))
+            ret = asyncio.run(dbtest(sys.argv[1], sys.argv[2], sys.argv[3]))
             print(ret)
 
