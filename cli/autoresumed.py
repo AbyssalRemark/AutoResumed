@@ -35,7 +35,7 @@ CONST_FIELDS: Final = ["basics", "work", "volunteer", "education", "awards", "ce
 # creates a Resume 
 def flatenResume(js, tags):
     res = parseResume(js, tags)
-    res = stripTags(js)
+    res = stripTags(res)
     return res
 
 #==============================================================================#
@@ -44,17 +44,26 @@ def flatenResume(js, tags):
 #
 #==============================================================================#
 
-#not currently my job but will be later..
+def addEntry(js, field, entry):
+    match(field):
+        #special cases within basics..
+        case "label" | "summary" | "profiles":
+            js["basics"][field].append(entry)
 
+        #All tagged fields
+        case "work" | "volunteer" | "education" | "awards" | "certificates" | "publications" | "skills" | "languages" | "interests" | "references" | "projects":
+            js[field].append(entry)
+        #Any non tagged fields 
 
 #some notes for myself
-#not responsible for createion...?
-#add
-#update
-#   add tags
-#   add entrys
-#not responsible for deletion...
-#will need logic to sort by date...
+#not currently my job but will be later..
+#   not responsible for createion...?
+#   add
+#   update
+#      add tags
+#      add entrys
+#   not responsible for deletion...
+#   will need logic to sort by date...?
 
 #def parseResume(json, tags):
 #def parseResume returns flatend resume
@@ -74,18 +83,24 @@ def parseAll(list, tags): #knowing python this can probasbly be one line but idk
         for j in tags:
             if j in i["tags"]: #any tag found
                 parsed.append(deepcopy(i))
+                break
     return parsed
 
 def parseFirst(list, tags):
-    parsed = [] 
-    pprint(list)
-    print(type(list))
     for i in list:
         for j in tags:
             if j in i["tags"]: #any tag found
-                parsed.append(deepcopy(i))
-                break #same logic as above but returns the first one
-    return parsed
+                #same logic as above but returns the first one
+                return deepcopy(i)
+                
+
+    #if that doesnt occure look for the special tag default.
+    for i in list:
+        if "default" in i["tags"]:
+            #if this doesnt exist something has gone wrong.
+            #TODO throw error I guess
+            return append(deepcopy(i))
+
 
 #assumes its been loaded correctly.
 #   Does not remove tags. 
@@ -109,20 +124,19 @@ def parseResume(js, tags):
                 label = parseFirst(basics["label"], tags)
                 summary = parseFirst(basics["summary"], tags)
 
-                #label and summary is an list (of size 1) of dicts, so, we look and ask it for the label field
-                res["basics"]["label"] = label[0]["label"]
-                res["basics"]["summary"] = summary[0]["summary"]
+                res["basics"]["label"] = label["label"]
+                res["basics"]["summary"] = summary["summary"]
 
                 #profiles are not a grab one its a grab all that apply
                 res["basics"]["profiles"] = parseAll(basics["profiles"], tags)
-            case "work" | "volunteer" | "awards" | "certificates" | "publications" | "skills" | "languages" | "interests" | "references" | "projects":
+            case "work" | "volunteer" | "education" | "awards" | "certificates" | "publications" | "skills" | "languages" | "interests" | "references" | "projects":
                 #grabs all tags that apply. 
                 #not a fan of all those | but it is correct.
-                print("parse all for " + field)
+                #print("parse all for " + field)
                 res[field] =  parseAll(js[field], tags)
             case _:
-                #default behavior, copy all fields, these are not tagged. like education
-                print("default for " + field)
+                #default behavior, copy all fields, these are not tagged. None should exist now
+                #print("default for " + field)
                 res[field] = js[field]
     return res
 
@@ -137,7 +151,7 @@ def stripTags(js):
                 #basics is special but only a subfield profiles will still have tags
                 for profile in res["basics"]["profiles"]:
                     del profile["tags"]
-            case "work" | "volunteer" | "awards" | "certificates" | "publications" | "skills" | "languages" | "interests" | "references" | "projects":
+            case "work" | "volunteer" | "education" | "awards" | "certificates" | "publications" | "skills" | "languages" | "interests" | "references" | "projects":
                 for entry in res[field]:
                     del entry["tags"]
             #case _:

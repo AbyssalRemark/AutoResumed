@@ -121,8 +121,11 @@
     ],
     "education": [
         {
-            "institution": "University",
-            "url": "https://institution.com/",
+            "tags": [
+                "tech"
+            ],
+            "institution": "Totally Tech the institution",
+            "url": "https://tech.not/",
             "area": "Software Development",
             "studyType": "Bachelor",
             "startDate": "2011-01-01",
