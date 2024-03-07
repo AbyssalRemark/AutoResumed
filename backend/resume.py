@@ -1,6 +1,7 @@
 import dbtool
 
-from ..cli import autoresumed, resumed
+from cli import autoresumed
+import resumed
 from flask import Blueprint, request
 from flask_json import JsonError, json_response
 
