@@ -17,6 +17,7 @@ def convert(resume: dict, theme: str) -> str:
     with open(input_file_path, "w") as json_file:
         json.dump(resume, json_file)
 
+    # Generate resume.html
     subprocess.run(
         [
             "npx",
