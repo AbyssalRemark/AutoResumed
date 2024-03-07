@@ -35,7 +35,7 @@ CONST_FIELDS: Final = ["basics", "work", "volunteer", "education", "awards", "ce
 # creates a Resume 
 def flatenResume(js, tags):
     res = parseResume(js, tags)
-    res = stripTags(js)
+    res = stripTags(res)
     return res
 
 #==============================================================================#
@@ -87,20 +87,20 @@ def parseAll(list, tags): #knowing python this can probasbly be one line but idk
     return parsed
 
 def parseFirst(list, tags):
-    parsed = [] 
     for i in list:
         for j in tags:
             if j in i["tags"]: #any tag found
                 #same logic as above but returns the first one
-                parsed.append(deepcopy(i))
-                return parsed
+                return deepcopy(i)
+                
+
     #if that doesnt occure look for the special tag default.
     for i in list:
         if "default" in i["tags"]:
             #if this doesnt exist something has gone wrong.
             #TODO throw error I guess
-            parsed.append(deepcopy(i))
-            return parsed
+            return append(deepcopy(i))
+
 
 #assumes its been loaded correctly.
 #   Does not remove tags. 
@@ -124,9 +124,8 @@ def parseResume(js, tags):
                 label = parseFirst(basics["label"], tags)
                 summary = parseFirst(basics["summary"], tags)
 
-                #label and summary is an list (of size 1) of dicts, so, we look and ask it for the label field
-                res["basics"]["label"] = label[0]["label"]
-                res["basics"]["summary"] = summary[0]["summary"]
+                res["basics"]["label"] = label["label"]
+                res["basics"]["summary"] = summary["summary"]
 
                 #profiles are not a grab one its a grab all that apply
                 res["basics"]["profiles"] = parseAll(basics["profiles"], tags)
