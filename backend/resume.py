@@ -1,5 +1,9 @@
+import dbtool
+
+from cli import autoresumed
+import resumed
 from flask import Blueprint, request
-from flask_json import JsonError
+from flask_json import JsonError, json_response
 
 resume = Blueprint("resume", __name__)
 
@@ -56,10 +60,8 @@ async def generate():
             detail="We expect { 'token': '<bearer-token>', 'tags': [ '<tag>', '<tag>', ... ], 'template': '<resume-template>' }.",
         )
 
-    # tagged_resume = dbtool.get_resume(token)
-    # flattened_resume = flattener.parse(tagged_resume, tags)
-    # html_resume = resumed.to_html(flattened_resume, template)
+    tagged_resume = dbtool.get_resume(token)
+    flattened_resume = autoresumed.flatten_resume(tagged_resume, tags)
+    html_resume = resumed.to_html(flattened_resume, template)
 
-    # return html_resume
-
-    return "HTML resume"
+    return json_response(status="200", resume=html_resume)

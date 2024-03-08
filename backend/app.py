@@ -1,12 +1,10 @@
-from flask import Flask, Response, request
-from flask_json import FlaskJSON, JsonError
+from flask import Flask
+from flask_json import FlaskJSON
 from flask_cors import CORS
 
 
 from auth import auth
 from resume import resume
-
-import dbtool
 
 app = Flask(__name__)
 json = FlaskJSON(app)
