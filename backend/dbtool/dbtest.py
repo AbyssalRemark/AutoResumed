@@ -1,7 +1,7 @@
 import sys
 import asyncio
 import json
-import dbtool
+import dbtools
 
 async def dbtest(argA, argB, argC):
     """
@@ -19,74 +19,77 @@ async def dbtest(argA, argB, argC):
 
     match argA:
         case "create_user":
-            created_user = await dbtool.create_user(arg1)
+            created_user = await dbtools.create_user(arg1)
             return created_user
         case "get_all_users":
-            users = await dbtool.get_all_users()
+            users = await dbtools.get_all_users()
             return users
         case "get_user":
-            user = await dbtool.get_user(arg1)
+            user = await dbtools.get_user(arg1)
             return user
         case "delete_user":
-            deleted_user = await dbtool.delete_user(arg1)
-            return deleted_user
-        case "delete_user_cascade":
-            deleted_user = await dbtool.delete_user_cascade(arg1)
+            deleted_user = await dbtools.delete_user(arg1)
             return deleted_user
         case "create_resume_blank":
-            created_resume = await dbtool.create_resume_blank(arg1)
+            created_resume = await dbtools.create_resume_blank(arg1)
             return created_resume
         case "delete_resume":
-            deleted_resume = await dbtool.delete_resume(arg1)
+            deleted_resume = await dbtools.delete_resume(arg1)
             return deleted_resume
         case "get_resume":
-            resume = await dbtool.get_resume(arg1)
+            resume = await dbtools.get_resume(arg1)
             return resume
         case "login":
-            token = await dbtool.login(arg1)
+            token = await dbtools.login(arg1)
             return token
         case "logout":
-            logged_out = await dbtool.logout(arg1["token"])
+            logged_out = await dbtools.logout(arg1["token"])
             return logged_out
         case "get_all_authorized":
-            all_authorized = await dbtool.get_all_authorized()
+            all_authorized = await dbtools.get_all_authorized()
             return all_authorized
         case "get_authorized_by_user_id":
-            authorized = await dbtool.get_authorized_by_user_id(arg1)
+            authorized = await dbtools.get_authorized_by_user_id(arg1)
             return authorized
         case "get_authorized_by_token":
-            authorized = await dbtool.get_authorized_by_token(arg1["token"])
+            authorized = await dbtools.get_authorized_by_token(arg1["token"])
             return authorized
         case "is_authorized":
-            is_authorized_state = await dbtool.is_authorized(arg1["token"])
+            is_authorized_state = await dbtools.is_authorized(arg1["token"])
             return is_authorized_state
         case "user_from_token":
-            user = await dbtool.user_from_token(arg1["token"])
+            user = await dbtools.user_from_token(arg1["token"])
             return user
         case "create_location":
-            location = await dbtool.create_location(arg1,arg2)
+            location = await dbtools.create_location(arg1,arg2)
             return location
         case "create_basic":
-            basic = await dbtool.create_basic(arg1,arg2)
+            basic = await dbtools.create_basic(arg1,arg2)
             return basic
         case "get_basic":
-            basic = await dbtool.get_basic(arg1)
+            basic = await dbtools.get_basic(arg1)
             return basic
         case "get_all_basic":
-            basics = await dbtool.get_all_basic()
+            basics = await dbtools.get_all_basic()
             return basics
         case "create_summary":
-            summary = await dbtool.create_summary(arg1,arg2)
+            summary = await dbtools.create_summary(arg1,arg2)
             return summary
         case "delete_basic":
-            deleted_basic = await dbtool.delete_basic(arg1)
+            deleted_basic = await dbtools.delete_basic(arg1)
             return deleted_basic
         case "update_basic":
-            new_basic = await dbtool.update_basic(arg1,arg2)
+            new_basic = await dbtools.update_basic(arg1,arg2)
             return new_basic
         case "get_resume_json":
-            resume_json = await dbtool.get_resume_json(arg1)
+            resume_json = await dbtools.get_resume_json(arg1)
             return resume_json
+        case "test_raw":
+            test = await dbtools.get_resume_clean(arg1)
+            return test
+        case "query_raw":
+            ret = await dbtools.query_raw("*",arg1,arg2)
+            return ret
         case _:
             return "incorrect function load"
 

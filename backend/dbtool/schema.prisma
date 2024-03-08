@@ -1,244 +1,243 @@
 generator client {
-    provider             = "prisma-client-py"
-    interface            = "asyncio"
-    recursive_type_depth = 5
+  provider             = "prisma-client-py"
+  recursive_type_depth = 5
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-    id         Int         @id @default(autoincrement())
-    createdAt  DateTime    @default(now())
-    email      String      @unique
-    passHash   String      @db.Char(32)
-    salt       String      @db.Char(10)
-    resume     Resume?
-    authorized Authorized?
+  id         BigInt      @id @default(autoincrement())
+  created_at DateTime    @default(now())
+  email      String      @unique
+  pass_hash   String      @db.Char(32)
+  salt       String      @db.Char(10)
+  resume     Resume?
+  authorized Authorized?
 }
 
 model Resume {
-    id          Int           @id @default(autoincrement())
-    belongsToId Int           @unique
-    belongsTo   User          @relation(fields: [belongsToId], references: [id], onDelete:Cascade)
-    createdAt   DateTime      @default(now())
-    basic       Basic?
-    work        Work[]
-    volunteer   Volunteer[]
-    education   Education[]
-    award       Award[]
-    certificate Certificate[]
-    publication Publication[]
-    skill       Skill[]
-    language    Language[]
-    interest    Interest[]
-    reference   Reference[]
-    project     Project[]
-    tags        String[]
+  id            BigInt        @id @default(autoincrement())
+  belongs_to_id BigInt        @unique
+  belongs_to    User          @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  created_at    DateTime      @default(now())
+  basic         Basic?
+  work          Work[]
+  volunteer     Volunteer[]
+  education     Education[]
+  award         Award[]
+  certificate   Certificate[]
+  publication   Publication[]
+  skill         Skill[]
+  language      Language[]
+  interest      Interest[]
+  reference     Reference[]
+  project       Project[]
+  tags          String[]
 }
 
 model Basic {
-    id          Int       @id @default(autoincrement())
-    belongsToId Int       @unique
-    belongsTo   Resume    @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
-    createdAt   DateTime  @default(now())
-    name        String
-    label       Label[]
-    image       String
-    email       String
-    phone       String
-    url         String
-    summary     Summary[]
-    location    Location?
-    profiles    Profile[]
+  id            BigInt    @id @default(autoincrement())
+  belongs_to_id BigInt    @unique
+  belongs_to    Resume    @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  created_at    DateTime  @default(now())
+  name          String
+  label         Label[]
+  image         String
+  email         String
+  phone         String
+  url           String
+  summary       Summary[]
+  location      Location?
+  profiles      Profile[]
 }
 
 model Label {
-    id          Int      @id @default(autoincrement())
-    belongsToId Int
-    belongsTo   Basic    @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
-    createdAt   DateTime @default(now())
-    tags        String[]
-    label       String
+  id            BigInt   @id @default(autoincrement())
+  belongs_to_id BigInt
+  belongs_to    Basic    @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  tags          String[]
+  label         String
 }
 
 model Summary {
-    id          Int      @id @default(autoincrement())
-    belongsToId Int
-    belongsTo   Basic    @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
-    createdAt   DateTime @default(now())
-    tags        String[]
-    summary     String
+  id            BigInt   @id @default(autoincrement())
+  belongs_to_id BigInt
+  belongs_to    Basic    @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  tags          String[]
+  summary       String
 }
 
 model Location {
-    id          Int      @id @default(autoincrement())
-    belongsToId Int      @unique
-    belongsTo   Basic    @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
-    createdAt   DateTime @default(now())
-    address    String
-    postalCode  String
-    city        String
-    countryCode String
-    region      String
+  id            BigInt   @id @default(autoincrement())
+  belongs_to_id BigInt   @unique
+  belongs_to    Basic    @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  address       String
+  postal_code   String
+  city          String
+  country_code  String
+  region        String
 }
 
 model Profile {
-    id          Int      @id @default(autoincrement())
-    belongsToId Int
-    belongsTo   Basic    @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
-    createdAt   DateTime @default(now())
-    tags        String[]
-    network     String
-    username    String
-    url         String
+  id            BigInt   @id @default(autoincrement())
+  belongs_to_id BigInt
+  belongs_to    Basic    @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  tags          String[]
+  network       String
+  username      String
+  url           String
 }
 
 model Work {
-    id          Int      @id @default(autoincrement())
-    belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
-    createdAt   DateTime @default(now())
-    tags        String[]
-    name        String
-    position    String
-    url         String
-    startDate   String
-    endDate     String
-    summary     String
-    highlights  String[]
+  id            BigInt   @id @default(autoincrement())
+  belongs_to_id BigInt
+  belongs_to    Resume   @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  tags          String[]
+  name          String
+  position      String
+  url           String
+  start_date    String
+  end_date      String
+  summary       String
+  highlights    String[]
 }
 
 model Volunteer {
-    id           Int      @id @default(autoincrement())
-    belongsToId  Int
-    belongsTo    Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
-    createdAt    DateTime @default(now())
-    tags         String[]
-    organization String
-    position     String
-    url          String
-    startDate    String
-    endDate      String
-    summary      String
-    highlights   String[]
+  id            BigInt   @id @default(autoincrement())
+  belongs_to_id BigInt
+  belongs_to    Resume   @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  tags          String[]
+  organization  String
+  position      String
+  url           String
+  start_date    String
+  end_date      String
+  summary       String
+  highlights    String[]
 }
 
 model Education {
-    id          Int      @id @default(autoincrement())
-    belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
-    createdAt   DateTime @default(now())
-    tags        String[]
-    institution String
-    url         String
-    area        String
-    studyType   String
-    startDate   String
-    endDate     String
-    score       String
-    courses     String[]
+  id            BigInt   @id @default(autoincrement())
+  belongs_to_id BigInt
+  belongs_to    Resume   @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  tags          String[]
+  institution   String
+  url           String
+  area          String
+  study_type    String
+  start_date    String
+  end_date      String
+  score         String
+  courses       String[]
 }
 
 model Award {
-    id          Int      @id @default(autoincrement())
-    belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
-    createdAt   DateTime @default(now())
-    tags        String[]
-    title       String
-    date        String
-    awader      String
-    summary     String
+  id            BigInt   @id @default(autoincrement())
+  belongs_to_id BigInt
+  belongs_to    Resume   @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  tags          String[]
+  title         String
+  date          String
+  awader        String
+  summary       String
 }
 
 model Certificate {
-    id          Int      @id @default(autoincrement())
-    belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
-    createdAt   DateTime @default(now())
-    tags        String[]
-    name        String
-    date        String
-    issuer      String
-    url         String
+  id            BigInt   @id @default(autoincrement())
+  belongs_to_id BigInt
+  belongs_to    Resume   @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  tags          String[]
+  name          String
+  date          String
+  issuer        String
+  url           String
 }
 
 model Publication {
-    id          Int      @id @default(autoincrement())
-    belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
-    createdAt   DateTime @default(now())
-    tags        String[]
-    name        String
-    publisher   String
-    releaseDate String
-    url         String
-    summary     String
+  id            BigInt   @id @default(autoincrement())
+  belongs_to_id BigInt
+  belongs_to    Resume   @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  tags          String[]
+  name          String
+  publisher     String
+  release_date  String
+  url           String
+  summary       String
 }
 
 model Skill {
-    id          Int      @id @default(autoincrement())
-    belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
-    createdAt   DateTime @default(now())
-    tags        String[]
-    name        String
-    level       String
-    keywords    String[]
+  id            BigInt   @id @default(autoincrement())
+  belongs_to_id BigInt
+  belongs_to    Resume   @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  tags          String[]
+  name          String
+  level         String
+  keywords      String[]
 }
 
 model Language {
-    id          Int      @id @default(autoincrement())
-    belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
-    createdAt   DateTime @default(now())
-    tags        String[]
-    language    String
-    fluency     String
+  id            BigInt   @id @default(autoincrement())
+  belongs_to_id BigInt
+  belongs_to    Resume   @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  tags          String[]
+  language      String
+  fluency       String
 }
 
 model Interest {
-    id          Int      @id @default(autoincrement())
-    belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
-    createdAt   DateTime @default(now())
-    tags        String[]
-    name        String
-    keywords    String[]
+  id            BigInt   @id @default(autoincrement())
+  belongs_to_id BigInt
+  belongs_to    Resume   @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  tags          String[]
+  name          String
+  keywords      String[]
 }
 
 model Reference {
-    id          Int      @id @default(autoincrement())
-    belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
-    createdAt   DateTime @default(now())
-    tags        String[]
-    name        String
-    reference   String
+  id            BigInt   @id @default(autoincrement())
+  belongs_to_id BigInt
+  belongs_to    Resume   @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  tags          String[]
+  name          String
+  reference     String
 }
 
 model Project {
-    id          Int      @id @default(autoincrement())
-    belongsToId Int
-    belongsTo   Resume   @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
-    createdAt   DateTime @default(now())
-    tags        String[]
-    name        String
-    startDate   String
-    endDate     String
-    description String
-    highlights  String[]
-    url         String
+  id            BigInt   @id @default(autoincrement())
+  belongs_to_id BigInt
+  belongs_to    Resume   @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  tags          String[]
+  name          String
+  start_date    String
+  end_date      String
+  description   String
+  highlights    String[]
+  url           String
 }
 
 model Authorized {
-    id          Int      @id @default(autoincrement())
-    belongsToId Int      @unique
-    belongsTo   User     @relation(fields: [belongsToId], references: [id], onDelete: Cascade)
-    createdAt   DateTime @default(now())
-    lastAccessed DateTime @updatedAt
-    token       String   @unique
+  id            BigInt   @id @default(autoincrement())
+  belongs_to_id BigInt   @unique
+  belongs_to    User     @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  created_at    DateTime @default(now())
+  last_accessed DateTime @updatedAt
+  token         String   @unique
 }
