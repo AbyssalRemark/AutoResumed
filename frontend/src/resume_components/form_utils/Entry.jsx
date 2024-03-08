@@ -1,16 +1,19 @@
 import { Form } from 'react-bootstrap';
 import { useState } from 'react';
-const Entry = ({ label, controlId, placeholder }) => {
+const Entry = ({ label }) => {
     const [input, setInput] = useState("")
 
     return (
-        <div className={controlId}>
-            <Form.Group className="mb-3" controlId={controlId}>
+        <div className={label}>
+            <Form>
+                <Form.Group className="mb-3" controlId={label}>
 
-                <Form.Label>{label}</Form.Label>
-                <Form.Control placeholder={placeholder} value={input} onChange={(e) => setInput(e.target.value)} />
+                    <Form.Label>{label != "tags" ? label : ""}</Form.Label>
+                    <Form.Control placeholder={label} value={input} onChange={(e) => setInput(e.target.value)} />
 
-            </Form.Group>
+                </Form.Group>
+            </Form>
+
         </div>
     );
 }
