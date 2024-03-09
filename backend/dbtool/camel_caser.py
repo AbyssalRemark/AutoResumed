@@ -5,12 +5,12 @@ def convert_to_camel(input_dict):
 
     def convert_keys(data):
         if isinstance(data, dict):
-            new_dict = {}
+            camel_dict = {}
             for key, value in data.items():
                 new_key = snake_to_camel_case(key)
                 new_value = convert_keys(value)
-                new_dict[new_key] = new_value
-            return new_dict
+                camel_dict[new_key] = new_value
+            return camel_dict
         elif isinstance(data, list):
             return [convert_keys(item) for item in data]
         else:

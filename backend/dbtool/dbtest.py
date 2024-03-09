@@ -2,6 +2,7 @@ import sys
 import asyncio
 import json
 import dbtools
+import snakeCaser
 
 async def dbtest(argA, argB, argC):
     """
@@ -90,6 +91,9 @@ async def dbtest(argA, argB, argC):
         case "query_raw":
             ret = await dbtools.query_raw("*",arg1,arg2)
             return ret
+        case "snakeCaser":
+            snake_case = snakeCaser.convert_to_snake(arg1)
+            return snake_case
         case _:
             return "incorrect function load"
 

@@ -12,7 +12,7 @@ model User {
   id         BigInt      @id @default(autoincrement())
   created_at DateTime    @default(now())
   email      String      @unique
-  pass_hash   String      @db.Char(32)
+  pass_hash   String     
   salt       String      @db.Char(10)
   resume     Resume?
   authorized Authorized?
@@ -84,7 +84,7 @@ model Location {
   region        String
 }
 
-model Profile {
+model Profiles {
   id            BigInt   @id @default(autoincrement())
   belongs_to_id BigInt
   belongs_to    Basic    @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)

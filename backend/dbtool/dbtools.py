@@ -6,7 +6,7 @@ import snakeCaser
 #from snakeCaser import convert_to_snake
 import json
 import asyncio
-from hashlib import md5
+from hashlib import sha256
 from prisma import Prisma
 
 async def create_user(user):
@@ -19,7 +19,7 @@ async def create_user(user):
     """
     async with Prisma() as db:
         salt = "".join(random.choices(string.ascii_uppercase + string.digits, k=10))
-        pass_hash = md5(bytes((user["password"] + salt), "utf-8")).hexdigest()
+        pass_hash = sha256(bytes((user["password"] + salt), "utf-8")).hexdigest()
         user_obj = {"email": user["email"], "pass_hash": pass_hash, "salt": salt}
         user_in_db = await db.user.create(data=user_obj)
         resume_in_db = await create_resume_blank(user_in_db.id,db)
@@ -84,11 +84,11 @@ async def delete_user(token):
                 "token":token
             },
             include={
-                "belongsTo":True
+                "belongs_to":True
             }
         )
-        user_id = authorized_user.belongsTo.id
-        print(authorized_user.belongsTo.id)
+        user_id = authorized_user.belongs_to.id
+        print(authorized_user.belongs_to.id)
         await db.resume.delete(
             where={
                 "belongs_to_id":user_id
@@ -127,7 +127,7 @@ async def create_resume_blank(user_id,db=None):
                 "belongs_to_id": int(user_id),
             },
             data={
-                "belongsTo": {
+                "belongs_to": {
                     "connect": {"id": int(user_id)},
                 }
             },
@@ -160,14 +160,13 @@ async def get_resume(token,db=None):
             resume_in_db = await get_resume(token,db)
     else:
         user = await user_from_token(token,db)
-        basic = get_basic(token,db)
         #Note the include= keyword in the find_unique call, critical stuff
         resume_in_db = await db.resume.find_unique(
             where={
                "belongs_to_id": user.id,
             },
             include={
-                "belongsTo":True,
+                "belongs_to":True,
                 "work":True,
                 "volunteer":True,
                 "education":True,
@@ -181,7 +180,6 @@ async def get_resume(token,db=None):
                 "project":True,
             }
         )
-        resume_in_db["basic"]=basic
     return resume_in_db
 
 async def query_raw (fields,table,id_value,db=None):
@@ -189,7 +187,7 @@ async def query_raw (fields,table,id_value,db=None):
         async with Prisma() as db:
             query_out = await query_raw(fields,table,id_value,db)
     else:
-        query_out = await db.query_raw(f'SELECT {fields} FROM "{table}" WHERE "{table}".id = {id_value}')
+        query_out = await db.query_raw(f'SELECT {fields} FROM "{table}" WHERE "{table}".belongs_to_id = {id_value}')
     return query_out
 
 async def get_resume_clean(token, db=None):
@@ -201,54 +199,31 @@ async def get_resume_clean(token, db=None):
         resume = await db.resume.find_unique(
             where={"belongs_to_id":auth.belongs_to_id}
         )
-        basic = await query_raw("name,image,email,phone,url","Basic",resume.id,db)
+        basic = await query_raw("id,name,image,email,phone,url","Basic",resume.id,db)
+        basic_id = basic[0].pop("id")
         basic = basic[0]
         summary = await query_raw("tags,summary","Summary",resume.id,db)
         label = await query_raw("tags,label","Label",resume.id,db)
-        location = await query_raw("address,postal_code,city,country_code,region","Location",resume.id,db)
+        location = await query_raw("address,postal_code,city,country_code,region","Location",basic_id,db)
         location = location[0]
-        profiles = await query_raw("tags,network,username,email","Profiles",resume.id,db)
+        profiles = await query_raw("tags,network,username,url","Profiles",resume.id,db)
         basic["summary"] = summary
         basic["label"] = label
         basic["location"] = location
-        basic["profiles"] = profiles
-        work = await db.query_raw("tags,name,position,url,start_date,end_date,summary,highlights","Work",resume.id,db)
-        volunteer = await db.query_raw("tags,organization,position,url,start_date,end_date,summary,highlights","Volunteer",resume.id,db)
-        education = await db.query_raw("tags,institution,url,area,study_type,start_date,end_date,score,courses","Education",resume.id,db)
-        award = await db.query_raw("tags,title,date,awader,summary","Award",resume.id,db)
-        certificate = await db.query_raw("tags,name,date,issuer,url","Certificate",resume.id,db)
-        publication = await db.query_raw("tags,name,publisher,release_date,url,summary","Publication",resume.id,db)
-        skill = await db.query_raw("tags,name,level,keywords","Skill",resume.id,db)
-        language = await db.query_raw("tags,language,fluency","Language",resume.id,db)
-        interest = await db.query_raw("tags,name,keywords","Interest",resume.id,db)
-        reference = await db.query_raw("tags,name,reference","Reference",resume.id,db)
-        project = await db.query_raw("tags,name,start_date,end_date,description,highlights,url","Project",resume.id,db)
+        basic["profile"] = profiles
+        work = await query_raw("tags,name,position,url,start_date,end_date,summary,highlights","Work",resume.id,db)
+        volunteer = await query_raw("tags,organization,position,url,start_date,end_date,summary,highlights","Volunteer",resume.id,db)
+        education = await query_raw("tags,institution,url,area,study_type,start_date,end_date,score,courses","Education",resume.id,db)
+        award = await query_raw("tags,title,date,awader,summary","Award",resume.id,db)
+        certificate = await query_raw("tags,name,date,issuer,url","Certificate",resume.id,db)
+        publication = await query_raw("tags,name,publisher,release_date,url,summary","Publication",resume.id,db)
+        skill = await query_raw("tags,name,level,keywords","Skill",resume.id,db)
+        language = await query_raw("tags,language,fluency","Language",resume.id,db)
+        interest = await query_raw("tags,name,keywords","Interest",resume.id,db)
+        reference = await query_raw("tags,name,reference","Reference",resume.id,db)
+        project = await query_raw("tags,name,start_date,end_date,description,highlights,url","Project",resume.id,db)
 
-        """
-        basic = await query_raw("name,image,email,phone,url","Basic",resume.id,db)
-        basic = basic[0]
-        summary = await query_raw("tags,summary","Summary",resume.id,db)
-        label = await query_raw("tags,label","Label",resume.id,db)
-        location = await query_raw("address,postal_code,city,countryCode,region","Location",resume.id,db)
-        location = location[0]
-        profiles = await query_raw("tags,network,username,email","Profiles",resume.id,db)
-        basic["summary"]=summary
-        basic["label"]=label
-        basic["location"]=location
-        basic["profiles"]=profiles
-        work = await db.query_raw("tags,name,position,url,startDate,endDate,summary,highlights","Work",resume.id,db)
-        volunteer =await db.query_raw("tags,organization,position,url,startDate,endDate,summary,highlights","Volunteer",resume.id,db)
-        education =await db.query_raw("tags,institution,url,area,studyType,startDate,endDate,score,courses","Education",resume.id,db)
-        award = await db.query_raw("tags,title,date,awader,summary","Award",resume.id,db)
-        certificate = await db.query_raw("tags,name,date,issuer,url","Certificate",resume.id,db)
-        publication = await db.query_raw("tags,name,publisher,releaseDate,url,summary","Publication",resume.id,db)
-        skill = await db.query_raw("tags,name,level,keywords","Skill",resume.id,db)
-        language = await db.query_raw("tags,language,fluency","Language",resume.id,db)
-        interest = await db.query_raw("tags,name,keywords","Interest",resume.id,db)
-        reference = await db.query_raw("tags,name,reference","Reference",resume.id,db)
-        project = await db.query_raw("tags,name,startDate,endDate,description,highlights,url","Project",resume.id,db)
-        """
-        clean_resume = {
+        snake_resume = {
             "basic": basic,
             "work": work,
             "volunteer": volunteer,
@@ -262,6 +237,7 @@ async def get_resume_clean(token, db=None):
             "reference": reference,
             "project": project
         }
+        clean_resume = camel_caser.convert_to_camel(snake_resume)
 
 
     return clean_resume
@@ -321,6 +297,7 @@ async def create_basic(basic, token, db=None):
         basic_id = basic_in_db.id
 
         #create the location
+        print(basic)
         loc_obj = basic["location"]
         location_in_db = await create_location(loc_obj, basic_id, db)
 
@@ -498,16 +475,14 @@ async def login(credential,db=None):
             authorized = await db.authorized.create(data=auth_obj)
             authorized = await db.authorized.update(
                 where={"belongs_to_id":authorized.belongs_to_id},
-                data={"belongsTo":{"connect":{"id":user.id}}}
+                data={"belongs_to":{"connect":{"id":user.id}}}
             )
     return token
 
 def make_token():
-    seedA = "".join(random.choices(string.ascii_uppercase + string.digits, k=100))
-    tokenA = str(md5(bytes((seedA), "utf-8")).hexdigest())
-    seedB = "".join(random.choices(string.ascii_uppercase + string.digits, k=100))
-    tokenB = str(md5(bytes((seedB), "utf-8")).hexdigest())
-    token = str(tokenA+tokenB)
+    seed = "".join(random.choices(string.ascii_uppercase + string.digits, k=200))
+    token = str(sha256(bytes((seedA), "utf-8")).hexdigest())
+    token = str(token)
     return token
 
 async def user_from_token(token,db=None):
@@ -523,10 +498,10 @@ async def user_from_token(token,db=None):
                 "token":token,
             },
             include={
-                'belongsTo':True,
+                'belongs_to':True,
             }
         )
-    return auth_in_db.belongsTo
+    return auth_in_db.belongs_to
 
  
 async def logout(token):
@@ -542,8 +517,8 @@ async def logout(token):
 
 def check_pass_hash(user,password):
     salt = user.salt
-    pass_hash = md5(bytes((password + salt), "utf-8")).hexdigest()
-    if (pass_hash == user.passHash):
+    pass_hash = sha256(bytes((password + salt), "utf-8")).hexdigest()
+    if (pass_hash == user.pass_hash):
         return True
     else:
         return False
@@ -577,7 +552,7 @@ async def get_authorized_by_token(token, db=None):
         #query for authorized by token
         authorized = await db.authorized.find_unique(
             where={"token":token},
-            include={'belongsTo':True}
+            include={'belongs_to':True}
         )
         #update the token to same value to change lastAccessed
         await db.authorized.update(
@@ -624,4 +599,6 @@ async def connect():
 if __name__ == "__main__":
     rand = random.randint(0,1000)
     created = asyncio.run(create_user({"email":f"email@server{rand}.tld","password":"password"}))
+    created_token = asyncio.run(login({"email":f"email@server{rand}.tld","password":"password"}))
     print(created)
+    print(created_token)
