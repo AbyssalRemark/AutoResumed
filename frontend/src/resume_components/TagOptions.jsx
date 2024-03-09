@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 import { Form } from 'react-bootstrap'
-import { FormContext } from '../../UserForm'
+import { FormContext } from '../Pages/UserForm'
 const TagOptions = () => {
     const { dummyTags } = useContext(FormContext)
     const [selectedTags, setSelectedTags] = useState(dummyTags);
@@ -29,7 +29,7 @@ const TagOptions = () => {
             <Form>
                 {
                     dummyTags.map((tag) =>
-                        <Form.Check checked={isChecked} key={tag} id={tag} type="checkbox" label={tag} onChange={() => handleClick(tag)} />
+                        <Form.Check key={tag} id={tag} type="checkbox" label={tag} onChange={() => handleClick(tag)} />
                     )
                 }
             </Form>

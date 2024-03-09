@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { FormContext } from '../../UserForm'
+import { FormContext } from '../Pages/UserForm'
 import Entry from './Entry'
 import NewEntry from './NewEntry'
 import Accordion from 'react-bootstrap/Accordion'
