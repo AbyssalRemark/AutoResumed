@@ -1,21 +1,25 @@
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
-const Entry = ({ label }) => {
+const Entry = ({ label, value }) => {
+
+
+
     const [input, setInput] = useState("")
 
-    return (
-        <div className={label}>
-            <Form>
-                <Form.Group className="mb-3" controlId={label}>
+    const handleClick = (e) => {
+        console.log(input)
+    }
 
-                    <Form.Label>{label != "tags" ? label : ""}</Form.Label>
-                    <Form.Control placeholder={label} value={input} onChange={(e) => setInput(e.target.value)} />
 
-                </Form.Group>
-            </Form>
-
-        </div>
-    );
+    if (label != "tags") {
+        return (
+            <div className={label}>
+                {label} : {value}
+            </div>
+        );
+    } else return (
+        <></>
+    )
 }
 
 export default Entry;
