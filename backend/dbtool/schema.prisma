@@ -84,7 +84,7 @@ model Location {
   region        String
 }
 
-model Profiles {
+model Profile {
   id            BigInt   @id @default(autoincrement())
   belongs_to_id BigInt
   belongs_to    Basic    @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
