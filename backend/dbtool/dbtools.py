@@ -136,19 +136,130 @@ async def create_resume_blank(user_id,db=None):
     return created_resume
 
 
-async def delete_resume(token):
+async def delete_resume(token, db=None):
     """
     Delete resume by userId
     Expects userId as int or string, see int() cast
     """
-    async with Prisma() as db:
+    if db == None:
+        async with Prisma() as db:
+            deleted_resume = await delete_resume(token,db)
+    
+    else:
         user = await user_from_token(token)
         deleted_resume = await db.resume.delete(
             where={
                 "belongs_to_id": user.id,
             },
         )
-        return deleted_resume
+    return deleted_resume
+
+async def update_resume(resume, token, db=None):
+    """
+    Updates resume, since this is a very bulky object, we have elected to delete
+    and create anew, as it is likely more efficient then checking for difference
+    """
+    if db == None:
+        async with Prisma() as db:
+            updated_resume = await update_resume(resume, token,db)
+
+    else:
+        user_id = (await delete_resume(token,db)).belongs_to_id
+        resume_id = (await create_resume_blank(user_id, db)).id
+        resume = snakeCaser.convert_to_snake(resume)
+
+        try:
+            await create_basic(resume["basic"], token, resume_id, db)
+        except:
+            pass
+
+        try:
+            await create_work(resume["work"], resume_id, db)
+        except:
+            pass
+
+        try:
+            await create_volunteer(resume["volunteer"], resume_id, db)
+        except:
+            pass
+
+        try:
+            await create_education(resume["education"], resume_id, db)
+        except:
+            pass
+
+        try:
+            await create_award(resume["award"], resume_id, db)
+        except:
+            pass
+
+        try:
+            await create_certificate(resume["certificate"], resume_id, db)
+        except:
+            pass
+
+        try:
+            await create_publication(resume["publication"], resume_id, db)
+        except:
+            pass
+
+        try:
+            await create_skill(resume["skill"], resume_id, db)
+        except:
+            pass
+
+        try:
+            await create_language(resume["language"], resume_id, db)
+        except:
+            pass
+
+        try:
+            await create_interest(resume["interest"], resume_id, db)
+        except:
+            pass
+
+        try:
+            await create_reference(resume["reference"], resume_id, db)
+        except:
+            pass
+
+        try:
+            await create_project(resume["project"], resume_id, db)
+        except:
+            pass
+
+        try:
+            if resume["tags"] != []:
+                await db.resume.update(
+                    where={"id":resume_id},
+                    data={"tags":resume["tags"]}
+                )
+        except:
+            pass
+
+
+        updated_resume = await db.resume.find_unique(
+            where={
+               "id": resume_id,
+            },
+            include={
+                "belongs_to":True,
+                "basic":True,
+                "work":True,
+                "volunteer":True,
+                "education":True,
+                "award":True,
+                "certificate":True,
+                "publication":True,
+                "skill":True,
+                "language":True,
+                "interest":True,
+                "reference":True,
+                "project":True,
+                "tags":True
+            }
+        )
+    return updated_resume
 
 
 async def get_resume(token,db=None):
@@ -163,10 +274,11 @@ async def get_resume(token,db=None):
         #Note the include= keyword in the find_unique call, critical stuff
         resume_in_db = await db.resume.find_unique(
             where={
-               "belongs_to_id": user.id,
+               "belongs_to_id": user.belongs_to_id,
             },
             include={
                 "belongs_to":True,
+                "basic":True,
                 "work":True,
                 "volunteer":True,
                 "education":True,
@@ -178,6 +290,7 @@ async def get_resume(token,db=None):
                 "interest":True,
                 "reference":True,
                 "project":True,
+                "tags":True
             }
         )
     return resume_in_db
@@ -206,11 +319,11 @@ async def get_resume_clean(token, db=None):
         label = await query_raw("tags,label","Label",resume.id,db)
         location = await query_raw("address,postal_code,city,country_code,region","Location",basic_id,db)
         location = location[0]
-        profiles = await query_raw("tags,network,username,url","Profiles",resume.id,db)
+        profiles = await query_raw("tags,network,username,url","Profile",resume.id,db)
         basic["summary"] = summary
         basic["label"] = label
         basic["location"] = location
-        basic["profile"] = profiles
+        basic["profiles"] = profiles
         work = await query_raw("tags,name,position,url,start_date,end_date,summary,highlights","Work",resume.id,db)
         volunteer = await query_raw("tags,organization,position,url,start_date,end_date,summary,highlights","Volunteer",resume.id,db)
         education = await query_raw("tags,institution,url,area,study_type,start_date,end_date,score,courses","Education",resume.id,db)
@@ -242,7 +355,7 @@ async def get_resume_clean(token, db=None):
 
     return clean_resume
 
-async def create_basic(basic, token, db=None):
+async def create_basic(basic, token, resume_id=None, db=None):
     """
     Creates basic in db
     Expects dictionary object as follows:
@@ -278,13 +391,14 @@ async def create_basic(basic, token, db=None):
 
     if db == None:
         async with Prisma() as db:
-            basic_in_db,location_in_db,summary_in_db,label_in_db,profile_in_db = await create_basic(basic,token,db)
+            basic_in_db,location_in_db,summary_in_db,label_in_db,profiles_in_db = await create_basic(basic,token,db)
 
     else:
         basic = snakeCaser.convert_to_snake(basic)
-        resume = await get_resume(token, db)
+        if resume_id == None:
+            resume_id = (await get_resume(token, db)).id
         basic_obj = {
-            "belongs_to_id": resume.id,
+            "belongs_to_id": resume_id,
             "name":basic["name"],
             "image":basic["image"],
             "email":basic["email"],
@@ -315,14 +429,14 @@ async def create_basic(basic, token, db=None):
             created_label = await create_label(label_entry, basic_id, db)
             label_in_db.append(created_label)
 
-        #create the profile or profiles
-        profile_obj = basic["profiles"]
-        profile_in_db = []
-        for profile_entry in profile_obj:
+        #create the profiles
+        profiles_obj = basic["profiles"]
+        profiles_in_db = []
+        for profile_entry in profiles_obj:
             created_profile = await create_profile(profile_entry, basic_id, db)
-            profile_in_db.append(created_profile)
+            profiles_in_db.append(created_profile)
 
-    return basic_in_db,location_in_db,summary_in_db,label_in_db,profile_in_db
+    return basic_in_db,location_in_db,summary_in_db,label_in_db,profiles_in_db
 
 async def get_basic(token, db=None):
     """
@@ -432,6 +546,138 @@ async def create_profile(profile, basic_id, db=None):
         profile_in_db = await db.profile.create(profile)
     return profile_in_db
 
+async def create_work(work, resume_id, db=None):
+    """
+    Helper for update resume, creates work entries
+    """
+    if db==None:
+        async with Prisma() as db:
+            work_in_db = await create_work(work, resume_id,db)
+    else:
+        work["belongs_to_id"]=resume_id
+        work_in_db = await db.work.create(work)
+    return work_in_db
+
+async def create_volunteer(volunteer, resume_id, db=None):
+    """
+    Helper for update resume, creates volunteer entries
+    """
+    if db==None:
+        async with Prisma() as db:
+            volunteer_in_db = await create_volunteer(volunteer, resume_id,db)
+    else:
+        volunteer["belongs_to_id"]=resume_id
+        volunteer_in_db = await db.volunteer.create(volunteer)
+    return volunteer_in_db
+
+async def create_education(education, resume_id, db=None):
+    """
+    Helper for update resume, creates education entries
+    """
+    if db==None:
+        async with Prisma() as db:
+            education_in_db = await create_education(education, resume_id,db)
+    else:
+        education["belongs_to_id"]=resume_id
+        education_in_db = await db.education.create(education)
+    return education_in_db
+
+async def create_award(award, resume_id, db=None):
+    """
+    Helper for update resume, creates award entries
+    """
+    if db==None:
+        async with Prisma() as db:
+            award_in_db = await create_award(award, resume_id,db)
+    else:
+        award["belongs_to_id"]=resume_id
+        award_in_db = await db.award.create(award)
+    return award_in_db
+
+async def create_certificate(certificate, resume_id, db=None):
+    """
+    Helper for update resume, creates certificate entries
+    """
+    if db==None:
+        async with Prisma() as db:
+            certificate_in_db = await create_certificate(certificate, resume_id,db)
+    else:
+        certificate["belongs_to_id"]=resume_id
+        certificate_in_db = await db.certificate.create(certificate)
+    return certificate_in_db
+
+async def create_publication(publication, resume_id, db=None):
+    """
+    Helper for update resume, creates publication entries
+    """
+    if db==None:
+        async with Prisma() as db:
+            publication_in_db = await create_publication(publication, resume_id,db)
+    else:
+        publication["belongs_to_id"]=resume_id
+        publication_in_db = await db.publication.create(publication)
+    return publication_in_db
+
+async def create_skill(skill, resume_id, db=None):
+    """
+    Helper for update resume, creates skill entries
+    """
+    if db==None:
+        async with Prisma() as db:
+            skill_in_db = await create_skill(skill, resume_id,db)
+    else:
+        skill["belongs_to_id"]=resume_id
+        skill_in_db = await db.skill.create(skill)
+    return skill_in_db
+
+async def create_language(language, resume_id, db=None):
+    """
+    Helper for update resume, creates language entries
+    """
+    if db==None:
+        async with Prisma() as db:
+            language_in_db = await create_language(language, resume_id,db)
+    else:
+        language["belongs_to_id"]=resume_id
+        language_in_db = await db.language.create(language)
+    return language_in_db
+
+
+async def create_interest(interest, resume_id, db=None):
+    """
+    Helper for update resume, creates interest entries
+    """
+    if db==None:
+        async with Prisma() as db:
+            interest_in_db = await create_interest(interest, resume_id,db)
+    else:
+        interest["belongs_to_id"]=resume_id
+        interest_in_db = await db.interest.create(interest)
+    return interest_in_db
+
+async def create_reference(reference, resume_id, db=None):
+    """
+    Helper for update resume, creates reference entries
+    """
+    if db==None:
+        async with Prisma() as db:
+            reference_in_db = await create_reference(reference, resume_id,db)
+    else:
+        reference["belongs_to_id"]=resume_id
+        reference_in_db = await db.reference.create(reference)
+    return reference_in_db
+
+async def create_project(project, resume_id, db=None):
+    """
+    Helper for update resume, creates project entries
+    """
+    if db==None:
+        async with Prisma() as db:
+            project_in_db = await create_project(project, resume_id,db)
+    else:
+        project["belongs_to_id"]=resume_id
+        project_in_db = await db.project.create(project)
+    return project_in_db
 
 async def update_basic(new_basic, token, db=None):
     """
@@ -481,7 +727,7 @@ async def login(credential,db=None):
 
 def make_token():
     seed = "".join(random.choices(string.ascii_uppercase + string.digits, k=200))
-    token = str(sha256(bytes((seedA), "utf-8")).hexdigest())
+    token = str(sha256(bytes((seed), "utf-8")).hexdigest())
     token = str(token)
     return token
 
@@ -501,7 +747,9 @@ async def user_from_token(token,db=None):
                 'belongs_to':True,
             }
         )
-    return auth_in_db.belongs_to
+    print(auth_in_db)
+    print("WTFFF")
+    return auth_in_db
 
  
 async def logout(token):
