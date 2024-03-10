@@ -51,8 +51,8 @@ const Field = ({ fieldTitle }) => {
                         `}
                 </style>
 
-                <Accordion>
-                    <Accordion.Item>
+                <Accordion defaultActiveKey="0">
+                    <Accordion.Item eventKey="0">
                         <Accordion.Header>
                             {JSONResume[fieldTitle][0][hello[1]]}
                         </Accordion.Header>
@@ -62,7 +62,7 @@ const Field = ({ fieldTitle }) => {
                     </Accordion.Item>
 
 
-                    <Accordion.Item>
+                    <Accordion.Item eventKey="1">
                         <Accordion.Header>
                             +
                         </Accordion.Header>

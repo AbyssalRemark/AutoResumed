@@ -18,7 +18,7 @@ const NewEntry = ({ label }) => {
                     <Form.Group className="mb-3" controlId={label}>
 
                         <Form.Label>{label != "tags" ? label : ""}</Form.Label>
-                        <Form.Control placeholder={label} value={input} onChange={(e) => setInput(e.target.value)} />
+                        <Form.Control type={label.toLowerCase().includes("date") ? "date" : "text"} placeholder={label} value={input} onChange={(e) => setInput(e.target.value)} />
                         <Button onClick={handleClick}>+</Button>
 
                     </Form.Group>
