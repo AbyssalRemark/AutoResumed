@@ -10,7 +10,7 @@ const Basics = () => {
     const { JSONResume } = useContext(FormContext)
     const entries = Object.keys(JSONResume["basics"])
 
-    console.log(JSONResume["basics"])
+
     // name
     // label
     // image

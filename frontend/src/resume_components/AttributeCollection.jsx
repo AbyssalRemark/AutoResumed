@@ -7,17 +7,16 @@ import Attribute from './Attribute'
 const AttributeCollection = ({ parentField, parentEntry }) => {
     const { JSONResume } = useContext(FormContext)
     const attributeList = JSONResume[parentField][parentEntry]
-    console.log(attributeList)
-    const attributes = Object.keys(attributeList);
-    attributes.map((attr, index) => {
-        console.log(attr)
-    })
+    const attributes = Object.keys(attributeList).slice(1, 20);
+
+    console.log(attributes)
+
 
     return (
         <div>
-            {attributes.map((attribute, index) => {
-                <Attribute key={attribute} value={attribute} />
-            })}
+            {attributes.map((attribute) =>
+                <Attribute label={attribute} value={attributeList[attribute]}></Attribute>
+            )}
         </div >
     );
 }

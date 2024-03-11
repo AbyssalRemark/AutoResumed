@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const Attribute = ({ value }) => {
+const Attribute = ({ label, value }) => {
     const [inRevision, setInRevision] = useState(false);
     const [input, setInput] = useState(value);
 
@@ -17,9 +17,16 @@ const Attribute = ({ value }) => {
 
     return (
         <div onClick={handleClick}>
+            <span>{label}: </span>
             {
                 inRevision ? (
-                    <input value={input} onChange={handleChange} onBlur={handleBlur} onSubmit={handleBlur} />) : (
+                    <input
+                        value={input}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        onSubmit={handleBlur}
+                        type={label.toLowerCase().includes("date") ? "date" : "text"}
+                    />) : (
                     <span>{input}</span>
                 )
 
