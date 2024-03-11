@@ -31,5 +31,5 @@ if __name__== "__main__":
         'phone_numbers': ['123-456-7890', '987-654-3210']
     }
 
-    camel_case_dict = convert(snake_case_dict)
+    camel_case_dict = convert_to_camel(snake_case_dict)
     print(camel_case_dict)
