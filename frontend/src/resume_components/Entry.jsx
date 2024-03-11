@@ -18,16 +18,29 @@ const Entry = ({ parentField }) => {
     return (
         <Accordion defaultActiveKey="0">
             {entries.map((entry, index) =>
-                <Accordion.Item eventKey="0" key={index}>
+                <Accordion.Item eventKey="index" key={index}>
                     <Accordion.Header>{entryList[entry][firstAttributes[index]]}</Accordion.Header>
                     <AccordionBody>
                         <AttributeCollection
                             parentField={parentField}
                             parentEntry={entry}
+                            isNew={false}
                         />
                     </AccordionBody>
                 </Accordion.Item>)
             }
+
+            <Accordion.Item eventKey={entries.length}>
+                <Accordion.Header>Create New</Accordion.Header>
+                <AccordionBody>
+                    <AttributeCollection
+                        parentField={parentField}
+                        parentEntry={entries[0]}
+                        isNew={true}
+                    />
+                </AccordionBody>
+            </Accordion.Item>
+
         </Accordion>
     );
 }

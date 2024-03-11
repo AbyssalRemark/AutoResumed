@@ -3,8 +3,8 @@ import { useState, useContext } from 'react';
 import { FormContext } from '../Pages/UserForm'
 import { Accordion, AccordionBody } from 'react-bootstrap';
 import Attribute from './Attribute'
-
-const AttributeCollection = ({ parentField, parentEntry }) => {
+import TagOptions from './TagOptions'
+const AttributeCollection = ({ parentField, parentEntry, isNew }) => {
     const { JSONResume } = useContext(FormContext)
 
     const attributeList = JSONResume[parentField][parentEntry]
@@ -12,10 +12,13 @@ const AttributeCollection = ({ parentField, parentEntry }) => {
 
     return (
         <div>
+            {isNew ? <TagOptions /> : <></>}
+
             {attributes.map((attribute) =>
                 <Attribute
                     key={attribute}
                     label={attribute}
+                    isNew={isNew}
                     value={attributeList[attribute]}></Attribute>
             )}
         </div >
