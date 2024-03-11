@@ -144,8 +144,6 @@ async def delete_resume(token, db=None):
     
     else:
         user = await user_from_token(token)
-        print("deleteingineinet")
-        print(user)
         deleted_resume = await db.resume.delete(
             where={
                 "belongs_to_id": user.id,
@@ -167,63 +165,75 @@ async def update_resume(resume, token, db=None):
         blank_resume = await create_resume_blank(user_id, db)
         resume_id = blank_resume.id
         resume = convert_to_snake(resume)
+        print(resume)
         try:
             await create_basic(resume["basics"], token, resume_id, db)
         except:
             pass
 
         try:
-            await create_work(resume["work"], resume_id, db)
+            for work in resume["work"]:
+                await create_work(work, resume_id, db)
         except:
             pass
 
         try:
-            await create_volunteer(resume["volunteer"], resume_id, db)
+            for volunteer in resume["volunteer"]:
+                await create_volunteer(volunteer, resume_id, db)
         except:
             pass
 
         try:
-            await create_education(resume["education"], resume_id, db)
+            for education in resume["education"]:
+                await create_education(education, resume_id, db)
         except:
             pass
 
         try:
-            await create_award(resume["award"], resume_id, db)
+            for award in resume["awards"]:
+                await create_award(award, resume_id, db)
         except:
             pass
 
         try:
-            await create_certificate(resume["certificate"], resume_id, db)
+            for certificate in resume["certificates"]:
+                await create_certificate(certificate, resume_id, db)
         except:
             pass
 
         try:
-            await create_publication(resume["publication"], resume_id, db)
+            for publication in resume["publications"]:
+                await create_publication(publication, resume_id, db)
         except:
             pass
 
         try:
-            await create_skill(resume["skill"], resume_id, db)
+            for skill in resume["skills"]:
+                await create_skill(resume["skill"], resume_id, db)
         except:
             pass
 
         try:
-            await create_language(resume["language"], resume_id, db)
+            for language in resume["languages"]:
+                await create_language(language, resume_id, db)
         except:
             pass
 
         try:
-            await create_interest(resume["interest"], resume_id, db)
+            for interest in resume["interests"]:
+                await create_interest(interest, resume_id, db)
         except:
             pass
 
         try:
-            await create_reference(resume["reference"], resume_id, db)
+            for reference in resume["references"]:
+                await create_reference(reference, resume_id, db)
         except:
             pass
 
         try:
-            await create_project(resume["project"], resume_id, db)
+            for project in resume["projects"]:
+                await create_project(project, resume_id, db)
         except:
             pass
 
@@ -309,7 +319,6 @@ async def get_resume_clean(token, db=None):
         resume = await db.resume.find_unique(
             where={"belongs_to_id":user.id}
         )
-        print(resume)
         basic = await query_raw("id,name,image,email,phone,url","Basic",resume.id,db)
         basic_id = basic[0].pop("id")
         basic=basic[0]
@@ -333,7 +342,7 @@ async def get_resume_clean(token, db=None):
         interest = await query_raw("tags,name,keywords","Interest",resume.id,db)
         reference = await query_raw("tags,name,reference","Reference",resume.id,db)
         project = await query_raw("tags,name,start_date,end_date,description,highlights,url","Project",resume.id,db)
-
+        tags = resume.tags
         snake_resume = {
             "basic": basic,
             "work": work,
@@ -346,7 +355,8 @@ async def get_resume_clean(token, db=None):
             "language": language,
             "interest": interest,
             "reference": reference,
-            "project": project
+            "project": project,
+            "tags":tags
         }
         clean_resume = convert_to_camel(snake_resume)
 
@@ -356,35 +366,7 @@ async def get_resume_clean(token, db=None):
 async def create_basic(basic, token, resume_id=None, db=None):
     """
     Creates basic in db
-    Expects dictionary object as follows:
-    basic = {
-            "name": "John Doe",
-            "label": [{
-                "tags":["tag"],
-                "label":"Programmer"
-            }],
-            "image": "https://somesite.tld/img.png",
-            "email": "john@gmail.com",
-            "phone": "(912) 555-4321",
-            "url": "https://johndoe.com",
-            "summary": [{
-                "tags":["tag"],
-                "summary":"A summary of John Doe…"
-            }],
-            "location": {
-                "address": "2712 Broadway St",
-                "postalCode": "CA 94115",
-                "city": "San Francisco",
-                "countryCode": "US",
-                "region": "California"
-            },
-            "profiles": [{
-                "tags": ["tag"],
-                "network": "Twitter",
-                "username": "john",
-                "url": "https://twitter.com/john"
-            }]
-            }
+    Expects dictionary object complient with tagged-resume.json
     """
 
     if db == None:
@@ -792,7 +774,7 @@ async def get_authorized_by_token(token, db=None):
     """
     if db==None:
         async with Prisma() as db:
-            authorized = get_authorized_by_token(token,db)
+            authorized = await get_authorized_by_token(token,db)
     else:
         #query for authorized by token
         authorized = await db.authorized.find_unique(
@@ -860,9 +842,9 @@ def convert_to_camel(input_dict):
 
     return convert_keys(input_dict)
 
-def convert_to_snake(data):
+def convert_to_snake(dict):
     snake_dict = {}
-    for key, value in data.items():
+    for key, value in dict.items():
         new_key = re.sub("([a-z0-9])([A-Z])", r"\1_\2", key).lower()
         if isinstance(value, dict):
             snake_dict[new_key] = convert_to_snake(value)
