@@ -59,7 +59,7 @@ const LoginPage = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="loginForm.password">
-                    <Form.Label>Example textarea</Form.Label>
+                    <Form.Label>Example text area</Form.Label>
                     <Form.Control type={passwordVisibility} value={password} onChange={(e) => setPassword(e.target.value)} />
                     <Button variant="danger" type="button" onClick={() => setPasswordVisibility(passwordVisibility == "password" ? "textarea" : "password")}>{passwordVisibility == "password" ? "show" : "hide"}</Button>
                     <Button variant="success" type="submit" onClick={handleSubmit}>Submit</Button>
