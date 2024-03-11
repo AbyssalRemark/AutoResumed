@@ -22,7 +22,6 @@ const Entry = ({ parentField }) => {
                     <Accordion.Header>{entryList[entry][firstAttributes[index]]}</Accordion.Header>
                     <AccordionBody>
                         <AttributeCollection
-
                             parentField={parentField}
                             parentEntry={entry}
                         />

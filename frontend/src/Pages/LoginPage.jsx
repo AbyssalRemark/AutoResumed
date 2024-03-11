@@ -1,17 +1,14 @@
 
-import { redirect, useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom'; // Use one of these for user authentication
+
 import { Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
-import PreviousButton from './PreviousButton.jsx';
-//import axios from 'axios';
+import PreviousButton from '../Utils/PreviousButton.jsx';
 
 const LoginPage = () => {
   const [passwordVisibility, setPasswordVisibility] = useState("password")
   const [password, setPassword] = useState("")
   const [email, setEmail] = useState("")
-
-  // abc@123.com
-  // password
 
   async function sendLoginRequest(email_input, password_input) {
 

@@ -1,6 +1,6 @@
 import { Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
-import PreviousButton from './PreviousButton.jsx';
+import PreviousButton from '../Utils/PreviousButton.jsx';
 
 const RegistrationPage = () => {
   const [passwordVisibility, setPasswordVisibility] = useState("password")
@@ -17,6 +17,7 @@ const RegistrationPage = () => {
   }
 
   async function sendLoginRequest(email_input, password_input) {
+
 
     //const url = "https://autoresumed.com/auth/login";
     const url = "http://127.0.0.1:5000/auth/register"

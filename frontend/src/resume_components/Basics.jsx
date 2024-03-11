@@ -21,11 +21,10 @@ const Basics = () => {
 
     return (
         <div>
-            <Attribute value="" />
+            <Attribute label="name" value={JSONResume["basics"]["name"]} />
 
-            {entries.map((entry) =>
-                <h1 key={entry}>{(entry != "profiles" && entry != "summary" && entry != "location" && entry != "label") ? JSONResume["basics"][entry] : entry}</h1>
-            )}
+            <Attribute label="image" value={JSONResume["basics"]["image"]} />
+            <Attribute label="url" value={JSONResume["basics"]["url"]} />
         </div>
     )
 }

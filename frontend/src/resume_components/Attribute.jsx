@@ -26,9 +26,11 @@ const Attribute = ({ label, value }) => {
                         onBlur={handleBlur}
                         onSubmit={handleBlur}
                         type={label.toLowerCase().includes("date") ? "date" : "text"}
-                    />) : (
-                    <span>{input}</span>
-                )
+                    />)
+                    :
+                    (<span>
+                        {input}
+                    </span>)
 
             }
         </div>

@@ -1,16 +1,39 @@
 import { Tab, Tabs } from 'react-bootstrap';
 import { useState, useEffect, createContext } from 'react';
-import PreviousButton from './PreviousButton.jsx';
-import Award from './resume_components/Award.jsx';
-import Accordion from 'react-bootstrap/Accordion';
-import tagged from '../../tagged-resume.json';
-import Field from './resume_components/form_utils/Field'
-
-
+import tagged from '../../../tagged-resume.json';
+import Field from '../resume_components/Field'
+import Basics from '../resume_components/Basics'
 export const FormContext = createContext(null)
 
 const UserForm = () => {
-  console.log(Object.keys(tagged));
+
+  async function getResume() {
+    const url = "http://127.0.0.1:5000/resume/get"
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json;",
+        "Access-Control-Allow-Origin": "*",
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify({
+        token: "386917202016bd08716f9fa2eedf640cb9997fce9979d326a3a9bdc6c15d3f87"
+      }),
+    });
+    return response.json();
+  };
+
+  useEffect(() => {
+    getResume().then((data) => {
+      if (data) {
+        console.log(type(data));
+      }
+    })
+  }
+    , [])
 
   // Variables shared via context
   const [JSONResume, setJSONReusme] = useState(tagged);
@@ -19,9 +42,7 @@ const UserForm = () => {
 
   const fields = Object.keys(tagged);
 
-  const mapFields = () => {
-
-  }
+  const dummyTags = ["default", "frontend", "backend", "historical automobiles", "1-tragic clowns"]
 
 
   // tabbed items Frields
@@ -38,10 +59,9 @@ const UserForm = () => {
 
   // DO NOT SEND BACK NULL
 
-  useEffect(() => {
-    console.log("TO-DO: Fetch Edit Page")
-      , []
-  });
+
+
+
 
   return (
 
@@ -49,14 +69,12 @@ const UserForm = () => {
       <FormContext.Provider value={{
         allTags, setAllTags,
         currentTags, setCurrentTags,
-        JSONResume, setJSONReusme
+        JSONResume, setJSONReusme,
+        dummyTags
       }}>
-        <Tabs>
-          {fields.map((field) =>
-            <Tab eventKey={field} key={field} title={field}>
-              <Field fieldTitle={field}></Field>
-            </Tab>)}
-        </Tabs>
+
+        <Basics />
+        <Field />
 
       </FormContext.Provider>
 

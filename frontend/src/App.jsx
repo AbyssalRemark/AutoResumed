@@ -1,11 +1,11 @@
 import { createRoot } from "react-dom/client";
 
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import Welcome from "./Welcome.jsx"
-import LoginPage from "./LoginPage.jsx"
-import RegistrationPage from "./RegistrationPage.jsx"
-import Layout from "./Layout.jsx"
-import UserForm from "./UserForm.jsx";
+import Welcome from "./Pages/Welcome.jsx"
+import LoginPage from "./Pages/LoginPage.jsx"
+import RegistrationPage from "./Pages/RegistrationPage.jsx"
+import Layout from "./Utils/Layout.jsx"
+import UserForm from "./Pages/UserForm.jsx";
 import 'bootstrap/dist/css/bootstrap.css';
 
 const App = () => {

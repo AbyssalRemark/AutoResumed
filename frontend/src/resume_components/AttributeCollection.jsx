@@ -6,16 +6,17 @@ import Attribute from './Attribute'
 
 const AttributeCollection = ({ parentField, parentEntry }) => {
     const { JSONResume } = useContext(FormContext)
+
     const attributeList = JSONResume[parentField][parentEntry]
-    const attributes = Object.keys(attributeList).slice(1, 20);
-
-    console.log(attributes)
-
+    const attributes = Object.keys(attributeList).slice(1, 20); // Sliced to not include tags. To Do: dropdown or radio box of tags. 
 
     return (
         <div>
             {attributes.map((attribute) =>
-                <Attribute label={attribute} value={attributeList[attribute]}></Attribute>
+                <Attribute
+                    key={attribute}
+                    label={attribute}
+                    value={attributeList[attribute]}></Attribute>
             )}
         </div >
     );
