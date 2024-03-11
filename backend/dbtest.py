@@ -53,10 +53,10 @@ async def dbtest(argA, argB, argC):
             authorized = await dbtool.get_authorized_by_user_id(arg1)
             return authorized
         case "get_authorized_by_token":
-            authorized = await dbtool.get_authorized_by_token(arg1["token"])
+            authorized = await dbtool.get_authorized_by_token(arg1)
             return authorized
         case "is_authorized":
-            is_authorized_state = await dbtool.is_authorized(arg1["token"])
+            is_authorized_state = await dbtool.is_authorized(arg1)
             return is_authorized_state
         case "user_from_token":
             user = await dbtool.user_from_token(arg1)
