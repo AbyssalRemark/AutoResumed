@@ -157,7 +157,7 @@ async def update_resume(resume, token, db=None):
     """
     if db == None:
         async with Prisma() as db:
-            updated_resume = await update_resume(resume, token,db)
+            resume_json = await update_resume(resume, token,db)
 
     else:
         user_id = (await delete_resume(token,db)).belongs_to_id
@@ -266,7 +266,11 @@ async def update_resume(resume, token, db=None):
                 "project":True,
             }
         )
-    return updated_resume
+        update_resume = updated_resume.model_dump(mode='python')
+        resume_dict = convert_to_camel(updated_resume)
+        resume_json = json.dumps(resume_dict)
+
+    return resume_json
 
 
 async def get_resume(token,db=None):

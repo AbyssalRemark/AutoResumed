@@ -2,7 +2,7 @@ import dbtool
 
 from cli import autoresumed
 import resumed
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from flask_json import JsonError, json_response
 
 resume = Blueprint("resume", __name__)
@@ -13,6 +13,9 @@ async def get():
 
     try:
         token = str(data["token"])
+        resume_dict = await dbtool.get_resume_clean(token)
+        resume = jsonify(resume_dict)
+
     except (KeyError, TypeError, ValueError):
         raise JsonError(
             400,
@@ -21,7 +24,7 @@ async def get():
             detail="We expect { 'token': '<bearer-token>' }.",
         )
 
-    return "Resume"
+    return resume
 
 @resume.route("/update", methods=["PUT"])
 async def update():
@@ -29,7 +32,8 @@ async def update():
 
     try:
         token = str(data["token"])
-        resume = str(data["resume"])
+        resume = data["resume"]
+        resume_in_db =await dbtool.update_resume(resume, token)
     except (KeyError, TypeError, ValueError):
         raise JsonError(
             400,
@@ -38,7 +42,7 @@ async def update():
             detail="We expect { 'token': '<bearer-token>', 'resume': '<resume>' }.",
         )
 
-    return "Fine"
+    return json_response(status='200', resume=resume_in_db)
 
 @resume.route("/generate", methods=["POST"])
 async def generate():
