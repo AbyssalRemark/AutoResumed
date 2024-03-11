@@ -14,12 +14,14 @@ def app():
 def client(app: Flask) -> FlaskClient:
     return app.test_client()
 
-@pytest.fixture()
-def runner(app: Flask) -> FlaskCliRunner:
-    return app.test_cli_runner()
 
 def test_auth_register(client: FlaskClient):
-    response = client.get("/auth/register")
+    response = client.post("/auth/register", json={
+        "email" : "testy_mctest@example.com",
+        "password": "insecure_password_123",
+    })
+
+    assert response.json["message"] == "Registration successful." # pyright: ignore
 
 def test_auth_login(client: FlaskClient):
     response = client.get("/auth/login")
