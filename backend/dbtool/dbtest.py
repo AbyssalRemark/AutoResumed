@@ -3,6 +3,7 @@ import asyncio
 import json
 import dbtools
 import snakeCaser
+import scratches
 
 async def dbtest(argA, argB, argC):
     """
@@ -44,7 +45,7 @@ async def dbtest(argA, argB, argC):
             token = await dbtools.login(arg1)
             return token
         case "logout":
-            logged_out = await dbtools.logout(arg1["token"])
+            logged_out = await dbtools.logout(arg1)
             return logged_out
         case "get_all_authorized":
             all_authorized = await dbtools.get_all_authorized()
@@ -59,7 +60,7 @@ async def dbtest(argA, argB, argC):
             is_authorized_state = await dbtools.is_authorized(arg1["token"])
             return is_authorized_state
         case "user_from_token":
-            user = await dbtools.user_from_token(arg1["token"])
+            user = await dbtools.user_from_token(arg1)
             return user
         case "create_location":
             location = await dbtools.create_location(arg1,arg2)
@@ -94,6 +95,9 @@ async def dbtest(argA, argB, argC):
         case "snakeCaser":
             snake_case = snakeCaser.convert_to_snake(arg1)
             return snake_case
+        case "update_resume":
+            updated_resume = await dbtools.update_resume(scratches.resume(),arg1)
+            return updated_resume
         case _:
             return "incorrect function load"
 
