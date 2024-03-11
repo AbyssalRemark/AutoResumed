@@ -135,8 +135,7 @@ async def create_resume_blank(user_id,db=None):
 
 async def delete_resume(token, db=None):
     """
-    Delete resume by userId
-    Expects userId as int or string, see int() cast
+    Delete resume by token
     """
     if db == None:
         async with Prisma() as db:
@@ -693,6 +692,8 @@ async def login(credential,db=None):
                 "email":credential["email"]
             }
         )
+        if user == None:
+            raise AttributeError("No user with this email exists!")
         token = None
         authorized = None
         if(check_pass_hash(user,credential["password"])):
@@ -780,6 +781,8 @@ async def get_authorized_by_token(token, db=None):
         authorized = await db.authorized.find_unique(
             where={"token":token}
         )
+        if authorized ==None:
+            raise AttributeError("Invalid Token!!")
         #update the token to same value to change lastAccessed
         await db.authorized.update(
             where={"token":token},
