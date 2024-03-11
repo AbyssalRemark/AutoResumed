@@ -8,6 +8,52 @@ from util import is_valid_email
 auth = Blueprint("auth", __name__)
 
 
+@auth.route("/register", methods=["POST"])
+async def register() -> Response:
+    """
+    Registers the user in the DB
+
+    Takes an email and password
+    Returns a confirmation of registration
+    """
+
+    data = request.get_json()
+
+    # Check that JSON data has email and password fields
+    try:
+        email = data["email"]
+        data["password"]
+    except (KeyError, TypeError, ValueError):
+        raise JsonError(
+            400,
+            error="invalid-json",
+            message="Invalid JSON data",
+            detail="We expect { 'email': '<email>', 'password': '<password>' }.",
+        )
+
+    # Validate email address
+    if not is_valid_email(email):
+        raise JsonError(
+            400,
+            error="invalid-email-address",
+            message=f"'{email}' is not a valid email address.",
+            detail="Try an email address in this form: me@example.com.",
+        )
+
+    # Create user entry in database
+    try:
+        await dbtool.create_user(data)
+    except UniqueViolationError:
+        raise JsonError(
+            409,
+            error="user-exists",
+            message="Error creating user.",
+            detail="A user with the same email address already exists.",
+        )
+
+    # Return registration confirmation
+    return json_response(message="Registration successful.")
+
 @auth.route("/login", methods=["POST"])
 async def login() -> Response:
     """
@@ -87,50 +133,3 @@ async def logout() -> Response:
     await dbtool.logout(token)
 
     return json_response(message="Logout sucessful.")
-
-
-@auth.route("/register", methods=["POST"])
-async def register() -> Response:
-    """
-    Registers the user in the DB
-
-    Takes an email and password
-    Returns a confirmation of registration
-    """
-
-    data = request.get_json()
-
-    # Check that JSON data has email and password fields
-    try:
-        email = data["email"]
-        data["password"]
-    except (KeyError, TypeError, ValueError):
-        raise JsonError(
-            400,
-            error="invalid-json",
-            message="Invalid JSON data",
-            detail="We expect { 'email': '<email>', 'password': '<password>' }.",
-        )
-
-    # Validate email address
-    if not is_valid_email(email):
-        raise JsonError(
-            400,
-            error="invalid-email-address",
-            message=f"'{email}' is not a valid email address.",
-            detail="Try an email address in this form: me@example.com.",
-        )
-
-    # Create user entry in database
-    try:
-        await dbtool.create_user(data)
-    except UniqueViolationError:
-        raise JsonError(
-            409,
-            error="user-exists",
-            message="Error creating user.",
-            detail="A user with the same email address already exists.",
-        )
-
-    # Return registration confirmation
-    return json_response(message="Registration successful.")
