@@ -8,6 +8,8 @@ def app():
     app = create_app()
     app.config.update({"TESTING": True})
 
+    yield app
+
 @pytest.fixture()
 def client(app: Flask) -> FlaskClient:
     return app.test_client()
