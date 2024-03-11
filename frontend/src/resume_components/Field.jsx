@@ -3,80 +3,67 @@ import { FormContext } from '../Pages/UserForm'
 import Entry from './Entry'
 import NewEntry from './NewEntry'
 import Accordion from 'react-bootstrap/Accordion'
+import Basics from './Basics'
+import { AccordionBody } from 'react-bootstrap';
+import { Tab, Tabs } from 'react-bootstrap';
 
 const Field = ({ fieldTitle }) => {
-
-    //const entries, setEntries =
-    // const entries, setEntries = useState({returnEntries})
-    // const mapEntries = () => { if last/edited = < Form>< Form>}
-    // consts tags = tags if tags, else 
-
-    // const mapTagOptions = () => { allTags; if currentTags  type= checked }
-    // onChecked ---> send checked + newlyChcked (name, checked) post req to server, parse return, setChecked, setJSON, setEntries
-    // onUnchecked ---> setChecked(...checked - unchecked), setJSON(parent:[newList]
-
-    // {mapTagOptions}
     const { JSONResume } = useContext(FormContext)
-    //const { JSONResume, setJSONResume } = useContext(FormContext);
-    //console.log(JSONResume[fieldTitle])
+    const fields = Object.keys(JSONResume).slice(1, 12)
 
-    const [entries, setEntries] = useState(Object.keys(JSONResume[fieldTitle]))
-
-    const mapEntries = () => {
-
-        < h1 >
-
-        </h1 >
-        /*
-        for (let i = 0; i < entries.length; i++) {
-            console.log(entries[i][i])
-        }
-        return <h1>hi</h1>>
-        // <Entry>new</Entry>
-    */
-    }
-    const accheaderstyle = () => {
-        color: green;
-    }
-
-    if (fieldTitle != "basics") {
-        const hello = Object.keys(JSONResume[fieldTitle][0])
+    return (
+        <div>
+            <Tabs>
+                {
+                    fields.map((field) =>
+                        <Tab eventKey={field} key={field} title={field}>
+                            <Entry parentField={field} />
+                        </Tab>)
+                }
+            </Tabs>
+        </div>
+    )
+    {/*} if (fieldTitle != "basics") {
+        const entries = Object.keys(JSONResume[fieldTitle]);
         return (
             <div className={fieldTitle}>
                 <style type="text/css">
                     {`
-                        .accordion-item:first-of-type > .accordion-header .accordion-button {
+                        .accordion-item:first-of-type > .accordion-header .accordion-butentry {
                             font-style: italic !important;
                         }
                         `}
                 </style>
-
                 <Accordion defaultActiveKey="0">
-                    <Accordion.Item eventKey="0">
-                        <Accordion.Header>
-                            {JSONResume[fieldTitle][0][hello[1]]}
-                        </Accordion.Header>
-                        <Accordion.Body>
-                            {hello.map((ton) => <Entry key={ton} label={ton} value={JSONResume[fieldTitle][0][ton]}></Entry>)}
-                        </Accordion.Body>
-                    </Accordion.Item>
+                    {entries.map((entry) =>
+                        <Accordion.Item eventKey="0">
 
+                            <Accordion.Header>
+                                {entry}
+                            </Accordion.Header>
+                            <AccordionBody></AccordionBody>
+
+                        </Accordion.Item>)}
 
                     <Accordion.Item eventKey="1">
                         <Accordion.Header>
                             +
                         </Accordion.Header>
                         <Accordion.Body>
-                            {hello.map((ton) => <NewEntry label={ton} key={ton}></NewEntry>)}
+                            {entries.map((entry) =>
+                                <NewEntry
+                                    label={entry}
+                                    key={entry} />)}
                         </Accordion.Body>
                     </Accordion.Item>
                 </Accordion>
             </div>
         );
     } else {
-        return <div>hello!</div>
+        const basicsEntries = Object.keys(JSONResume["basics"])
+        return <div></div>
     }
-
+*/}
 }
 
 export default Field;
