@@ -63,7 +63,16 @@ async def generate():
             detail="We expect { 'token': '<bearer-token>', 'tags': [ '<tag>', '<tag>', ... ], 'template': '<resume-template>' }.",
         )
 
-    tagged_resume = await dbtool.get_resume_clean(token)
+    try:
+        tagged_resume = await dbtool.get_resume_clean(token)
+    except IndexError:
+        raise JsonError(
+            404,
+            error="no-basics-content",
+            message="No content in `basics` field.",
+            detail="No basic content has been defined in the `basics` field."
+        )
+
     flattened_resume = autoresumed.flatten_resume(tagged_resume, tags)
     html_resume = resumed.to_html(flattened_resume, template)
 

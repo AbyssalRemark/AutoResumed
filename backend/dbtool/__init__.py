@@ -324,8 +324,6 @@ async def get_resume_clean(token, db=None, resume_id=None):
             "tags":tags
         }
         clean_resume = convert_to_camel(snake_resume)
-        clean_resume = json.dumps(clean_resume)
-
 
     return clean_resume
 
