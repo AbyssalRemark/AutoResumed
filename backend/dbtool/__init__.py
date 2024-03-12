@@ -66,6 +66,21 @@ async def delete_user(token, db=None):
         )
     return deleted_user
 
+async def delete_user_by_id(user_id, db=None):
+    """
+    Deletes user account and all associated data from our database
+    """
+    if db==None:
+        async with Prisma() as db:
+            deleted_user = await delete_user(user_id,db)
+    else:
+        deleted_user = await db.user.delete(
+            where={
+                "id":user_id
+            }
+        )
+    return deleted_user
+
 
 """
 async def delete_user(token):
@@ -157,16 +172,15 @@ async def update_resume(resume, token, db=None):
     """
     if db == None:
         async with Prisma() as db:
-            resume_json = await update_resume(resume, token,db)
+            updated_resume = await update_resume(resume,token,db)
 
     else:
         user_id = (await delete_resume(token,db)).belongs_to_id
         blank_resume = await create_resume_blank(user_id, db)
         resume_id = blank_resume.id
         resume = convert_to_snake(resume)
-        print(resume)
         try:
-            await create_basic(resume["basics"], token, resume_id, db)
+            await create_basics(resume["basics"], token, resume_id, db)
         except:
             pass
 
@@ -251,8 +265,7 @@ async def update_resume(resume, token, db=None):
                "id": resume_id,
             },
             include={
-                "belongs_to":True,
-                "basic":True,
+                "basics":True,
                 "work":True,
                 "volunteer":True,
                 "education":True,
@@ -261,16 +274,15 @@ async def update_resume(resume, token, db=None):
                 "publication":True,
                 "skill":True,
                 "language":True,
+                "project":True,
                 "interest":True,
                 "reference":True,
-                "project":True,
             }
         )
-        update_resume = updated_resume.model_dump(mode='python')
-        resume_dict = convert_to_camel(updated_resume)
-        resume_json = json.dumps(resume_dict)
+        updated_resume = updated_resume.model_dump(mode='python')
 
-    return resume_json
+
+    return updated_resume
 
 
 async def get_resume(token,db=None):
@@ -347,7 +359,7 @@ async def get_resume_clean(token, db=None):
         project = await query_raw("tags,name,start_date,end_date,description,highlights,url","Project",resume.id,db)
         tags = resume.tags
         snake_resume = {
-            "basic": basic,
+            "basics": basic,
             "work": work,
             "volunteer": volunteer,
             "education": education,
@@ -366,7 +378,7 @@ async def get_resume_clean(token, db=None):
 
     return clean_resume
 
-async def create_basic(basic, token, resume_id=None, db=None):
+async def create_basics(basic, token, resume_id=None, db=None):
     """
     Creates basic in db
     Expects dictionary object complient with tagged-resume.json
@@ -374,7 +386,7 @@ async def create_basic(basic, token, resume_id=None, db=None):
 
     if db == None:
         async with Prisma() as db:
-            basic_in_db,location_in_db,summary_in_db,label_in_db,profiles_in_db = await create_basic(basic,token,db)
+            basic_in_db,location_in_db,summary_in_db,label_in_db,profiles_in_db = await create_basics(basic,token,db)
 
     else:
         basic = convert_to_snake(basic)
@@ -849,9 +861,9 @@ def convert_to_camel(input_dict):
 
     return convert_keys(input_dict)
 
-def convert_to_snake(dict):
+def convert_to_snake(data):
     snake_dict = {}
-    for key, value in dict.items():
+    for key, value in data.items():
         new_key = re.sub("([a-z0-9])([A-Z])", r"\1_\2", key).lower()
         if isinstance(value, dict):
             snake_dict[new_key] = convert_to_snake(value)

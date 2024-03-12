@@ -23,7 +23,7 @@ model Resume {
   belongs_to_id BigInt        @unique
   belongs_to    User          @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
   created_at    DateTime      @default(now())
-  basic         Basic?
+  basics        Basic?
   work          Work[]
   volunteer     Volunteer[]
   education     Education[]
