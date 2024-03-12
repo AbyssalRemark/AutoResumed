@@ -17,10 +17,12 @@ async function login(email, password) {
             },
             body: JSON.stringify({ "email": email, "password": password })
         }
-    );
+    )
 
-    const token = await response.json()["token"];
-    localStorage.setItem("token", token);
+    if (response.ok) {
+        const token = await response.json()["token"];
+        localStorage.setItem("token", token);
+    }
 }
 
 // async function logout(token) {
