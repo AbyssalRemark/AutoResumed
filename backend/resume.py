@@ -22,8 +22,12 @@ async def get():
         )
 
     if await dbtool.is_authorized(token) == False:
-        response = json_response(401, message="Unauthorized.")
-        return response
+        raise JsonError(
+            401,
+            error="unauthorized",
+            message="Token unauthorized.",
+            detail="The given token is not authorized. Try again with a different token."
+        )
 
     resume_dict = await dbtool.get_resume_clean(token)
     resume = jsonify(resume_dict)
@@ -46,8 +50,12 @@ async def update():
         )
 
     if await dbtool.is_authorized(token) == False:
-        response = json_response(401, message="Unauthorized.")
-        return response
+        raise JsonError(
+            401,
+            error="unauthorized",
+            message="Token unauthorized.",
+            detail="The given token is not authorized. Try again with a different token."
+        )
 
     resume_in_db = await dbtool.update_resume(resume, token)
 
@@ -75,8 +83,12 @@ async def generate():
         )
 
     if await dbtool.is_authorized(token) == False:
-        response = json_response(401, message="Unauthorized.")
-        return response
+        raise JsonError(
+            401,
+            error="unauthorized",
+            message="Token unauthorized.",
+            detail="The given token is not authorized. Try again with a different token."
+        )
 
     if len(tags) == 0:
         raise JsonError(
