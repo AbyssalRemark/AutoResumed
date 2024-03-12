@@ -160,3 +160,32 @@ async def delete():
     await dbtool.delete_user(token)
 
     return json_response(message="Deletion sucessful.")
+
+@auth.route("/is_authorized", methods=["POST"])
+async def is_authorized():
+    """
+    Checks if the user is authorized
+
+    Takes a bearer token
+    Returns whether the user is authorized
+    """
+
+    data = request.get_json()
+
+    # Check that the JSON data has a token field
+    try:
+        token = data["token"]
+    except (KeyError, TypeError, ValueError):
+        raise JsonError(
+            400,
+            error="invalid-json",
+            message="Invalid JSON data.",
+            detail="We expect { 'token': '<bearer-token>' }.",
+        )
+
+    authorized = await dbtool.is_authorized(token)
+
+    if authorized:
+        return json_response(200, authorized=True)
+    else:
+        return json_response(401, authorized=False)
