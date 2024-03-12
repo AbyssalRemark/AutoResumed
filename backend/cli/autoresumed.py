@@ -92,8 +92,6 @@ def parseFirst(list, tags):
             if j in i["tags"]: #any tag found
                 #same logic as above but returns the first one
                 return deepcopy(i)
-                
-
     #if that doesnt occure look for the special tag default.
     for i in list:
         if "default" in i["tags"]:
@@ -122,10 +120,18 @@ def parseResume(resume, tags):
 
                 #grabs correct tag (hence why we may need default to be special)
                 label = parseFirst(basics["label"], tags)
+
                 summary = parseFirst(basics["summary"], tags)
 
-                res["basics"]["label"] = label["label"]
-                res["basics"]["summary"] = summary["summary"]
+                #needs to check if we still failed to grab a default
+                if label == None:
+                    res["basics"]["label"]  = ""
+                else:
+                    res["basics"]["label"] = label["label"]
+                if summary == None:
+                    res["basics"]["summary"] = ""
+                else:
+                    res["basics"]["summary"] = summary["summary"]
 
                 #profiles are not a grab one its a grab all that apply
                 res["basics"]["profiles"] = parseAll(basics["profiles"], tags)
