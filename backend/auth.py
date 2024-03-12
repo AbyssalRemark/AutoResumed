@@ -133,3 +133,30 @@ async def logout() -> Response:
     await dbtool.logout(token)
 
     return json_response(message="Logout sucessful.")
+
+@auth.route("/delete", methods=["POST"])
+async def delete():
+    """
+    Deletes the user
+
+    Takes a bearer token
+    Returns a confirmation of logout
+    """
+
+    data = request.get_json()
+
+    # Check that the JSON data has a token field
+    try:
+        token = data["token"]
+    except (KeyError, TypeError, ValueError):
+        raise JsonError(
+            400,
+            error="invalid-json",
+            message="Invalid JSON data.",
+            detail="We expect { 'token': '<bearer-token>' }.",
+        )
+
+    # Removes the bearer token from the DB, making the user no longer authorized
+    await dbtool.delete_user(token)
+
+    return json_response(message="Deletion sucessful.")

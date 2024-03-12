@@ -1,7 +1,6 @@
 import dbtool
 
-from cli import autoresumed
-import resumed
+from cli import autoresumed, resumed
 from flask import Blueprint, request, jsonify
 from flask_json import JsonError, json_response
 
@@ -64,7 +63,7 @@ async def generate():
             detail="We expect { 'token': '<bearer-token>', 'tags': [ '<tag>', '<tag>', ... ], 'template': '<resume-template>' }.",
         )
 
-    tagged_resume = dbtool.get_resume(token)
+    tagged_resume = await dbtool.get_resume_clean(token)
     flattened_resume = autoresumed.flatten_resume(tagged_resume, tags)
     html_resume = resumed.to_html(flattened_resume, template)
 

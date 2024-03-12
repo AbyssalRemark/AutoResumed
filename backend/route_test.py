@@ -1,5 +1,5 @@
 from flask import Flask
-from flask.testing import FlaskClient, FlaskCliRunner
+from flask.testing import FlaskClient
 import pytest
 from app import create_app
 
@@ -14,15 +14,21 @@ def app():
 def client(app: Flask) -> FlaskClient:
     return app.test_client()
 
-@pytest.fixture()
-def runner(app: Flask) -> FlaskCliRunner:
-    return app.test_cli_runner()
 
-def test_auth_register(client: FlaskClient):
-    response = client.get("/auth/register")
+def test_auth(client: FlaskClient):
+    credentials = {
+        "email" : "testy_mctest@example.com",
+        "password": "insecure_password_123",
+    }
 
-def test_auth_login(client: FlaskClient):
-    response = client.get("/auth/login")
+    register_response = client.post("/auth/register", json=credentials)
+    assert register_response.json["message"] == "Registration successful." # pyright: ignore
 
-def test_auth_logout(client: FlaskClient):
-    response = client.get("/auth/logout")
+    login_response = client.post("/auth/login", json=credentials)
+    token = login_response.json["token"] # type: ignore
+    assert len(token) != 0
+
+    delete_reponse = client.post("auth/delete", json={
+        "token": token
+    })
+    assert delete_reponse.json["message"] == "Deletion sucessful." # type: ignore
