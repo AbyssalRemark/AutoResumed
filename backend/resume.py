@@ -63,6 +63,21 @@ async def generate():
             detail="We expect { 'token': '<bearer-token>', 'tags': [ '<tag>', '<tag>', ... ], 'template': '<resume-template>' }.",
         )
 
+    if len(tags) == 0:
+        raise JsonError(
+            400,
+            error="missing-tags",
+            message="Missing tags.",
+            detail="Tags are required for generating a resume."
+        )
+    if len(template) == 0:
+        raise JsonError(
+            400,
+            error="missing-template",
+            message="Missing template.",
+            detail="A template is required for generating a resume."
+        )
+
     try:
         tagged_resume = await dbtool.get_resume_clean(token)
     except IndexError:
@@ -82,8 +97,6 @@ async def generate():
             message=f"No match for tags: {tags}",
             detail="Make sure the given tags exist in the resume."
         )
-
-    print(flattened_resume)
 
     html_resume = resumed.to_html(flattened_resume, template)
 

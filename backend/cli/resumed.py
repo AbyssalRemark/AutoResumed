@@ -15,12 +15,14 @@ def to_html(resume: dict, template: str) -> str:
 
     # Dump dictionary to /tmp/resume.json
     with open(input_file_path, "w") as json_file:
+        print(json_file)
         json.dump(resume, json_file)
 
     # Generate resume.html
     subprocess.run(
         [
-            "resume",
+            "npx",
+            "resumed",
             "render",
             input_file_path,
             "-o",
