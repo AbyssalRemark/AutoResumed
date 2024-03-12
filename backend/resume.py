@@ -22,7 +22,7 @@ async def get():
         )
 
     if await dbtool.is_authorized(token) == False:
-        response = json_response(401, message="Unauthorized")
+        response = json_response(401, message="Unauthorized.")
         return response
 
     resume_dict = await dbtool.get_resume_clean(token)
@@ -46,7 +46,7 @@ async def update():
         )
 
     if await dbtool.is_authorized(token) == False:
-        response = json_response(401, message="Unauthorized")
+        response = json_response(401, message="Unauthorized.")
         return response
 
     resume_in_db = await dbtool.update_resume(resume, token)
@@ -75,7 +75,7 @@ async def generate():
         )
 
     if await dbtool.is_authorized(token) == False:
-        response = json_response(401, message="Unauthorized")
+        response = json_response(401, message="Unauthorized.")
         return response
 
     if len(tags) == 0:
