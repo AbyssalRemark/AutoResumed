@@ -15,16 +15,23 @@ def client(app: Flask) -> FlaskClient:
     return app.test_client()
 
 
-def test_auth_register(client: FlaskClient):
-    response = client.post("/auth/register", json={
+def test_auth(client: FlaskClient):
+    credentials = {
         "email" : "testy_mctest@example.com",
         "password": "insecure_password_123",
+    }
+
+    register_response = client.post("/auth/register", json=credentials)
+
+    assert register_response.json["message"] == "Registration successful." # pyright: ignore
+
+    login_response = client.post("/auth/login", json=credentials)
+    token = login_response.json["token"] # type: ignore
+
+    assert len(token) != 0 # type: ignore
+
+    delete_reponse = client.post("auth/delete", json={
+        "token": token
     })
 
-    assert response.json["message"] == "Registration successful." # pyright: ignore
-
-def test_auth_login(client: FlaskClient):
-    response = client.get("/auth/login")
-
-def test_auth_logout(client: FlaskClient):
-    response = client.get("/auth/logout")
+    assert delete_reponse.json["message"] == "Deletion sucessful." # type: ignore
