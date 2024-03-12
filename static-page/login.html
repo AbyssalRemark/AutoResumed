@@ -8,17 +8,17 @@
 </head>
 
 <body>
-    <form id="loginForm">
+    <div id="loginForm">
         <div class="email-input" id="login-email">
             <label for="email">E-Mail Address: </label>
-            <input id="email" type="email" pattern=".+@example\.com" placeholder="E-Mail Address" required>
+            <input id="email" type="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" placeholder="E-Mail Address" required title="Please enter a valid email.">
         </div>
         <div class="password-input" id="login-password">
             <label for="password">Password: </label>
             <input type="password" id="password" placeholder="Password" required>
         </div>
         <input type="submit" value="Login">
-    </form>
+    </div>
 
     <script src="login.js"></script>
 </body>

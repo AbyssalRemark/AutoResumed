@@ -8,10 +8,10 @@
 <body>
     <div class="resume-form">
         <div class="languages-form">
-            <div class="langauge-form">
-                <div class="input-field" id="language">
-                    <label for="language-field">Language</label>
-                    <input type="text" id="language-field" required pattern="[A-Za-z]" value="Ex: English" />
+            <div class="langauge-form-entry">
+                <div class="input-field" id="language-name">
+                    <label for="language-name-field">Language</label>
+                    <input type="text" id="language-name-field" required pattern="[A-Za-z]" value="Ex: English" />
                 </div>
                 <div class="input-field" id="fluency">
                     <label for="fluency-field">Fluency</label>
@@ -20,14 +20,14 @@
             </div>
         </div>
         <div class="interests-form">
-            <div class="interest-form">
+            <div class="interest-form-entry">
                 <div class="input-field" id="interest-name">
                     <label for="interest-name-field">Interest</label>
                     <input type="text" id="interest-name-field" required pattern="[A-Za-z]+" value="Ex: Wildlife" />
                 </div>
                 <div class="input-field" id="keywords">
                     <label for="interest-keyword-field">Keywords</label>
-                    <input type="text" id="interest-keyword-field" required pattern="[A-Za-z]+" value="Ex: Ferrets" />
+                    <input type="text" id="interest-keyword-field" required pattern="[A-Za-z0-9, ]+" value="Ex: Ferrets" />
                 </div>
             </div>
         </div>
