@@ -20,7 +20,7 @@ async function login(email, password) {
     )
 
     if (response.ok) {
-        const token = await response.json()["token"];
+        const token = (await response.json())["token"];
         localStorage.setItem("token", token);
     }
 }
