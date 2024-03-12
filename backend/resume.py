@@ -65,7 +65,6 @@ async def generate():
 
     try:
         tagged_resume = await dbtool.get_resume_clean(token)
-        print(tagged_resume)
     except IndexError:
         raise JsonError(
             404,
@@ -83,6 +82,8 @@ async def generate():
             message=f"No match for tags: {tags}",
             detail="Make sure the given tags exist in the resume."
         )
+
+    print(flattened_resume)
 
     html_resume = resumed.to_html(flattened_resume, template)
 
