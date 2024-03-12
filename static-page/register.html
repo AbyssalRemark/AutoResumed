@@ -8,16 +8,23 @@
 </head>
 
 <body>
-    <form id="registerForm">
-        <label for="email">E-Mail Address: </label>
-        <input id="email" type="email" pattern=".+@example\.com" placeholder="E-Mail Address" required>
-
-        <label for="password">Password: </label>
-        <input type="password" id="password" placeholder="Password" required>
-
-        <input type="submit" value="Register">
-    </form>
-
+    <div class="register-form" id="register-form">
+        <div class="email-input" id="register-email">
+            <label for="email">E-Mail Address: </label>
+            <input id="email" type="email" pattern=".+@example\.com" placeholder="E-Mail Address" required>
+        </div>
+        <div class="password-input" id="register-password-enter">
+            <label for="password-enter">Password (8-24 Chars): </label>
+            <input type="password" id="password-enter" placeholder="Password" required minlength="8" maxlength="24">
+        </div>
+        <div class="password-input" id="register-password-verify">
+            <label for="password-verify">Enter Password Again: </label>
+            <input type="password" id="password-verify" placeholder="Password" required minlenght="8" maxlength="24">
+        </div>
+        <div class="error-text" id="register-error"></div> 
+        <input id="registerButton" type="submit" value="Register">
+    </div>
+</body>
     <script src="register.js"></script>
 </body>
 

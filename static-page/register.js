@@ -1,10 +1,17 @@
-document.getElementById("registerForm").addEventListener("submit", async function(event) {
+
+
+document.getElementById("registerButton").addEventListener("click", async function(event) {
     event.preventDefault();
-
     const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const passwordEnter = document.getElementById("password-enter").value;
+    const passwordVerify = document.getElementById("password-verify").value;
+    if (passwordEnter == passwordVerify){
+        await register(email, passwordVerify);
+    }
+    else{
+        document.getElementById("register-error").innerText = "Passwords do not match! Try again."
+    }
 
-    await register(email, password);
 });
 
 async function register(email, password) {
