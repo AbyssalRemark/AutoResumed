@@ -15,11 +15,10 @@ def to_html(resume: dict, template: str) -> str:
 
     # Dump dictionary to /tmp/resume.json
     with open(input_file_path, "w") as json_file:
-        print(json_file)
         json.dump(resume, json_file)
 
     # Generate resume.html
-    subprocess.run(
+    process = subprocess.run(
         [
             "npx",
             "resumed",
@@ -29,8 +28,13 @@ def to_html(resume: dict, template: str) -> str:
             output_file_path,
             "-t",
             template,
-        ]
+        ],
+        capture_output=True,
+        text=True,
     )
+
+    if "Could not load theme" in process.stderr:
+        raise InvalidTemplate
 
     # We no longer need resume.json
     os.remove(input_file_path)
@@ -42,3 +46,6 @@ def to_html(resume: dict, template: str) -> str:
     os.remove(output_file_path)
 
     return contents
+
+class InvalidTemplate(Exception):
+    pass

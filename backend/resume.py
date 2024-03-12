@@ -1,6 +1,7 @@
 import dbtool
 
 from cli import autoresumed, resumed
+from cli.resumed import InvalidTemplate
 from flask import Blueprint, request, jsonify
 from flask_json import JsonError, json_response
 
@@ -94,10 +95,18 @@ async def generate():
         raise JsonError(
             404,
             error="no-tag-match",
-            message=f"No match for tags: {tags}",
+            message=f"No match for tags: {tags}.",
             detail="Make sure the given tags exist in the resume."
         )
 
-    html_resume = resumed.to_html(flattened_resume, template)
+    try:
+        html_resume = resumed.to_html(flattened_resume, template)
+    except InvalidTemplate:
+        raise JsonError(
+            400,
+            error="invalid-template",
+            message=f"Invalid template: {template}.",
+            detail="Make sure the given template exists."
+        )
 
     return json_response(status="200", resume=html_resume)
