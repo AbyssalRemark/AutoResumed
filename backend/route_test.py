@@ -22,16 +22,13 @@ def test_auth(client: FlaskClient):
     }
 
     register_response = client.post("/auth/register", json=credentials)
-
     assert register_response.json["message"] == "Registration successful." # pyright: ignore
 
     login_response = client.post("/auth/login", json=credentials)
     token = login_response.json["token"] # type: ignore
-
-    assert len(token) != 0 # type: ignore
+    assert len(token) != 0
 
     delete_reponse = client.post("auth/delete", json={
         "token": token
     })
-
     assert delete_reponse.json["message"] == "Deletion sucessful." # type: ignore
