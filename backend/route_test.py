@@ -17,7 +17,7 @@ def client(app: Flask) -> FlaskClient:
 
 def test_auth(client: FlaskClient):
     credentials = {
-        "email" : "testy_mctest@example.com",
+        "email" : "johnsmith@example.com",
         "password": "insecure_password_123",
     }
 
