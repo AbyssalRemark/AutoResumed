@@ -299,28 +299,28 @@ async def get_resume_clean(token, db=None, resume_id=None):
         work = await query_raw("tags,name,position,url,start_date,end_date,summary,highlights","Work",resume_id,db)
         volunteer = await query_raw("tags,organization,position,url,start_date,end_date,summary,highlights","Volunteer",resume_id,db)
         education = await query_raw("tags,institution,url,area,study_type,start_date,end_date,score,courses","Education",resume_id,db)
-        award = await query_raw("tags,title,date,awarder,summary","Award",resume_id,db)
-        certificate = await query_raw("tags,name,date,issuer,url","Certificate",resume_id,db)
-        publication = await query_raw("tags,name,publisher,release_date,url,summary","Publication",resume_id,db)
-        skill = await query_raw("tags,name,level,keywords","Skill",resume_id,db)
-        language = await query_raw("tags,language,fluency","Language",resume_id,db)
-        interest = await query_raw("tags,name,keywords","Interest",resume_id,db)
-        reference = await query_raw("tags,name,reference","Reference",resume_id,db)
-        project = await query_raw("tags,name,start_date,end_date,description,highlights,url","Project",resume_id,db)
+        awards = await query_raw("tags,title,date,awarder,summary","Award",resume_id,db)
+        certificates = await query_raw("tags,name,date,issuer,url","Certificate",resume_id,db)
+        publications = await query_raw("tags,name,publisher,release_date,url,summary","Publication",resume_id,db)
+        skills = await query_raw("tags,name,level,keywords","Skill",resume_id,db)
+        languages = await query_raw("tags,language,fluency","Language",resume_id,db)
+        interests = await query_raw("tags,name,keywords","Interest",resume_id,db)
+        references = await query_raw("tags,name,reference","Reference",resume_id,db)
+        projects = await query_raw("tags,name,start_date,end_date,description,highlights,url","Project",resume_id,db)
         tags = (await db.resume.find_unique(where={"id":resume_id})).tags
         snake_resume = {
             "basics": basics,
             "work": work,
             "volunteer": volunteer,
             "education": education,
-            "award": award,
-            "certificate": certificate,
-            "publication": publication,
-            "skill": skill,
-            "language": language,
-            "interest": interest,
-            "reference": reference,
-            "project": project,
+            "awards": awards,
+            "certificates": certificates,
+            "publications": publications,
+            "skills": skills,
+            "languages": languages,
+            "interests": interests,
+            "references": references,
+            "projects": projects,
             "tags":tags
         }
         clean_resume = convert_to_camel(snake_resume)
