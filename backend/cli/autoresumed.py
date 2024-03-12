@@ -104,7 +104,7 @@ def parseFirst(list, tags):
 
 #assumes its been loaded correctly.
 #   Does not remove tags. 
-#   Cassody you probably want genResume not this.
+#   Cassidy you probably want genResume not this.
 #   *Should* not modify js in any way
 def parseResume(js, tags):
     #where the new resume goes
