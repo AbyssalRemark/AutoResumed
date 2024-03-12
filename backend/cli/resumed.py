@@ -20,8 +20,7 @@ def to_html(resume: dict, template: str) -> str:
     # Generate resume.html
     subprocess.run(
         [
-            "npx",
-            "resumed",
+            "resume",
             "render",
             input_file_path,
             "-o",
