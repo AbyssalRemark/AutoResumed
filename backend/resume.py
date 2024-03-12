@@ -65,6 +65,7 @@ async def generate():
 
     try:
         tagged_resume = await dbtool.get_resume_clean(token)
+        print(tagged_resume)
     except IndexError:
         raise JsonError(
             404,
@@ -73,7 +74,16 @@ async def generate():
             detail="No basic content has been defined in the `basics` field."
         )
 
-    flattened_resume = autoresumed.flatten_resume(tagged_resume, tags)
+    try:
+        flattened_resume = autoresumed.flatten_resume(tagged_resume, tags)
+    except TypeError:
+        raise JsonError(
+            404,
+            error="no-tag-match",
+            message=f"No match for tags: {tags}",
+            detail="Make sure the given tags exist in the resume."
+        )
+
     html_resume = resumed.to_html(flattened_resume, template)
 
     return json_response(status="200", resume=html_resume)
