@@ -188,7 +188,6 @@ async def update_resume(resume, token, db=None):
             print("education failed")
 
         try:
-            print (resume["awards"])
             for award in resume["awards"]:
                 await create_award(award, resume_id, db)
         except:
@@ -238,7 +237,7 @@ async def update_resume(resume, token, db=None):
 
         try:
             if resume["tags"] != []:
-                await db.resume.update(
+                tagged=await db.resume.update(
                     where={"id":resume_id},
                     data={"tags":resume["tags"]}
                 )
@@ -308,7 +307,8 @@ async def get_resume_clean(token, db=None, resume_id=None):
         interest = await query_raw("tags,name,keywords","Interest",resume_id,db)
         reference = await query_raw("tags,name,reference","Reference",resume_id,db)
         project = await query_raw("tags,name,start_date,end_date,description,highlights,url","Project",resume_id,db)
-        tags = await query_raw("tags","Resume",resume_id,db)
+        tags = (await db.resume.find_unique(where={"id":resume_id})).tags
+        print(tags)
         snake_resume = {
             "basics": basics,
             "work": work,
