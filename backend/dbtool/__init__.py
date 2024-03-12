@@ -5,6 +5,7 @@ import json
 import asyncio
 from hashlib import sha256
 from prisma import Prisma
+from prisma.errors import UniqueViolationError
 
 async def create_user(user):
     """
@@ -663,11 +664,15 @@ async def login(credential,db=None):
         if(check_pass_hash(user,credential["password"])):
             token = make_token()
             auth_obj={"belongs_to_id":user.id,"token":token}
-            authorized = await db.authorized.create(data=auth_obj)
-            authorized = await db.authorized.update(
-                where={"belongs_to_id":authorized.belongs_to_id},
-                data={"belongs_to":{"connect":{"id":user.id}}}
-            )
+            try:
+                authorized = await db.authorized.create(data=auth_obj)
+            except (UniqueViolationError):
+                authorized = await db.authorized.find_unique(
+                    where={
+                        "belongs_to_id":user.id
+                    })
+        token = await refresh_token(authorized.token)
+
     return token
 
 def make_token():
