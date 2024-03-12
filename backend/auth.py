@@ -94,14 +94,6 @@ async def login() -> Response:
             message="A username with the given email and password doesn't exist",
             detail="Please retry with a different email address, or register a user.",
         )
-    except UniqueViolationError:
-        raise JsonError(
-            409,
-            error="already-logged-in",
-            message="The user with the given credentials is already logged in.",
-            detail="Try logging out first.",
-        )
-
 
     if not token:
         raise JsonError(
