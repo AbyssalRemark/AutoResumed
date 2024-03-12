@@ -95,7 +95,7 @@ async def dbtest(argA, argB, argC):
             snake_case = dbtool.convert_to_snake(arg1)
             return snake_case
         case "update_resume":
-            updated_resume = await dbtool.update_resume(scratches.resume(),arg1)
+            updated_resume = await dbtool.update_resume(scratches.testy_resume(),arg1)
             return updated_resume
         case _:
             return "incorrect function load"
