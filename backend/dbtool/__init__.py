@@ -281,9 +281,9 @@ async def get_resume_clean(token, db=None, resume_id=None):
     else:
         if resume_id == None:
             user = await user_from_token(token,db)
-            resume_id = await db.resume.find_unique(
+            resume_id = (await db.resume.find_unique(
                 where={"belongs_to_id":user.id}
-            ).id
+            )).id
         basics = await query_raw("id,name,image,email,phone,url","Basics",resume_id,db)
         basics_id = basics[0].pop("id")
         basics=basics[0]
@@ -308,7 +308,6 @@ async def get_resume_clean(token, db=None, resume_id=None):
         reference = await query_raw("tags,name,reference","Reference",resume_id,db)
         project = await query_raw("tags,name,start_date,end_date,description,highlights,url","Project",resume_id,db)
         tags = (await db.resume.find_unique(where={"id":resume_id})).tags
-        print(tags)
         snake_resume = {
             "basics": basics,
             "work": work,
