@@ -29,6 +29,7 @@ async def get():
     resume = jsonify(resume_dict)
     return resume
 
+
 @resume.route("/update", methods=["PUT"])
 async def update():
     data = request.get_json()
@@ -51,6 +52,7 @@ async def update():
     resume_in_db = await dbtool.update_resume(resume, token)
 
     return json_response(status='200', resume=resume_in_db)
+
 
 @resume.route("/generate", methods=["POST"])
 async def generate():
