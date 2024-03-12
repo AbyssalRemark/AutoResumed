@@ -13,9 +13,6 @@ async def get():
 
     try:
         token = str(data["token"])
-        resume_dict = await dbtool.get_resume_clean(token)
-        resume = jsonify(resume_dict)
-
     except (KeyError, TypeError, ValueError):
         raise JsonError(
             400,
@@ -24,6 +21,12 @@ async def get():
             detail="We expect { 'token': '<bearer-token>' }.",
         )
 
+    if await dbtool.is_authorized(token) == False:
+        response = json_response(401, message="Unauthorized")
+        return response
+
+    resume_dict = await dbtool.get_resume_clean(token)
+    resume = jsonify(resume_dict)
     return resume
 
 @resume.route("/update", methods=["PUT"])
@@ -33,7 +36,6 @@ async def update():
     try:
         token = str(data["token"])
         resume = data["resume"]
-        resume_in_db =await dbtool.update_resume(resume, token)
     except (KeyError, TypeError, ValueError):
         raise JsonError(
             400,
@@ -41,6 +43,12 @@ async def update():
             message="Invalid JSON data.",
             detail="We expect { 'token': '<bearer-token>', 'resume': '<resume>' }.",
         )
+
+    if await dbtool.is_authorized(token) == False:
+        response = json_response(401, message="Unauthorized")
+        return response
+
+    resume_in_db = await dbtool.update_resume(resume, token)
 
     return json_response(status='200', resume=resume_in_db)
 
@@ -63,6 +71,10 @@ async def generate():
             message="Invalid JSON data.",
             detail="We expect { 'token': '<bearer-token>', 'tags': [ '<tag>', '<tag>', ... ], 'template': '<resume-template>' }.",
         )
+
+    if await dbtool.is_authorized(token) == False:
+        response = json_response(401, message="Unauthorized")
+        return response
 
     if len(tags) == 0:
         raise JsonError(
