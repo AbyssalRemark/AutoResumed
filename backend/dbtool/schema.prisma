@@ -23,7 +23,7 @@ model Resume {
   belongs_to_id BigInt        @unique
   belongs_to    User          @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
   created_at    DateTime      @default(now())
-  basics        Basic?
+  basics        Basics?
   work          Work[]
   volunteer     Volunteer[]
   education     Education[]
@@ -38,7 +38,7 @@ model Resume {
   tags          String[]
 }
 
-model Basic {
+model Basics {
   id            BigInt    @id @default(autoincrement())
   belongs_to_id BigInt    @unique
   belongs_to    Resume    @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
@@ -57,7 +57,7 @@ model Basic {
 model Label {
   id            BigInt   @id @default(autoincrement())
   belongs_to_id BigInt
-  belongs_to    Basic    @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  belongs_to    Basics    @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
   created_at    DateTime @default(now())
   tags          String[]
   label         String
@@ -66,7 +66,7 @@ model Label {
 model Summary {
   id            BigInt   @id @default(autoincrement())
   belongs_to_id BigInt
-  belongs_to    Basic    @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  belongs_to    Basics    @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
   created_at    DateTime @default(now())
   tags          String[]
   summary       String
@@ -75,7 +75,7 @@ model Summary {
 model Location {
   id            BigInt   @id @default(autoincrement())
   belongs_to_id BigInt   @unique
-  belongs_to    Basic    @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  belongs_to    Basics    @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
   created_at    DateTime @default(now())
   address       String
   postal_code   String
@@ -87,7 +87,7 @@ model Location {
 model Profile {
   id            BigInt   @id @default(autoincrement())
   belongs_to_id BigInt
-  belongs_to    Basic    @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
+  belongs_to    Basics    @relation(fields: [belongs_to_id], references: [id], onDelete: Cascade)
   created_at    DateTime @default(now())
   tags          String[]
   network       String
@@ -149,7 +149,7 @@ model Award {
   tags          String[]
   title         String
   date          String
-  awader        String
+  awarder        String
   summary       String
 }
 

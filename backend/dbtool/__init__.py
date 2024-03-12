@@ -66,21 +66,6 @@ async def delete_user(token, db=None):
         )
     return deleted_user
 
-async def delete_user_by_id(user_id, db=None):
-    """
-    Deletes user account and all associated data from our database
-    """
-    if db==None:
-        async with Prisma() as db:
-            deleted_user = await delete_user(user_id,db)
-    else:
-        deleted_user = await db.user.delete(
-            where={
-                "id":user_id
-            }
-        )
-    return deleted_user
-
 
 """
 async def delete_user(token):
@@ -172,7 +157,7 @@ async def update_resume(resume, token, db=None):
     """
     if db == None:
         async with Prisma() as db:
-            updated_resume = await update_resume(resume,token,db)
+            updated_resume = await update_resume(resume, token,db)
 
     else:
         user_id = (await delete_resume(token,db)).belongs_to_id
@@ -182,73 +167,74 @@ async def update_resume(resume, token, db=None):
         try:
             await create_basics(resume["basics"], token, resume_id, db)
         except:
-            pass
+            print("basics failed")
 
         try:
             for work in resume["work"]:
                 await create_work(work, resume_id, db)
         except:
-            pass
+            print("work failed")
 
         try:
             for volunteer in resume["volunteer"]:
                 await create_volunteer(volunteer, resume_id, db)
         except:
-            pass
+            print("volunteer failed")
 
         try:
             for education in resume["education"]:
                 await create_education(education, resume_id, db)
         except:
-            pass
+            print("education failed")
 
         try:
+            print (resume["awards"])
             for award in resume["awards"]:
                 await create_award(award, resume_id, db)
         except:
-            pass
+            print("awards failed")
 
         try:
             for certificate in resume["certificates"]:
                 await create_certificate(certificate, resume_id, db)
         except:
-            pass
+            print("certificates failed")
 
         try:
             for publication in resume["publications"]:
                 await create_publication(publication, resume_id, db)
         except:
-            pass
+            print("publications failed")
 
         try:
             for skill in resume["skills"]:
-                await create_skill(resume["skill"], resume_id, db)
+                await create_skill(skill, resume_id, db)
         except:
-            pass
+            print("skill issue")
 
         try:
             for language in resume["languages"]:
                 await create_language(language, resume_id, db)
         except:
-            pass
+            print("languages failed")
 
         try:
             for interest in resume["interests"]:
                 await create_interest(interest, resume_id, db)
         except:
-            pass
+            print("interests failed")
 
         try:
             for reference in resume["references"]:
                 await create_reference(reference, resume_id, db)
         except:
-            pass
+            print("references failed")
 
         try:
             for project in resume["projects"]:
                 await create_project(project, resume_id, db)
         except:
-            pass
+            print("projects failed")
 
         try:
             if resume["tags"] != []:
@@ -257,30 +243,10 @@ async def update_resume(resume, token, db=None):
                     data={"tags":resume["tags"]}
                 )
         except:
-            pass
+            print("tags failed")
 
 
-        updated_resume = await db.resume.find_unique(
-            where={
-               "id": resume_id,
-            },
-            include={
-                "basics":True,
-                "work":True,
-                "volunteer":True,
-                "education":True,
-                "award":True,
-                "certificate":True,
-                "publication":True,
-                "skill":True,
-                "language":True,
-                "project":True,
-                "interest":True,
-                "reference":True,
-            }
-        )
-        updated_resume = updated_resume.model_dump(mode='python')
-
+        updated_resume = await get_resume_clean(token,db,resume_id)
 
     return updated_resume
 
@@ -294,25 +260,9 @@ async def get_resume(token,db=None):
             resume_in_db = await get_resume(token,db)
     else:
         user = await user_from_token(token,db)
-        #Note the include= keyword in the find_unique call, critical stuff
         resume_in_db = await db.resume.find_unique(
             where={
                "belongs_to_id": user.belongs_to_id,
-            },
-            include={
-                "belongs_to":True,
-                "basic":True,
-                "work":True,
-                "volunteer":True,
-                "education":True,
-                "award":True,
-                "certificate":True,
-                "publication":True,
-                "skill":True,
-                "language":True,
-                "interest":True,
-                "reference":True,
-                "project":True,
             }
         )
     return resume_in_db
@@ -325,41 +275,42 @@ async def query_raw (fields,table,id_value,db=None):
         query_out = await db.query_raw(f'SELECT {fields} FROM "{table}" WHERE "{table}".belongs_to_id = {id_value}')
     return query_out
 
-async def get_resume_clean(token, db=None):
+async def get_resume_clean(token, db=None, resume_id=None):
     if db==None:
         async with Prisma() as db:
             clean_resume = await get_resume_clean(token,db)
     else:
-        user = await user_from_token(token,db)
-        resume = await db.resume.find_unique(
-            where={"belongs_to_id":user.id}
-        )
-        basic = await query_raw("id,name,image,email,phone,url","Basic",resume.id,db)
-        basic_id = basic[0].pop("id")
-        basic=basic[0]
-        summary = await query_raw("tags,summary","Summary",resume.id,db)
-        label = await query_raw("tags,label","Label",resume.id,db)
-        location = await query_raw("address,postal_code,city,country_code,region","Location",basic_id,db)
+        if resume_id == None:
+            user = await user_from_token(token,db)
+            resume_id = await db.resume.find_unique(
+                where={"belongs_to_id":user.id}
+            ).id
+        basics = await query_raw("id,name,image,email,phone,url","Basics",resume_id,db)
+        basics_id = basics[0].pop("id")
+        basics=basics[0]
+        summary = await query_raw("tags,summary","Summary",basics_id,db)
+        label = await query_raw("tags,label","Label",basics_id,db)
+        location = await query_raw("address,postal_code,city,country_code,region","Location",basics_id,db)
         location = location[0]
-        profiles = await query_raw("tags,network,username,url","Profile",resume.id,db)
-        basic["summary"] = summary
-        basic["label"] = label
-        basic["location"] = location
-        basic["profiles"] = profiles
-        work = await query_raw("tags,name,position,url,start_date,end_date,summary,highlights","Work",resume.id,db)
-        volunteer = await query_raw("tags,organization,position,url,start_date,end_date,summary,highlights","Volunteer",resume.id,db)
-        education = await query_raw("tags,institution,url,area,study_type,start_date,end_date,score,courses","Education",resume.id,db)
-        award = await query_raw("tags,title,date,awader,summary","Award",resume.id,db)
-        certificate = await query_raw("tags,name,date,issuer,url","Certificate",resume.id,db)
-        publication = await query_raw("tags,name,publisher,release_date,url,summary","Publication",resume.id,db)
-        skill = await query_raw("tags,name,level,keywords","Skill",resume.id,db)
-        language = await query_raw("tags,language,fluency","Language",resume.id,db)
-        interest = await query_raw("tags,name,keywords","Interest",resume.id,db)
-        reference = await query_raw("tags,name,reference","Reference",resume.id,db)
-        project = await query_raw("tags,name,start_date,end_date,description,highlights,url","Project",resume.id,db)
-        tags = resume.tags
+        profiles = await query_raw("tags,network,username,url","Profile",basics_id,db)
+        basics["summary"] = summary
+        basics["label"] = label
+        basics["location"] = location
+        basics["profiles"] = profiles
+        work = await query_raw("tags,name,position,url,start_date,end_date,summary,highlights","Work",resume_id,db)
+        volunteer = await query_raw("tags,organization,position,url,start_date,end_date,summary,highlights","Volunteer",resume_id,db)
+        education = await query_raw("tags,institution,url,area,study_type,start_date,end_date,score,courses","Education",resume_id,db)
+        award = await query_raw("tags,title,date,awarder,summary","Award",resume_id,db)
+        certificate = await query_raw("tags,name,date,issuer,url","Certificate",resume_id,db)
+        publication = await query_raw("tags,name,publisher,release_date,url,summary","Publication",resume_id,db)
+        skill = await query_raw("tags,name,level,keywords","Skill",resume_id,db)
+        language = await query_raw("tags,language,fluency","Language",resume_id,db)
+        interest = await query_raw("tags,name,keywords","Interest",resume_id,db)
+        reference = await query_raw("tags,name,reference","Reference",resume_id,db)
+        project = await query_raw("tags,name,start_date,end_date,description,highlights,url","Project",resume_id,db)
+        tags = await query_raw("tags","Resume",resume_id,db)
         snake_resume = {
-            "basics": basic,
+            "basics": basics,
             "work": work,
             "volunteer": volunteer,
             "education": education,
@@ -374,75 +325,75 @@ async def get_resume_clean(token, db=None):
             "tags":tags
         }
         clean_resume = convert_to_camel(snake_resume)
+        clean_resume = json.dumps(clean_resume)
 
 
     return clean_resume
 
-async def create_basics(basic, token, resume_id=None, db=None):
+async def create_basics(basics, token, resume_id=None, db=None):
     """
-    Creates basic in db
+    Creates basics in db
     Expects dictionary object complient with tagged-resume.json
     """
 
     if db == None:
         async with Prisma() as db:
-            basic_in_db,location_in_db,summary_in_db,label_in_db,profiles_in_db = await create_basics(basic,token,db)
+            basics_in_db,location_in_db,summary_in_db,label_in_db,profiles_in_db = await create_basics(basics,token,db)
 
     else:
-        basic = convert_to_snake(basic)
+        basics = convert_to_snake(basics)
         if resume_id == None:
             resume_id = (await get_resume(token, db)).id
-        basic_obj = {
+        basics_obj = {
             "belongs_to_id": resume_id,
-            "name":basic["name"],
-            "image":basic["image"],
-            "email":basic["email"],
-            "phone":basic["phone"],
-            "url":basic["url"],
+            "name":basics["name"],
+            "image":basics["image"],
+            "email":basics["email"],
+            "phone":basics["phone"],
+            "url":basics["url"],
         }
 
-        #create the basic
-        basic_in_db = await db.basic.create(data=basic_obj)
-        basic_id = basic_in_db.id
+        #create the basics
+        basics_in_db = await db.basics.create(data=basics_obj)
+        basics_id = basics_in_db.id
 
         #create the location
-        print(basic)
-        loc_obj = basic["location"]
-        location_in_db = await create_location(loc_obj, basic_id, db)
+        loc_obj = basics["location"]
+        location_in_db = await create_location(loc_obj, basics_id, db)
 
         #create the summary or summaries
-        summary_obj = basic["summary"]
+        summary_obj = basics["summary"]
         summary_in_db = []
         for summary_entry in summary_obj:
-            created_summary = await create_summary(summary_entry, basic_id, db)
+            created_summary = await create_summary(summary_entry, basics_id, db)
             summary_in_db.append(created_summary)
         
         #create the label or labels
-        label_obj = basic["label"]
+        label_obj = basics["label"]
         label_in_db = []
         for label_entry in label_obj:
-            created_label = await create_label(label_entry, basic_id, db)
+            created_label = await create_label(label_entry, basics_id, db)
             label_in_db.append(created_label)
 
         #create the profiles
-        profiles_obj = basic["profiles"]
+        profiles_obj = basics["profiles"]
         profiles_in_db = []
         for profile_entry in profiles_obj:
-            created_profile = await create_profile(profile_entry, basic_id, db)
+            created_profile = await create_profile(profile_entry, basics_id, db)
             profiles_in_db.append(created_profile)
 
-    return basic_in_db,location_in_db,summary_in_db,label_in_db,profiles_in_db
+    return basics_in_db,location_in_db,summary_in_db,label_in_db,profiles_in_db
 
-async def get_basic(token, db=None):
+async def get_basics(token, db=None):
     """
-    gets a basic table entry from a token
+    gets a basics table entry from a token
     """
     if db == None:
         async with Prisma() as db:
-            basic = await get_basic(token,db)
+            basics = await get_basics(token,db)
     else:
         resume = await get_resume(token, db)
-        basic = await db.basic.find_unique(
+        basics = await db.basics.find_unique(
             where={
                 "belongs_to_id":resume.id
             },
@@ -453,7 +404,7 @@ async def get_basic(token, db=None):
                 "profiles":True
             }
         )
-    return basic
+    return basics
 
 async def get_resume_json(token,db=None):
     if db==None:
@@ -468,76 +419,76 @@ async def get_resume_json(token,db=None):
     return resume_json
 
 
-async def get_all_basic():
+async def get_all_basics():
     """
     utility function for cli/admin
     """
     db = await connect()
-    basics = await db.basic.find_many()
+    basics = await db.basics.find_many()
     return basics
 
-async def delete_basic(token, db=None):
+async def delete_basics(token, db=None):
     """
     utility function for cli/admin
     """
     if db==None:
         async with Prisma() as db:
-            deleted_basic = await delete_basic(token,db)
+            deleted_basics = await delete_basics(token,db)
     else:
-        basic = await get_basic(token,db)
-        deleted_basic = await db.basic.delete(
+        basics = await get_basics(token,db)
+        deleted_basics = await db.basics.delete(
             where={
-                "id":basic.id
+                "id":basics.id
             }
         )
-    return deleted_basic
+    return deleted_basics
 
 
-async def create_location(location, basic_id, db=None):
+async def create_location(location, basics_id, db=None):
     """
-    Helper for create_basic, creates a location
+    Helper for create_basics, creates a location
     """
     if db == None:
         async with Prisma() as db:
-            created_location = await create_location(location, basic_id, db)
+            created_location = await create_location(location, basics_id, db)
     else:
-        location["belongs_to_id"] = basic_id
+        location["belongs_to_id"] = basics_id
         created_location = await db.location.create(location)
     return created_location
 
-async def create_summary(summary, basic_id, db=None):
+async def create_summary(summary, basics_id, db=None):
     """
-    Helper for create basic creates a summary
+    Helper for create basics creates a summary
     """
     if db==None:
         async with Prisma() as db:
-            summary_in_db = await create_summary(summary,basic_id,db)
+            summary_in_db = await create_summary(summary,basics_id,db)
     else:
-        summary["belongs_to_id"]=basic_id
+        summary["belongs_to_id"]=basics_id
         summary_in_db = await db.summary.create(summary)
     return summary_in_db
 
-async def create_label(label, basic_id, db=None):
+async def create_label(label, basics_id, db=None):
     """
-    Helper for create basic, creates a label
+    Helper for create basics, creates a label
     """
     if db==None:
         async with Prisma() as db:
-            label_in_db = await create_label(label,basic_id,db)
+            label_in_db = await create_label(label,basics_id,db)
     else:
-        label["belongs_to_id"]=basic_id
+        label["belongs_to_id"]=basics_id
         label_in_db = await db.label.create(label)
     return label_in_db
 
-async def create_profile(profile, basic_id, db=None):
+async def create_profile(profile, basics_id, db=None):
     """
-    Helper for create basic, creates profile(s)
+    Helper for create basics, creates profile(s)
     """
     if db==None:
         async with Prisma() as db:
-            profile_in_db = await create_profile(profile,basic_id,db)
+            profile_in_db = await create_profile(profile,basics_id,db)
     else:
-        profile["belongs_to_id"]=basic_id
+        profile["belongs_to_id"]=basics_id
         profile_in_db = await db.profile.create(profile)
     return profile_in_db
 
@@ -674,18 +625,18 @@ async def create_project(project, resume_id, db=None):
         project_in_db = await db.project.create(project)
     return project_in_db
 
-async def update_basic(new_basic, token, db=None):
+async def update_basics(new_basics, token, db=None):
     """
-    updates a basic, requiring a new basic complient as in create_basic
+    updates a basics, requiring a new basics complient as in create_basics
     deleting and making anew is honestly cheaper than comparing bit by bit
     """
     if db==None:
         async with Prisma() as db:
-            new_basic_in_db = await update_basic(new_basic,token,db)
+            new_basics_in_db = await update_basics(new_basics,token,db)
     else:
-        await delete_basic(token, db)
-        new_basic_in_db = await create_basic(new_basic, token, db)
-    return new_basic_in_db
+        await delete_basics(token, db)
+        new_basics_in_db = await create_basics(new_basics, token, db)
+    return new_basics_in_db
 
 
 
@@ -835,11 +786,6 @@ async def refresh_token(token):
         )
     return authorized.token
 
-async def connect():
-    db = Prisma()
-    await db.connect()
-    return db
-
 
 def convert_to_camel(input_dict):
     def snake_to_camel_case(key):
@@ -861,9 +807,9 @@ def convert_to_camel(input_dict):
 
     return convert_keys(input_dict)
 
-def convert_to_snake(data):
+def convert_to_snake(input_dict):
     snake_dict = {}
-    for key, value in data.items():
+    for key, value in input_dict.items():
         new_key = re.sub("([a-z0-9])([A-Z])", r"\1_\2", key).lower()
         if isinstance(value, dict):
             snake_dict[new_key] = convert_to_snake(value)

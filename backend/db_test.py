@@ -64,24 +64,24 @@ async def dbtest(argA, argB, argC):
         case "create_location":
             location = await dbtool.create_location(arg1,arg2)
             return location
-        case "create_basic":
-            basic = await dbtool.create_basic(arg1,arg2)
-            return basic
-        case "get_basic":
-            basic = await dbtool.get_basic(arg1)
-            return basic
-        case "get_all_basic":
-            basics = await dbtool.get_all_basic()
+        case "create_basics":
+            basics = await dbtool.create_basics(arg1,arg2)
+            return basics
+        case "get_basics":
+            basics = await dbtool.get_basics(arg1)
+            return basics
+        case "get_all_basics":
+            basics = await dbtool.get_all_basics()
             return basics
         case "create_summary":
             summary = await dbtool.create_summary(arg1,arg2)
             return summary
-        case "delete_basic":
-            deleted_basic = await dbtool.delete_basic(arg1)
-            return deleted_basic
-        case "update_basic":
-            new_basic = await dbtool.update_basic(arg1,arg2)
-            return new_basic
+        case "delete_basics":
+            deleted_basics = await dbtool.delete_basics(arg1)
+            return deleted_basics
+        case "update_basics":
+            new_basics = await dbtool.update_basics(arg1,arg2)
+            return new_basics
         case "get_resume_json":
             resume_json = await dbtool.get_resume_json(arg1)
             return resume_json
