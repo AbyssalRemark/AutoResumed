@@ -23,6 +23,7 @@ console.log(addButton)
 var prototypes = document.getElementById("element-prototypes")
 for (k = 0; k < addButton.length; k++) {
     addableId = addButton[k].id
+    addableId = addableId.slice(0,-4)
     var initAddable = (document.getElementsByClassName(addableId)[0]);
     var initRemoveButton = document.createElement("button")
     initRemoveButton.type="button"
@@ -35,8 +36,24 @@ for (k = 0; k < addButton.length; k++) {
     initAddable.appendChild(initRemoveButton)
 
     addButton[k].addEventListener("click", function() {
-        var toAddProto = prototypes.getElementsByClassName(this.id)[0];
+        var className = this.id.slice(0,-4)
+        var toAddProto = prototypes.getElementsByClassName(className)[0];
         var toAdd = toAddProto.cloneNode(true);
+        var newId = toAdd.id
+        var splitId = newId.split("_")
+        var existingCount = this.parentElement.children.length - 2
+        splitId[1] = existingCount.toString()
+        newId = splitId.join("_")
+        toAdd.id = newId
+        var innerElements = toAdd.children
+        for(a = 0; a<innerElements; a++){
+          newIdInner = innerElements[a].id
+          var splitIdInner = newIdInner.split("_")
+          splitIdInner[1] = existingCount.toString()
+          newIdInner = splitId.join("_")
+          innerElements[a].id = newIdInner
+          
+        }
         var addTo = this.parentElement;
         var removeButton = document.createElement("button")
         removeButton.type="button"

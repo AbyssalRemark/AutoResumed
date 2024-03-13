@@ -17,7 +17,7 @@
         <div class="navsection" id="rightnav">
             <a href="login.html">Login</a>
             <a href="register.html">Register</a>
-            <a class="active" href="login.html">Edit Resume</a>
+            <a class="active" href="resume.html">Edit Resume</a>
             <a href="register.html">Logout</a>
         </div>
     </div>
@@ -79,8 +79,8 @@
             <div class="collapsible-element" id="description-and-summary">
                 <div class="label-form">
                     <h4>Desired Job Descriptions:</h4>
-                    <button type="button" class="add-button" id="label-form-entry">Add Entry</button>
-                    <div class="label-form-entry form-entry">
+                    <button type="button" class="add-button" id="label-form-entry-add">Add Entry</button>
+                    <div class="label-form-entry form-entry" id="label-form-entry_0">
                         <div class="input-field" id="label-label-input-field_0">
                             <label for="label-label-field_0">Position</label>
                             <input type="text" id="label-label-field_0" pattern="[A-Za-z ]+" value="Programmer" />
@@ -94,8 +94,8 @@
 
                 <div class="summary-form">
                     <h4>Personal Summaries:</h4>
-                    <button type="button" class="add-button" id="summary-form-entry">Add Entry</button>
-                    <div class="summary-form-entry form-entry">
+                    <button type="button" class="add-button" id="summary-form-entry-add">Add Entry</button>
+                    <div class="summary-form-entry form-entry" id="summary-form-entry_0">
                         <div class="input-field" id="summary-summary-input-field_0">
                             <label for="summary-summary-field_0">Summary</label>
                             <textarea id="summary-summary-field_0">From a wee lad to an ax man...</textarea>
@@ -113,8 +113,8 @@
                 <button type="button" class="collapse-button">Social Media<span id="bolt-icon">    &#8623;</span></button>
                 <div class="collapsible-element" id="profiles">
                     <h4>Profiles:</h4>
-                    <button type="button" class="add-button" id="profile-form-entry">Add Entry</button>
-                    <div class="profile-form-entry form-entry">
+                    <button type="button" class="add-button" id="profile-form-entry-add">Add Entry</button>
+                    <div class="profile-form-entry form-entry" id="profile-form-entry_0">
                         <div class="input-field" id="profiles-network-input-field_0">
                             <label for="profiles-network-field_0">Network</label>
                             <input type="text" id="profiles-network-field_0" pattern="[A-Za-z ]+" value="github" />
@@ -140,8 +140,8 @@
             <button type="button" class="collapse-button">Work Experience<span id="bolt-icon">    &#8623;</span></button>
             <div class="collapsible-element" id="work">
                 <h4>Work History: </h4>
-                <button type="button" class="add-button" id="work-form-entry">Add Entry</button>
-                <div class="work-form-entry form-entry">
+                <button type="button" class="add-button" id="work-form-entry-add">Add Entry</button>
+                <div class="work-form-entry form-entry" id="work-form-entry_0">
                     <div class="input-field" id="work-name-input-field_0">
                         <label for="work-name-field_0">Name</label>
                         <input type="text" id="work-name-field_0" pattern="[A-Za-z]+" value="techie name" />
@@ -179,8 +179,8 @@
             <button type="button" class="collapse-button">Volunteer Experience<span id="bolt-icon">    &#8623;</span></button>
             <div class="collapsible-element" id="volunteer">
                 <h4>Charitable Gigs:</h4>
-                <button type="button" class="add-button" id="volunteer-form-entry">Add Entry</button>
-                <div class="volunteer-form-entry form-entry">
+                <button type="button" class="add-button" id="volunteer-form-entry-add">Add Entry</button>
+                <div class="volunteer-form-entry form-entry" id="volunteer-form-entry_0">
                     <div class="input-field" id="volunteer-organization-input-field_0">
                         <label for="volunteer-organization-field_0">Organization</label>
                         <input type="text" id="volunteer-organization-field_0" pattern="[A-Za-z]+" value="Organization" />
@@ -218,8 +218,8 @@
             <button type="button" class="collapse-button">Education History<span id="bolt-icon">    &#8623;</span></button>
             <div class="collapsible-element" id="education">
                 <h4>Institutions:</h4>
-                <button type="button" class="add-button" id="education-form-entry">Add Entry</button>
-                <div class="education-form-entry form-entry">
+                <button type="button" class="add-button" id="education-form-entry-add">Add Entry</button>
+                <div class="education-form-entry form-entry" id="education-form-entry_0">
                     <div class="input-field" id="education-institution-input-field_0">
                         <label for="education-institution-field_0">Institution</label>
                         <input type="text" id="education-institution-field_0" pattern="[A-Za-z ]+" value="Totally Tech the institution" />
@@ -261,8 +261,8 @@
             <button type="button" class="collapse-button">Official Accolades<span id="bolt-icon">    &#8623;</span></button>
             <div class="collapsible-element" id="awards">
                 <h4>Awards:</h4>
-                <button type="button" class="add-button" id="award-form-entry">Add Entry</button>
-                <div class="award-form-entry form-entry">
+                <button type="button" class="add-button" id="award-form-entry-add">Add Entry</button>
+                <div class="award-form-entry form-entry" id="award-form-entry_0">
                     <div class="input-field" id="awards-title-input-field_0">
                         <label for="awards-title-field_0">Title</label>
                         <input type="text" id="awards-title-field_0" pattern="[A-Za-z ]+" value="wudward" />
@@ -288,8 +288,8 @@
             <button type="button" class="collapse-button">Certifications<span id="bolt-icon">    &#8623;</span></button>
             <div class="collapsible-element" id="certificates">
                 <h4>Certificates and Licenses:</h4>
-                <button type="button" class="add-button" id="certificate-form-entry">Add Entry</button>
-                <div class="certificate-form-entry form-entry">
+                <button type="button" class="add-button" id="certificate-form-entry-add">Add Entry</button>
+                <div class="certificate-form-entry form-entry" id="certificate-form-entry_0">
                     <div class="input-field" id="certificates-name-input-field_0">
                         <label for="certificates-name-field_0">Name</label>
                         <input type="text" id="certificates-name-field_0" pattern="[A-Za-z ]+" value="Certified Nerd" />
@@ -315,8 +315,8 @@
             <button type="button" class="collapse-button">Published Works<span id="bolt-icon">    &#8623;</span></button>
             <div class="collapsible-element" id="publications">
                 <h4>Publications:</h4>
-                <button type="button" class="add-button" id="publication-form-entry">Add Entry</button>
-                <div class="publication-form-entry form-entry">
+                <button type="button" class="add-button" id="publication-form-entry-add">Add Entry</button>
+                <div class="publication-form-entry form-entry" id="publication-form-entry_0">
                     <div class="input-field" id="publications-name-input-field_0">
                         <label for="publications-name-field_0">Name</label>
                         <input type="text" id="publications-name-field_0" pattern="[A-Za-z ]+" value="Publication" />
@@ -346,8 +346,8 @@
             <button type="button" class="collapse-button">Skills<span id="bolt-icon">    &#8623;</span></button>
             <div class="collapsible-element" id="skills">
                 <h4>Skills:</h4>
-                <button type="button" class="add-button" id="skill-form-entry">Add Entry</button>
-                <div class="skill-form-entry form-entry">
+                <button type="button" class="add-button" id="skill-form-entry-add">Add Entry</button>
+                <div class="skill-form-entry form-entry" id="skill-form-entry_0">
                     <div class="input-field" id="skills-name-input-field_0">
                         <label for="skills-name-field_0">Name</label>
                         <input type="text" id="skills-name-field_0" pattern="[A-Za-z ]+" value="Web Development" />
@@ -369,8 +369,8 @@
             <button type="button" class="collapse-button">References<span id="bolt-icon">    &#8623;</span></button>
             <div class="collapsible-element" id="references">
                 <h4>Professional References:</h4>
-                <button type="button" class="add-button" id="reference-form-entry">Add Entry</button>
-                <div class="reference-form-entry form-entry">
+                <button type="button" class="add-button" id="reference-form-entry-add">Add Entry</button>
+                <div class="reference-form-entry form-entry" id="reference-form-entry_0">
                     <div class="input-field" id="references-name-input-field_0">
                         <label for="references-name-field_0">Name</label>
                         <input type="text" id="references-name-field_0" pattern="[A-Za-z ]+" value="Smarty nerd" />
@@ -388,8 +388,8 @@
             <button type="button" class="collapse-button">Projects<span id="bolt-icon">    &#8623;</span></button>
             <div class="collapsible-element" id="projects">
                 <h4>Project Portfolio:</h4>
-                <button type="button" class="add-button" id="project-form-entry">Add Entry</button>
-                <div class="project-form-entry form-entry">
+                <button type="button" class="add-button" id="project-form-entry-add">Add Entry</button>
+                <div class="project-form-entry form-entry" id="project-form-entry_0">
                     <div class="input-field" id="projects-name-input-field_0">
                         <label for="projects-name-field_0">Name</label>
                         <input type="text" id="projects-name-field_0" pattern="[A-Za-z ]+" value="ultimate hacker ai" />
@@ -422,8 +422,8 @@
             <button type="button" class="collapse-button">Languages<span id="bolt-icon">    &#8623;</span></button>
             <div class="collapsible-element" id="languages">
                 <h4>Languages and Fluency:</h4>
-                <button type="button" class="add-button" id="language-form-entry">Add Entry</button>
-                <div class="language-form-entry form-entry">
+                <button type="button" class="add-button" id="language-form-entry-add">Add Entry</button>
+                <div class="language-form-entry form-entry" id="language-form-entry_0">
                     <div class="input-field" id="language-name-input-field_0">
                         <label for="language-name-field_0">Language</label>
                         <input type="text" id="language-name-field_0" pattern="[A-Za-z]" value="Ex: English" />
@@ -440,8 +440,8 @@
             <button type="button" class="collapse-button">Interests<span id="bolt-icon">    &#8623;</span></button>
             <div class="collapsible-element form-entry" id="interests">
                 <h4>Interests and Hobbies:</h4>
-                <button type="button" class="add-button" id="interest-form-entry">Add Entry</button>
-                <div class="interest-form-entry">
+                <button type="button" class="add-button" id="interest-form-entry-add">Add Entry</button>
+                <div class="interest-form-entry form-entry" id="interest-form-entry_0">
                     <div class="input-field" id="interest-name-input-field_0">
                         <label for="interest-name-field_0">Interest</label>
                         <input type="text" id="interest-name-field_0" pattern="[A-Za-z]+" value="Ex: Wildlife" />
@@ -459,7 +459,7 @@
 
 <footer>
 <div class="resume-form-entries prototypes" id="element-prototypes">           
-    <div class="label-form-entry form-entry">
+    <div class="label-form-entry form-entry" id="label-form-entry_0">
         <div class="input-field" id="label-label-input-field_0">
             <label for="label-label-field_0">Position</label>
             <input type="text" id="label-label-field_0" pattern="[A-Za-z ]+" value="Programmer" />
@@ -470,7 +470,7 @@
         </div>
     </div>
 
-    <div class="summary-form-entry form-entry">
+    <div class="summary-form-entry form-entry" id="summary-form-entry_0">
         <div class="input-field" id="summary-summary-input-field_0">
             <label for="summary-summary-field_0">Summary</label>
             <textarea id="summary-summary-field_0">From a wee lad to an ax man...</textarea>
@@ -481,7 +481,7 @@
         </div>
     </div>
 
-    <div class="profile-form-entry form-entry">
+    <div class="profile-form-entry form-entry" id="profile-form-entry_0">
         <div class="input-field" id="profiles-network-input-field_0">
             <label for="profiles-network-field_0">Network</label>
             <input type="text" id="profiles-network-field_0" pattern="[A-Za-z ]+" value="github" />
@@ -501,7 +501,7 @@
 
     </div>
         
-    <div class="work-form-entry form-entry">
+    <div class="work-form-entry form-entry" id="work-form-entry_0">
         <div class="input-field" id="work-name-input-field_0">
             <label for="work-name-field_0">Name</label>
             <input type="text" id="work-name-field_0" pattern="[A-Za-z]+" value="techie name" />
@@ -532,7 +532,7 @@
         </div>
     </div>
     
-    <div class="volunteer-form-entry form-entry">
+    <div class="volunteer-form-entry form-entry" id="volunteer-form-entry_0">
         <div class="input-field" id="volunteer-organization-input-field_0">
             <label for="volunteer-organization-field_0">Organization</label>
             <input type="text" id="volunteer-organization-field_0" pattern="[A-Za-z]+" value="Organization" />
@@ -563,7 +563,7 @@
         </div>
     </div>
 
-    <div class="education-form-entry form-entry">
+    <div class="education-form-entry form-entry" id="education-form-entry_0">
         <div class="input-field" id="education-institution-input-field_0">
             <label for="education-institution-field_0">Institution</label>
             <input type="text" id="education-institution-field_0" pattern="[A-Za-z ]+" value="Totally Tech the institution" />
@@ -598,7 +598,7 @@
         </div>
     </div>
 
-    <div class="award-form-entry form-entry">
+    <div class="award-form-entry form-entry" id="award-form-entry_0">
         <div class="input-field" id="awards-title-input-field_0">
             <label for="awards-title-field_0">Title</label>
             <input type="text" id="awards-title-field_0" pattern="[A-Za-z ]+" value="wudward" />
@@ -618,7 +618,7 @@
     </div>
 
 
-    <div class="certificate-form-entry form-entry">
+    <div class="certificate-form-entry form-entry" id="certificate-form-entry_0">
         <div class="input-field" id="certificates-name-input-field_0">
             <label for="certificates-name-field_0">Name</label>
             <input type="text" id="certificates-name-field_0" pattern="[A-Za-z ]+" value="Certified Nerd" />
@@ -637,7 +637,7 @@
         </div>
     </div>
 
-    <div class="publication-form-entry form-entry">
+    <div class="publication-form-entry form-entry" id="publication-form-entry_0">
         <div class="input-field" id="publications-name-input-field_0">
             <label for="publications-name-field_0">Name</label>
             <input type="text" id="publications-name-field_0" pattern="[A-Za-z ]+" value="Publication" />
@@ -660,7 +660,7 @@
         </div>
     </div>
 
-    <div class="skill-form-entry form-entry">
+    <div class="skill-form-entry form-entry" id="skill-form-entry_0">
         <div class="input-field" id="skills-name-input-field_0">
             <label for="skills-name-field_0">Name</label>
             <input type="text" id="skills-name-field_0" pattern="[A-Za-z ]+" value="Web Development" />
@@ -675,7 +675,7 @@
         </div>
     </div>
 
-    <div class="reference-form-entry form-entry">
+    <div class="reference-form-entry form-entry" id="reference-form-entry_0">
         <div class="input-field" id="references-name-input-field_0">
             <label for="references-name-field_0">Name</label>
             <input type="text" id="references-name-field_0" pattern="[A-Za-z ]+" value="Smarty nerd" />
@@ -686,7 +686,7 @@
         </div>
     </div>
 
-    <div class="project-form-entry form-entry">
+    <div class="project-form-entry form-entry" id="project-form-entry_0">
         <div class="input-field" id="projects-name-input-field_0">
             <label for="projects-name-field_0">Name</label>
             <input type="text" id="projects-name-field_0" pattern="[A-Za-z ]+" value="ultimate hacker ai" />
@@ -713,7 +713,7 @@
         </div>
     </div>
 
-    <div class="language-form-entry form-entry">
+    <div class="language-form-entry form-entry" id="language-form-entry_0">
         <div class="input-field" id="language-name-input-field_0">
             <label for="language-name-field_0">Language</label>
             <input type="text" id="language-name-field_0" pattern="[A-Za-z]" value="Ex: English" />
@@ -724,7 +724,7 @@
         </div>
     </div>
 
-    <div class="interest-form-entry">
+    <div class="interest-form-entry form-entry" id="interest-form-entry_0">
         <div class="input-field" id="interest-name-input-field_0">
             <label for="interest-name-field_0">Interest</label>
             <input type="text" id="interest-name-field_0" pattern="[A-Za-z]+" value="Ex: Wildlife" />
