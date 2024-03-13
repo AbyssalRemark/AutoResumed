@@ -1,6 +1,7 @@
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: #fff1d0;
 }
 
 .topnav {
@@ -41,4 +42,50 @@ body {
 
 .title-line {
     padding: 3rem;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50rem;
+}
+
+.register-form {
+    height: 17rem;
+    width: 25rem;
+    background-color: #333;
+    color: #f2f2f2;
+    padding: 1rem;
+    border: solid #04AA6D;
+}
+
+.email-input {
+    display: grid;
+    padding-left: 1.6rem;
+    padding-right: 1.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+.password-input {
+    display: grid;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.register-button {
+    width: 10rem;
+}
+
+.register-button-container {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
