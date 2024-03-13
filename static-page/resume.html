@@ -7,54 +7,33 @@
 
 <body>
     <div class="resume-form">
-
+        <h2>input or edit resume info here</h2>
         <!-- Basics Form -->
         <div class="basics-form">
+            <h4> Basic personal info:</h4>
             <div class="input-field" id="basics-name">
                 <label for="basics-name-field">Name</label>
                 <input type="text" id="basics-name-field" required pattern="[A-Za-z ]+" value="Test McTest" />
             </div>
-            <div class="label-form">
-                <div class="label-form-entry">
-                    <div class="input-field" id="label-tags">
-                        <label for="label-tags-field">Tags</label>
-                        <input type="text" id="label-tags-field" required pattern="[A-Za-z, ]+" value="tech" />
-                    </div>
-                    <div class="input-field" id="label-label">
-                        <label for="label-label-field">Label</label>
-                        <input type="text" id="label-label-field" required pattern="[A-Za-z ]+" value="Programmer" />
-                    </div>
-                </div>
-            </div>
             <div class="input-field" id="basics-image">
                 <label for="basics-image-field">Image</label>
-                <input type="text" id="basics-image-field" value="" />
+                <input type="text" id="basics-image-field" value="image URL" />
             </div>
             <div class="input-field" id="basics-email">
                 <label for="basics-email-field">Email</label>
-                <input type="email" id="basics-email-field" required value="test@notmail.not" />
+                <input type="email" id="basics-email-field" required value="Ex: user@example.com" />
             </div>
             <div class="input-field" id="basics-phone">
                 <label for="basics-phone-field">Phone</label>
-                <input type="tel" id="basics-phone-field" required pattern="[0-9()-]+" value="(912) 555-4321" />
+                <input type="tel" id="basics-phone-field" required pattern="[0-9()-]+" value="Ex: (555) 555-5555" />
             </div>
             <div class="input-field" id="basics-url">
                 <label for="basics-url-field">URL</label>
                 <input type="url" id="basics-url-field" required value="https://johndoe.not" />
             </div>
-            <div class="summary-form">
-                <div class="summary-form-entry">
-                    <div class="input-field" id="summary-tags">
-                        <label for="summary-tags-field">Tags</label>
-                        <input type="text" id="summary-tags-field" required pattern="[A-Za-z, ]+" value="craft" />
-                    </div>
-                    <div class="input-field" id="summary-summary">
-                        <label for="summary-summary-field">Summary</label>
-                        <textarea id="summary-summary-field" required>From a wee lad to an ax man...</textarea>
-                    </div>
-                </div>
-            </div>
+
             <div class="location-form">
+                <h4>Location/Address Info:</h4>
                 <div class="input-field" id="location-address">
                     <label for="location-address-field">Address</label>
                     <input type="text" id="location-address-field" required value="2712 Broadway St" />
@@ -76,12 +55,41 @@
                     <input type="text" id="location-region-field" required pattern="[A-Za-z ]+" value="California" />
                 </div>
             </div>
-            <div class="profiles-form">
-                <div class="profiles-form-entry">
-                    <div class="input-field" id="profiles-tags">
-                        <label for="profiles-tags-field">Tags</label>
-                        <input type="text" id="profiles-tags-field" required pattern="[A-Za-z, ]+" value="tech" />
+
+            <div class="label-form">
+                <h4>Desired Job Description:</h4>
+
+                <div class="label-form-entry">
+                    <div class="input-field" id="label-label">
+                        <label for="label-label-field">Label</label>
+                        <input type="text" id="label-label-field" required pattern="[A-Za-z ]+" value="Programmer" />
                     </div>
+                    <div class="input-field" id="label-tags">
+                        <label for="label-tags-field">Tags</label>
+                        <input type="text" id="label-tags-field" required pattern="[A-Za-z, ]+" value="tech" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-form">
+                <h4>Personal Summary:</h4>
+
+                <div class="summary-form-entry">
+                     <div class="input-field" id="summary-summary">
+                        <label for="summary-summary-field">Summary</label>
+                        <textarea id="summary-summary-field" required>From a wee lad to an ax man...</textarea>
+                    </div>
+                    <div class="input-field" id="summary-tags">
+                        <label for="summary-tags-field">Tags</label>
+                        <input type="text" id="summary-tags-field" required pattern="[A-Za-z, ]+" value="craft" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="profiles-form">
+                <h4>Social Profiles:</h4>
+
+                <div class="profiles-form-entry
                     <div class="input-field" id="profiles-network">
                         <label for="profiles-network-field">Network</label>
                         <input type="text" id="profiles-network-field" required pattern="[A-Za-z ]+" value="github" />
@@ -94,11 +102,16 @@
                         <label for="profiles-url-field">URL</label>
                         <input type="url" id="profiles-url-field" required value="https://github.not/john" />
                     </div>
+                    <div class="input-field" id="profiles-tags">
+                        <label for="profiles-tags-field">Tags</label>
+                        <input type="text" id="profiles-tags-field" required pattern="[A-Za-z, ]+" value="tech" />
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="work-form">
+            <h4>Work Experience:</h4>
             <div class="work-form-entry">
                 <div class="input-field" id="work-name">
                     <label for="work-name-field">Name</label>
@@ -133,6 +146,7 @@
         
         <!-- Volunteer Form -->
         <div class="volunteer-form">
+            <h4>Volunteer Experience:</h4>
             <div class="volunteer-form-entry">
                 <div class="input-field" id="volunteer-organization">
                     <label for="volunteer-organization-field">Organization</label>
@@ -167,6 +181,7 @@
         
         <!-- Education Form -->
         <div class="education-form">
+            <h4>Education:</h4>
             <div class="education-form-entry">
                 <div class="input-field" id="education-institution">
                     <label for="education-institution-field">Institution</label>
@@ -205,6 +220,7 @@
         
         <!-- Awards Form -->
         <div class="awards-form">
+            <h4>Awards:</h4>
             <div class="awards-form-entry">
                 <div class="input-field" id="awards-title">
                     <label for="awards-title-field">Title</label>
@@ -227,6 +243,7 @@
         
         <!-- Certificates Form -->
         <div class="certificates-form">
+            <h4>Certifications:</h4>
             <div class="certificates-form-entry">
                 <div class="input-field" id="certificates-name">
                     <label for="certificates-name-field">Name</label>
@@ -249,6 +266,7 @@
         
         <!-- Publications Form -->
         <div class="publications-form">
+            <h4>Publications:</h4>
             <div class="publications-form-entry">
                 <div class="input-field" id="publications-name">
                     <label for="publications-name-field">Name</label>
@@ -275,6 +293,7 @@
         
         <!-- Skills Form -->
         <div class="skills-form">
+            <h4>Skills:</h4>
             <div class="skills-form-entry">
                 <div class="input-field" id="skills-name">
                     <label for="skills-name-field">Name</label>
@@ -293,6 +312,7 @@
 
         <!-- References Form -->
         <div class="references-form">
+            <h4>References:</h4>
             <div class="references-form-entry">
                 <div class="input-field" id="references-name">
                     <label for="references-name-field">Name</label>
@@ -307,6 +327,7 @@
 
         <!-- Projects Form -->
         <div class="projects-form">
+            <h4>Projects:</h4>
             <div class="projects-form-entry">
                 <div class="input-field" id="projects-name">
                     <label for="projects-name-field">Name</label>
@@ -334,7 +355,9 @@
                 </div>
             </div>
         </div>
+
         <div class="languages-form">
+            <h4>Languages:</h4>
             <div class="langauge-form-entry">
                 <div class="input-field" id="language-name">
                     <label for="language-name-field">Language</label>
@@ -346,7 +369,9 @@
                 </div>
             </div>
         </div>
+
         <div class="interests-form">
+            <h4>Languages:</h4>
             <div class="interest-form-entry">
                 <div class="input-field" id="interest-name">
                     <label for="interest-name-field">Interest</label>
