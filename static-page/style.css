@@ -35,11 +35,6 @@ body {
     font-size: 1rem;
 }
 
-#bolt-icon {
-    font-size: 2.5rem;
-    font-weight: bolder;
-}
-
 .topnav a:hover {
     background-color: #ddd;
     color: black;
