@@ -2,10 +2,9 @@ import subprocess
 import json
 import os
 import tempfile
-# from . import pdfgen
 
 
-def to_html(resume: dict, template: str) -> str:
+def to_html(resume: dict, template: str, keep_html_file: bool = False) -> str:
     """
     Converts the given resume to HTML
     """
@@ -44,15 +43,26 @@ def to_html(resume: dict, template: str) -> str:
         contents = html_file.read()
 
     # We no longer need resume.html
-    os.remove(output_file_path)
+    if not keep_html_file:
+        os.remove(output_file_path)
 
     return contents
 
-# async def to_pdf(resume: dict, template: str):
-#     html = to_html(resume, template)
-#     pdf = await pdfgen.from_string(html)
-#     print(pdf)
-#     return pdf
+def to_pdf(resume: dict, template: str):
+    to_html(resume, template, True)
+
+    tmp_dir = tempfile.gettempdir()
+    html_file_path = os.path.join(tmp_dir, "resume.html")
+    output_file_path = os.path.join(tmp_dir, "resume.pdf")
+
+    subprocess.run(["html2pdf", html_file_path, "-o", output_file_path])
+
+    with open(output_file_path) as pdf_file:
+        contents = pdf_file.read()
+
+    os.remove(output_file_path)
+
+    return contents
 
 class InvalidTemplate(Exception):
     pass

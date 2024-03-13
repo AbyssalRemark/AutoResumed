@@ -1,8 +1,11 @@
 import dbtool
+import subprocess
+import tempfile
+import os
 
 from cli import autoresumed, resumed
 from cli.resumed import InvalidTemplate
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, Response, request, jsonify, send_file
 from flask_json import JsonError, json_response
 
 resume = Blueprint("resume", __name__)
@@ -140,7 +143,7 @@ async def generate():
         return json_response(status="200", resume=html_resume)
     elif type == "pdf":
         try:
-            pdf_resume = await resumed.to_pdf(flattened_resume, template)
+            resumed.to_html(flattened_resume, template, True)
         except InvalidTemplate:
             raise JsonError(
                 400,
@@ -148,7 +151,14 @@ async def generate():
                 message=f"Invalid template: {template}.",
                 detail="Make sure the given template exists."
             )
-        return json_response(status="200", resume=pdf_resume)
+
+        tmp_dir = tempfile.gettempdir()
+        html_file_path = os.path.join(tmp_dir, "resume.html")
+        output_file_path = os.path.join(tmp_dir, "resume.pdf")
+
+        subprocess.run(["html2pdf", html_file_path, "-o", output_file_path])
+
+        return send_file(output_file_path)
     else:
         raise JsonError(
             400,
