@@ -140,7 +140,7 @@ async def generate():
         return json_response(status="200", resume=html_resume)
     elif type == "pdf":
         try:
-            pdf_resume = resumed.to_pdf(flattened_resume, template)
+            pdf_resume = await resumed.to_pdf(flattened_resume, template)
         except InvalidTemplate:
             raise JsonError(
                 400,
@@ -154,5 +154,5 @@ async def generate():
             400,
             error="invalid-type",
             message="The given type is invalid.",
-            detail="Try giving either 'html' or 'pdf.'"
+            detail="Try giving either 'html' or 'pdf'."
         )

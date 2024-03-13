@@ -11,7 +11,8 @@ Flask = { version = "^3.0.2", extras = ["async"]}
 flask-json = "^0.4.0"
 prisma = "^0.12.0"
 flask-cors = "^4.0.0"
-pdfkit = "^1.0.0"
+pdfgen = "^1.0.5"
+six = "^1.16.0"
 
 
 [tool.poetry.group.dev.dependencies]

@@ -2,7 +2,7 @@ import subprocess
 import json
 import os
 import tempfile
-import pdfkit
+import pdfgen
 
 
 def to_html(resume: dict, template: str) -> str:
@@ -48,9 +48,9 @@ def to_html(resume: dict, template: str) -> str:
 
     return contents
 
-def to_pdf(resume: dict, template: str):
+async def to_pdf(resume: dict, template: str):
     html = to_html(resume, template)
-    pdf = pdfkit.from_string(html)
+    pdf = await pdfgen.from_string(html)
     print(pdf)
     return pdf
 
