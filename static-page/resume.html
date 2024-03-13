@@ -7,6 +7,333 @@
 
 <body>
     <div class="resume-form">
+
+        <!-- Basics Form -->
+        <div class="basics-form">
+            <div class="input-field" id="basics-name">
+                <label for="basics-name-field">Name</label>
+                <input type="text" id="basics-name-field" required pattern="[A-Za-z ]+" value="Test McTest" />
+            </div>
+            <div class="label-form">
+                <div class="label-form-entry">
+                    <div class="input-field" id="label-tags">
+                        <label for="label-tags-field">Tags</label>
+                        <input type="text" id="label-tags-field" required pattern="[A-Za-z, ]+" value="tech" />
+                    </div>
+                    <div class="input-field" id="label-label">
+                        <label for="label-label-field">Label</label>
+                        <input type="text" id="label-label-field" required pattern="[A-Za-z ]+" value="Programmer" />
+                    </div>
+                </div>
+            </div>
+            <div class="input-field" id="basics-image">
+                <label for="basics-image-field">Image</label>
+                <input type="text" id="basics-image-field" value="" />
+            </div>
+            <div class="input-field" id="basics-email">
+                <label for="basics-email-field">Email</label>
+                <input type="email" id="basics-email-field" required value="test@notmail.not" />
+            </div>
+            <div class="input-field" id="basics-phone">
+                <label for="basics-phone-field">Phone</label>
+                <input type="tel" id="basics-phone-field" required pattern="[0-9()-]+" value="(912) 555-4321" />
+            </div>
+            <div class="input-field" id="basics-url">
+                <label for="basics-url-field">URL</label>
+                <input type="url" id="basics-url-field" required value="https://johndoe.not" />
+            </div>
+            <div class="summary-form">
+                <div class="summary-form-entry">
+                    <div class="input-field" id="summary-tags">
+                        <label for="summary-tags-field">Tags</label>
+                        <input type="text" id="summary-tags-field" required pattern="[A-Za-z, ]+" value="craft" />
+                    </div>
+                    <div class="input-field" id="summary-summary">
+                        <label for="summary-summary-field">Summary</label>
+                        <textarea id="summary-summary-field" required>From a wee lad to an ax man...</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="location-form">
+                <div class="input-field" id="location-address">
+                    <label for="location-address-field">Address</label>
+                    <input type="text" id="location-address-field" required value="2712 Broadway St" />
+                </div>
+                <div class="input-field" id="location-postalCode">
+                    <label for="location-postalCode-field">Postal Code</label>
+                    <input type="text" id="location-postalCode-field" required pattern="[A-Za-z0-9]+" value="CA 94115" />
+                </div>
+                <div class="input-field" id="location-city">
+                    <label for="location-city-field">City</label>
+                    <input type="text" id="location-city-field" required pattern="[A-Za-z ]+" value="San Francisco" />
+                </div>
+                <div class="input-field" id="location-countryCode">
+                    <label for="location-countryCode-field">Country Code</label>
+                    <input type="text" id="location-countryCode-field" required pattern="[A-Za-z]+" value="US" />
+                </div>
+                <div class="input-field" id="location-region">
+                    <label for="location-region-field">Region</label>
+                    <input type="text" id="location-region-field" required pattern="[A-Za-z ]+" value="California" />
+                </div>
+            </div>
+            <div class="profiles-form">
+                <div class="profiles-form-entry">
+                    <div class="input-field" id="profiles-tags">
+                        <label for="profiles-tags-field">Tags</label>
+                        <input type="text" id="profiles-tags-field" required pattern="[A-Za-z, ]+" value="tech" />
+                    </div>
+                    <div class="input-field" id="profiles-network">
+                        <label for="profiles-network-field">Network</label>
+                        <input type="text" id="profiles-network-field" required pattern="[A-Za-z ]+" value="github" />
+                    </div>
+                    <div class="input-field" id="profiles-username">
+                        <label for="profiles-username-field">Username</label>
+                        <input type="text" id="profiles-username-field" required pattern="[A-Za-z0-9]+" value="Test" />
+                    </div>
+                    <div class="input-field" id="profiles-url">
+                        <label for="profiles-url-field">URL</label>
+                        <input type="url" id="profiles-url-field" required value="https://github.not/john" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="work-form">
+            <div class="work-form-entry">
+                <div class="input-field" id="work-name">
+                    <label for="work-name-field">Name</label>
+                    <input type="text" id="work-name-field" required pattern="[A-Za-z]+" value="techie name" />
+                </div>
+                <div class="input-field" id="work-position">
+                    <label for="work-position-field">Position</label>
+                    <input type="text" id="work-position-field" required pattern="[A-Za-z]+" value="President" />
+                </div>
+                <div class="input-field" id="work-url">
+                    <label for="work-url-field">URL</label>
+                    <input type="url" id="work-url-field" required value="https://company.not" />
+                </div>
+                <div class="input-field" id="work-startDate">
+                    <label for="work-startDate-field">Start Date</label>
+                    <input type="date" id="work-startDate-field" required value="2013-01-01" />
+                </div>
+                <div class="input-field" id="work-endDate">
+                    <label for="work-endDate-field">End Date</label>
+                    <input type="date" id="work-endDate-field" required value="2014-01-01" />
+                </div>
+                <div class="input-field" id="work-summary">
+                    <label for="work-summary-field">Summary</label>
+                    <textarea id="work-summary-field" required>Description…</textarea>
+                </div>
+                <div class="input-field" id="work-highlights">
+                    <label for="work-highlights-field">Highlights</label>
+                    <input type="text" id="work-highlights-field" required pattern="[A-Za-z, ]+" value="Started techie name" />
+                </div>
+            </div>
+        </div>
+        
+        <!-- Volunteer Form -->
+        <div class="volunteer-form">
+            <div class="volunteer-form-entry">
+                <div class="input-field" id="volunteer-organization">
+                    <label for="volunteer-organization-field">Organization</label>
+                    <input type="text" id="volunteer-organization-field" required pattern="[A-Za-z]+" value="Organization" />
+                </div>
+                <div class="input-field" id="volunteer-position">
+                    <label for="volunteer-position-field">Position</label>
+                    <input type="text" id="volunteer-position-field" required pattern="[A-Za-z]+" value="Volunteer" />
+                </div>
+                <div class="input-field" id="volunteer-url">
+                    <label for="volunteer-url-field">URL</label>
+                    <input type="url" id="volunteer-url-field" required value="https://organization.com/" />
+                </div>
+                <div class="input-field" id="volunteer-startDate">
+                    <label for="volunteer-startDate-field">Start Date</label>
+                    <input type="date" id="volunteer-startDate-field" required value="2012-01-01" />
+                </div>
+                <div class="input-field" id="volunteer-endDate">
+                    <label for="volunteer-endDate-field">End Date</label>
+                    <input type="date" id="volunteer-endDate-field" required value="2013-01-01" />
+                </div>
+                <div class="input-field" id="volunteer-summary">
+                    <label for="volunteer-summary-field">Summary</label>
+                    <textarea id="volunteer-summary-field" required>Description…</textarea>
+                </div>
+                <div class="input-field" id="volunteer-highlights">
+                    <label for="volunteer-highlights-field">Highlights</label>
+                    <input type="text" id="volunteer-highlights-field" required pattern="[A-Za-z, ]+" value="Awarded 'Volunteer of the Month'" />
+                </div>
+            </div>
+        </div>
+        
+        <!-- Education Form -->
+        <div class="education-form">
+            <div class="education-form-entry">
+                <div class="input-field" id="education-institution">
+                    <label for="education-institution-field">Institution</label>
+                    <input type="text" id="education-institution-field" required pattern="[A-Za-z ]+" value="Totally Tech the institution" />
+                </div>
+                <div class="input-field" id="education-url">
+                    <label for="education-url-field">URL</label>
+                    <input type="url" id="education-url-field" required value="https://tech.not/" />
+                </div>
+                <div class="input-field" id="education-area">
+                    <label for="education-area-field">Area</label>
+                    <input type="text" id="education-area-field" required pattern="[A-Za-z ]+" value="Software Development" />
+                </div>
+                <div class="input-field" id="education-studyType">
+                    <label for="education-studyType-field">Study Type</label>
+                    <input type="text" id="education-studyType-field" required pattern="[A-Za-z ]+" value="Bachelor" />
+                </div>
+                <div class="input-field" id="education-startDate">
+                    <label for="education-startDate-field">Start Date</label>
+                    <input type="date" id="education-startDate-field" required value="2011-01-01" />
+                </div>
+                <div class="input-field" id="education-endDate">
+                    <label for="education-endDate-field">End Date</label>
+                    <input type="date" id="education-endDate-field" required value="2013-01-01" />
+                </div>
+                <div class="input-field" id="education-score">
+                    <label for="education-score-field">Score</label>
+                    <input type="number" id="education-score-field" required value="4.0" />
+                </div>
+                <div class="input-field" id="education-courses">
+                    <label for="education-courses-field">Courses</label>
+                    <input type="text" id="education-courses-field" required value="DB1101 - Basic SQL" />
+                </div>
+            </div>
+        </div>
+        
+        <!-- Awards Form -->
+        <div class="awards-form">
+            <div class="awards-form-entry">
+                <div class="input-field" id="awards-title">
+                    <label for="awards-title-field">Title</label>
+                    <input type="text" id="awards-title-field" required pattern="[A-Za-z ]+" value="wudward" />
+                </div>
+                <div class="input-field" id="awards-date">
+                    <label for="awards-date-field">Date</label>
+                    <input type="date" id="awards-date-field" required value="2014-11-01" />
+                </div>
+                <div class="input-field" id="awards-awarder">
+                    <label for="awards-awarder-field">Awarder</label>
+                    <input type="text" id="awards-awarder-field" required pattern="[A-Za-z ]+" value="theBigWood" />
+                </div>
+                <div class="input-field" id="awards-summary">
+                    <label for="awards-summary-field">Summary</label>
+                    <textarea id="awards-summary-field" required>There is only wood.</textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Certificates Form -->
+        <div class="certificates-form">
+            <div class="certificates-form-entry">
+                <div class="input-field" id="certificates-name">
+                    <label for="certificates-name-field">Name</label>
+                    <input type="text" id="certificates-name-field" required pattern="[A-Za-z ]+" value="Certified Nerd" />
+                </div>
+                <div class="input-field" id="certificates-date">
+                    <label for="certificates-date-field">Date</label>
+                    <input type="date" id="certificates-date-field" required value="2021-11-07" />
+                </div>
+                <div class="input-field" id="certificates-issuer">
+                    <label for="certificates-issuer-field">Issuer</label>
+                    <input type="text" id="certificates-issuer-field" required pattern="[A-Za-z ]+" value="Nerdify" />
+                </div>
+                <div class="input-field" id="certificates-url">
+                    <label for="certificates-url-field">URL</label>
+                    <input type="url" id="certificates-url-field" required value="https://certificate.not" />
+                </div>
+            </div>
+        </div>
+        
+        <!-- Publications Form -->
+        <div class="publications-form">
+            <div class="publications-form-entry">
+                <div class="input-field" id="publications-name">
+                    <label for="publications-name-field">Name</label>
+                    <input type="text" id="publications-name-field" required pattern="[A-Za-z ]+" value="Publication" />
+                </div>
+                <div class="input-field" id="publications-publisher">
+                    <label for="publications-publisher-field">Publisher</label>
+                    <input type="text" id="publications-publisher-field" required pattern="[A-Za-z ]+" value="Company" />
+                </div>
+                <div class="input-field" id="publications-releaseDate">
+                    <label for="publications-releaseDate-field">Release Date</label>
+                    <input type="date" id="publications-releaseDate-field" required value="2014-10-01" />
+                </div>
+                <div class="input-field" id="publications-url">
+                    <label for="publications-url-field">URL</label>
+                    <input type="url" id="publications-url-field" required value="https://publication.com" />
+                </div>
+                <div class="input-field" id="publications-summary">
+                    <label for="publications-summary-field">Summary</label>
+                    <textarea id="publications-summary-field" required>I think this menas books or papers?</textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Skills Form -->
+        <div class="skills-form">
+            <div class="skills-form-entry">
+                <div class="input-field" id="skills-name">
+                    <label for="skills-name-field">Name</label>
+                    <input type="text" id="skills-name-field" required pattern="[A-Za-z ]+" value="Web Development" />
+                </div>
+                <div class="input-field" id="skills-level">
+                    <label for="skills-level-field">Level</label>
+                    <input type="text" id="skills-level-field" required pattern="[A-Za-z ]+" value="Master" />
+                </div>
+                <div class="input-field" id="skills-keywords">
+                    <label for="skills-keywords-field">Keywords</label>
+                    <input type="text" id="skills-keywords-field" required value="HTML, CSS, JavaScript, puppets" />
+                </div>
+            </div>
+        </div>
+
+        <!-- References Form -->
+        <div class="references-form">
+            <div class="references-form-entry">
+                <div class="input-field" id="references-name">
+                    <label for="references-name-field">Name</label>
+                    <input type="text" id="references-name-field" required pattern="[A-Za-z ]+" value="Smarty nerd" />
+                </div>
+                <div class="input-field" id="references-reference">
+                    <label for="references-reference-field">Reference</label>
+                    <input type="text" id="references-reference-field" required value="is good" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Form -->
+        <div class="projects-form">
+            <div class="projects-form-entry">
+                <div class="input-field" id="projects-name">
+                    <label for="projects-name-field">Name</label>
+                    <input type="text" id="projects-name-field" required pattern="[A-Za-z ]+" value="ultimate hacker ai" />
+                </div>
+                <div class="input-field" id="projects-startDate">
+                    <label for="projects-startDate-field">Start Date</label>
+                    <input type="date" id="projects-startDate-field" required value="2019-01-01" />
+                </div>
+                <div class="input-field" id="projects-endDate">
+                    <label for="projects-endDate-field">End Date</label>
+                    <input type="date" id="projects-endDate-field" required value="2021-01-01" />
+                </div>
+                <div class="input-field" id="projects-description">
+                    <label for="projects-description-field">Description</label>
+                    <textarea id="projects-description-field" required>is kinda scary and might eat you.</textarea>
+                </div>
+                <div class="input-field" id="projects-highlights">
+                    <label for="projects-highlights-field">Highlights</label>
+                    <input type="text" id="projects-highlights-field" required pattern="[A-Za-z, ]+" value="Won award at AIHacks 2016" />
+                </div>
+                <div class="input-field" id="projects-url">
+                    <label for="projects-url-field">URL</label>
+                    <input type="url" id="projects-url-field" required value="https://project.not/" />
+                </div>
+            </div>
+        </div>
         <div class="languages-form">
             <div class="langauge-form-entry">
                 <div class="input-field" id="language-name">
@@ -15,7 +342,7 @@
                 </div>
                 <div class="input-field" id="fluency">
                     <label for="fluency-field">Fluency</label>
-                    <input type="text" id="fluency-field" required pattern="[A-Za-z]" value="Ex: Toddler" />
+                    <input type="text" id="fluency-field" required value="Ex: Toddler" />
                 </div>
             </div>
         </div>
@@ -32,6 +359,9 @@
             </div>
         </div>
     </div>
+
+
+    
 
 </body>
 
