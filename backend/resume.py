@@ -65,7 +65,7 @@ async def update():
 @resume.route("/generate", methods=["POST"])
 async def generate():
     """
-    Generate an HTML resume, given a token, a set of tags, and a resume template.
+    Generate an HTML resume, given a token, a set of tags, a resume template, and whether to output HTML or PDF.
     """
 
     data = request.get_json()
@@ -74,12 +74,13 @@ async def generate():
        token = str(data["token"])
        tags = list(data["tags"])
        template = str(data["template"])
+       type = str(data["type"])
     except (KeyError, TypeError, ValueError):
         raise JsonError(
             400,
             error="invalid-json",
             message="Invalid JSON data.",
-            detail="We expect { 'token': '<bearer-token>', 'tags': [ '<tag>', '<tag>', ... ], 'template': '<resume-template>' }.",
+            detail="We expect { 'token': '<bearer-token>', 'tags': [ '<tag>', '<tag>', ... ], 'template': '<resume-template>', 'type': '<html or pdf>' }.",
         )
 
     if await dbtool.is_authorized(token) == False:
@@ -125,14 +126,33 @@ async def generate():
             detail="Make sure the given tags exist in the resume."
         )
 
-    try:
-        html_resume = resumed.to_html(flattened_resume, template)
-    except InvalidTemplate:
+    if type == "html":
+        try:
+            html_resume = resumed.to_html(flattened_resume, template)
+        except InvalidTemplate:
+            raise JsonError(
+                400,
+                error="invalid-template",
+                message=f"Invalid template: {template}.",
+                detail="Make sure the given template exists."
+            )
+
+        return json_response(status="200", resume=html_resume)
+    elif type == "pdf":
+        try:
+            pdf_resume = resumed.to_pdf(flattened_resume, template)
+        except InvalidTemplate:
+            raise JsonError(
+                400,
+                error="invalid-template",
+                message=f"Invalid template: {template}.",
+                detail="Make sure the given template exists."
+            )
+        return json_response(status="200", resume=pdf_resume)
+    else:
         raise JsonError(
             400,
-            error="invalid-template",
-            message=f"Invalid template: {template}.",
-            detail="Make sure the given template exists."
+            error="invalid-type",
+            message="The given type is invalid.",
+            detail="Try giving either 'html' or 'pdf.'"
         )
-
-    return json_response(status="200", resume=html_resume)
