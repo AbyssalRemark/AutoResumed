@@ -50,3 +50,36 @@ body {
     align-items: center;
     height: 50rem;
 }
+
+.login-form {
+    height: 10rem;
+    width: 25rem;
+    background-color: #333;
+    color: #f2f2f2;
+    padding: 1rem;
+}
+
+.email-input {
+    padding-left: 1.6rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+.password-input {
+    padding-left: 4rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.login-button {
+    width: 10rem;
+}
+
+.login-button-container {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
