@@ -41,19 +41,15 @@ for (k = 0; k < addButton.length; k++) {
         var toAdd = toAddProto.cloneNode(true);
         var newId = toAdd.id
         var splitId = newId.split("_")
-        var existingCount = this.parentElement.children.length - 2
-        splitId[1] = existingCount.toString()
+        var siblings = this.parentElement.children
+        var lastElement = siblings[siblings.length-1]
+        var nextCount = parseInt(lastElement.id.split("_")[1]) + 1
+        if (isNaN(nextCount)){
+          nextCount = 0
+        }
+        splitId[1] = nextCount.toString()
         newId = splitId.join("_")
         toAdd.id = newId
-        var innerElements = toAdd.children
-        for(a = 0; a<innerElements; a++){
-          newIdInner = innerElements[a].id
-          var splitIdInner = newIdInner.split("_")
-          splitIdInner[1] = existingCount.toString()
-          newIdInner = splitId.join("_")
-          innerElements[a].id = newIdInner
-          
-        }
         var addTo = this.parentElement;
         var removeButton = document.createElement("button")
         removeButton.type="button"
