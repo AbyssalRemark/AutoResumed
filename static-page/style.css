@@ -7,16 +7,26 @@ body {
     overflow: hidden;
     background-color: #333;
   }
-  
+  .navsection{
+    padding-left:3rem;
+  }
   .topnav a {
     float: left;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top:1.25rem;
+    padding-bottom: 1rem;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 1rem;
   }
   
+  #bolt-icon{
+    font-size:2.5rem;
+    font-weight: bolder;
+  }
+
   .topnav a:hover {
     background-color: #ddd;
     color: black;
@@ -25,4 +35,39 @@ body {
   .topnav a.active {
     background-color: #04AA6D;
     color: white;
+  }
+
+  .title-line{
+    padding-left: 3rem;
+  }
+  .resume-form {
+    padding-left: 3rem;
+  }
+  .add-button {
+    padding-bottom:.25rem;
+  }
+  .input-field{
+    padding-top:.2rem;
+  }
+  .collapse-button {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: .25rem;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 1.5rem;
+  }
+  
+  .open, .collapsible:hover {
+    background-color: #555;
+  }
+  
+  .collapsible-element {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
   }
