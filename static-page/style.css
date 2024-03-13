@@ -64,9 +64,13 @@ body {
   .open, .collapsible:hover {
     background-color: #555;
   }
+  .form-entry{
+    padding: 1rem;
+  }
   
   .collapsible-element {
     padding: 0 18px;
+    padding-bottom:1rem;
     display: none;
     overflow: hidden;
     background-color: #f1f1f1;

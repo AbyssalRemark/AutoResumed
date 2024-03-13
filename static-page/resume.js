@@ -19,9 +19,23 @@ for (i = 0; i < collapseButton.length; i++) {
 }
 
 var addButton = document.getElementsByClassName("add-button");
+console.log(addButton)
+var prototypes = document.getElementById("element-prototypes")
 for (k = 0; k < addButton.length; k++) {
+    addableId = addButton[k].id
+    var initAddable = (document.getElementsByClassName(addableId)[0]);
+    var initRemoveButton = document.createElement("button")
+    initRemoveButton.type="button"
+    initRemoveButton.className="remove-button"
+    initRemoveButton.innerText="Remove"
+    initRemoveButton.addEventListener("click", function() {
+        var buttonParent = this.parentElement;
+        buttonParent.remove()
+    })
+    initAddable.appendChild(initRemoveButton)
+
     addButton[k].addEventListener("click", function() {
-        var toAddProto = document.getElementsByClassName(this.id)[0];
+        var toAddProto = prototypes.getElementsByClassName(this.id)[0];
         var toAdd = toAddProto.cloneNode(true);
         var addTo = this.parentElement;
         var removeButton = document.createElement("button")
