@@ -3,22 +3,24 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="login.css">
     <title>Login - AutoResumed</title>
 </head>
 
 <body>
-    <div class="login-form">
-        <div class="email-input" id="login-email">
-            <label for="email">E-Mail Address: </label>
-            <input id="email" type="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
-                placeholder="E-Mail Address" required title="Please enter a valid email.">
+    <div class="container">
+        <div class="login-form">
+            <div class="email-input" id="login-email">
+                <label for="email">E-Mail Address: </label>
+                <input id="email" type="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+                    placeholder="E-Mail Address" required title="Please enter a valid email.">
+            </div>
+            <div class="password-input" id="login-password">
+                <label for="password">Password: </label>
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+            <button type="button">Login</button>
         </div>
-        <div class="password-input" id="login-password">
-            <label for="password">Password: </label>
-            <input type="password" id="password" placeholder="Password" required>
-        </div>
-        <input type="submit" value="Login">
     </div>
 
     <script src="login.js"></script>

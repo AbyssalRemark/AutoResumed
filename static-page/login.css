@@ -42,3 +42,11 @@ body {
 .title-line {
     padding: 3rem;
 }
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50rem;
+}
