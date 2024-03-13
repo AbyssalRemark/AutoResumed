@@ -8,7 +8,13 @@ body {
     padding: 0.5rem;
 }
 
+.logo {
+    width: 3rem;
+    height: 3rem;
+}
+
 .topnav {
+    display: flex;
     overflow: hidden;
     background-color: #333;
 }
