@@ -1,14 +1,14 @@
 
 
-document.getElementById("registerButton").addEventListener("click", async function(event) {
+document.getElementById("register-button").addEventListener("click", async function(event) {
     event.preventDefault();
     const email = document.getElementById("email").value;
     const passwordEnter = document.getElementById("password-enter").value;
     const passwordVerify = document.getElementById("password-verify").value;
-    if (passwordEnter == passwordVerify){
+    if (passwordEnter == passwordVerify) {
         await register(email, passwordVerify);
     }
-    else{
+    else {
         document.getElementById("register-error").innerText = "Passwords do not match! Try again."
     }
 
