@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" id="svg2" viewBox="0 0 64 64" version="1.1">
+  <g id="layer1" transform="translate(0 -988.36)">
+    <g id="g5409">
+      <path id="rect5401" fill="#bebebe" d="m12.816 996.36h37.184v2h-37.184v-2z"/>
+      <path id="path4530" d="m53 993.36h-43v56h43v-56zm-3 3v2h-2v-2h2zm-5 0v2h-2v-2h2zm-5 0v2h-2v-2h2zm-5 0v2h-2v-2h2zm-5 0v2h-2v-2h2zm-5 0v2h-2v-2h2zm-5 0v2h-2v-2h2zm-5 0v2h-2v-2h2z" fill="#6dc5dd"/>
+      <path id="path5404" d="m53 5v2.9375h-40v1.0625h40v53h7v-57h-7z" transform="translate(0 988.36)" fill-opacity=".19608"/>
+      <path id="rect4532" d="m10 1049.4h43v1h-43v-1z" fill="#808080"/>
+      <g id="g2909" transform="matrix(0 1 -1 0 1051.4 982.36)">
+        <path id="rect2891" d="m14 1v8h2v-8h-2zm5 0v8h2v-8h-2zm5 0v8h2v-8h-2zm5 0v8h2v-8h-2zm5 0v8h2v-8h-2zm5 0v8h2v-8h-2zm5 0v8h2v-8h-2zm5 0v8h2v-8h-2z" fill="#404040" transform="matrix(0 -1 1 0 6 1052.4)"/>
+      </g>
+      <path id="rect4544" d="m10 1035.4h43v2h-43v-2z" fill="#404040"/>
+      <path id="rect4883" fill="#f2f2f2" d="m19 1002.4h25v11h-25v-11z"/>
+    </g>
+  </g>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>block notes</dc:title>
+        <dc:date>2013-09-02T11:27:53</dc:date>
+        <dc:description>bloc note with cover</dc:description>
+        <dc:source>http://openclipart.org/detail/182834/block-notes-by-crisg-182834</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>crisg</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>bloc-notes</rdf:li>
+            <rdf:li>block notes</rdf:li>
+            <rdf:li>clip art</rdf:li>
+            <rdf:li>icon</rdf:li>
+            <rdf:li>object</rdf:li>
+            <rdf:li>office</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>
