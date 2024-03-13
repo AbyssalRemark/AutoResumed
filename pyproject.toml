@@ -11,7 +11,6 @@ Flask = { version = "^3.0.2", extras = ["async"]}
 flask-json = "^0.4.0"
 prisma = "^0.12.0"
 flask-cors = "^4.0.0"
-pyhtml2pdf = "^0.0.7"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.8.0"
