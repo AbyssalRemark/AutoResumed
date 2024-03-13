@@ -42,3 +42,49 @@ body {
 .title-line {
     padding: 3rem;
 }
+
+.resume-form {
+    padding: 3rem;
+}
+
+.add-button {
+    padding-bottom: .25rem;
+}
+
+.input-field {
+    padding-top: .2rem;
+}
+
+.collapse-button {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: .25rem;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 1.5rem;
+}
+
+.open,
+.collapsible:hover {
+    background-color: #555;
+}
+
+.form-entry {
+    padding: 1rem;
+}
+
+.collapsible-element {
+    padding: 0 18px;
+    padding-bottom: 1rem;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+
+/* Prototypes live here */
+footer {
+    display: none;
+}
