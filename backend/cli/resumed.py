@@ -47,5 +47,8 @@ def to_html(resume: dict, template: str) -> str:
 
     return contents
 
+def to_pdf(resume: dict, template: str):
+    html = to_html(resume, template)
+
 class InvalidTemplate(Exception):
     pass
