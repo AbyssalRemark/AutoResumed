@@ -22,54 +22,55 @@
         </div>
     </div>
     <div class="resume-form">
-        <h2>Edit your resume below:</h2>
+        <h2>Edit your resume here:</h2>
+
         <!-- Basics Form -->
         <div class="basics-form">
             <button type="button" class="collapse-button">Basic Information<span id="bolt-icon">    &#8623;</span></button>
-            <div class="collapsible-element" id="basic-info">
+            <div class="collapsible-element" id="basic-info-collapsible">
                 <h4>Name and Contact:</h4>
-                <div class="input-field" id="basics-name">
-                    <label for="basics-name-field">Name</label>
-                    <input type="text" id="basics-name-field" required pattern="[A-Za-z ]+" value="Test McTest" />
+                <div class="input-field" id="basics-name-input-field_0">
+                    <label for="basics-name-field_0">Name</label>
+                    <input type="text" id="basics-name-field_0" pattern="[A-Za-z ]+" value="Test McTest" />
                 </div>
-                <div class="input-field" id="basics-image">
-                    <label for="basics-image-field">Image</label>
-                    <input type="text" id="basics-image-field" value="image URL" />
+                <div class="input-field" id="basics-image-input-field_0">
+                    <label for="basics-image-field_0">Image</label>
+                    <input type="text" id="basics-image-field_0" value="image URL" />
                 </div>
-                <div class="input-field" id="basics-email">
-                    <label for="basics-email-field">Email</label>
-                    <input type="email" id="basics-email-field" required value="Ex: user@example.com" />
+                <div class="input-field" id="basics-email-field_0">
+                    <label for="basics-email-field_0">Email</label>
+                    <input type="email" id="basics-email-field_0" value="Ex: user@example.com" />
                 </div>
-                <div class="input-field" id="basics-phone">
-                    <label for="basics-phone-field">Phone</label>
-                    <input type="tel" id="basics-phone-field" required  value="Ex: (555) 555-5555" />
+                <div class="input-field" id="basics-phone-input-field_0">
+                    <label for="basics-phone-field_0">Phone</label>
+                    <input type="tel" id="basics-phone-field_0" value="Ex: (555) 555-5555" />
                 </div>
-                <div class="input-field" id="basics-url">
-                    <label for="basics-url-field">URL</label>
-                    <input type="url" id="basics-url-field" required value="https://johndoe.not" />
+                <div class="input-field" id="basics-url-input-field_0">
+                    <label for="basics-url-field_0">URL</label>
+                    <input type="url" id="basics-url-field_0" value="https://johndoe.not" />
                 </div>
 
                 <div class="location-form">
                     <h4>Location and Address Info:</h4>
-                    <div class="input-field" id="location-address">
-                        <label for="location-address-field">Address</label>
-                        <input type="text" id="location-address-field" required value="2712 Broadway St" />
+                    <div class="input-field" id="location-address-input-field_0">
+                        <label for="location-address-field_0">Address</label>
+                        <input type="text" id="location-address-field_0" value="2712 Broadway St" />
                     </div>
-                    <div class="input-field" id="location-postalCode">
-                        <label for="location-postalCode-field">Postal Code</label>
-                        <input type="text" id="location-postalCode-field" required pattern="[A-Za-z0-9]+" value="CA 94115" />
+                    <div class="input-field" id="location-postalCode-input-field_0">
+                        <label for="location-postalCode-field_0">Postal Code</label>
+                        <input type="text" id="location-postalCode-field_0" pattern="[A-Za-z0-9]+" value="CA 94115" />
                     </div>
-                    <div class="input-field" id="location-city">
-                        <label for="location-city-field">City</label>
-                        <input type="text" id="location-city-field" required pattern="[A-Za-z ]+" value="San Francisco" />
+                    <div class="input-field" id="location-city-input-field_0">
+                        <label for="location-city-field_0">City</label>
+                        <input type="text" id="location-city-field_0" pattern="[A-Za-z ]+" value="San Francisco" />
                     </div>
-                    <div class="input-field" id="location-countryCode">
-                        <label for="location-countryCode-field">Country Code</label>
-                        <input type="text" id="location-countryCode-field" required pattern="[A-Za-z]+" value="US" />
+                    <div class="input-field" id="location-countryCode-input-field_0">
+                        <label for="location-countryCode-field_0">Country Code</label>
+                        <input type="text" id="location-countryCode-field_0" pattern="[A-Za-z]+" value="US" />
                     </div>
-                    <div class="input-field" id="location-region">
-                        <label for="location-region-field">Region</label>
-                        <input type="text" id="location-region-field" required pattern="[A-Za-z ]+" value="California" />
+                    <div class="input-field" id="location-region-input-field_0">
+                        <label for="location-region-field_0">Region</label>
+                        <input type="text" id="location-region-field_0" pattern="[A-Za-z ]+" value="California" />
                     </div>
                 </div>
             </div>
@@ -80,13 +81,13 @@
                     <h4>Desired Job Descriptions:</h4>
                     <button type="button" class="add-button" id="label-form-entry">Add Entry</button>
                     <div class="label-form-entry form-entry">
-                        <div class="input-field" id="label-label">
-                            <label for="label-label-field">Position</label>
-                            <input type="text" id="label-label-field" required pattern="[A-Za-z ]+" value="Programmer" />
+                        <div class="input-field" id="label-label-input-field_0">
+                            <label for="label-label-field_0">Position</label>
+                            <input type="text" id="label-label-field_0" pattern="[A-Za-z ]+" value="Programmer" />
                         </div>
-                        <div class="input-field" id="label-tags">
-                            <label for="label-tags-field">Tags</label>
-                            <input type="text" id="label-tags-field" required pattern="[A-Za-z, ]+" value="tech" />
+                        <div class="input-field" id="label-tags-input-field_0">
+                            <label for="label-tags-field_0">Tags</label>
+                            <input type="text" id="label-tags-field_0" pattern="[A-Za-z, ]+" value="tech" />
                         </div>
                     </div>
                 </div>
@@ -95,13 +96,13 @@
                     <h4>Personal Summaries:</h4>
                     <button type="button" class="add-button" id="summary-form-entry">Add Entry</button>
                     <div class="summary-form-entry form-entry">
-                        <div class="input-field" id="summary-summary">
-                            <label for="summary-summary-field">Summary</label>
-                            <textarea id="summary-summary-field" required>From a wee lad to an ax man...</textarea>
+                        <div class="input-field" id="summary-summary-input-field_0">
+                            <label for="summary-summary-field_0">Summary</label>
+                            <textarea id="summary-summary-field_0">From a wee lad to an ax man...</textarea>
                         </div>
-                        <div class="input-field" id="summary-tags">
-                            <label for="summary-tags-field">Tags</label>
-                            <input type="text" id="summary-tags-field" required pattern="[A-Za-z, ]+" value="craft" />
+                        <div class="input-field" id="summary-tags-input-field_0">
+                            <label for="summary-tags-field_0">Tags</label>
+                            <input type="text" id="summary-tags-field_0" pattern="[A-Za-z, ]+" value="craft" />
                         </div>
 
                     </div>
@@ -114,21 +115,21 @@
                     <h4>Profiles:</h4>
                     <button type="button" class="add-button" id="profile-form-entry">Add Entry</button>
                     <div class="profile-form-entry form-entry">
-                        <div class="input-field" id="profiles-network">
-                            <label for="profiles-network-field">Network</label>
-                            <input type="text" id="profiles-network-field" required pattern="[A-Za-z ]+" value="github" />
+                        <div class="input-field" id="profiles-network-input-field_0">
+                            <label for="profiles-network-field_0">Network</label>
+                            <input type="text" id="profiles-network-field_0" pattern="[A-Za-z ]+" value="github" />
                         </div>
-                        <div class="input-field" id="profiles-username">
-                            <label for="profiles-username-field">Username</label>
-                            <input type="text" id="profiles-username-field" required pattern="[A-Za-z0-9]+" value="Test" />
+                        <div class="input-field" id="profiles-username-input-field_0">
+                            <label for="profiles-username-field_0">Username</label>
+                            <input type="text" id="profiles-username-field_0" pattern="[A-Za-z0-9]+" value="Test" />
                         </div>
-                        <div class="input-field" id="profiles-url">
-                            <label for="profiles-url-field">URL</label>
-                            <input type="url" id="profiles-url-field" required value="https://github.not/john" />
+                        <div class="input-field" id="profiles-url-input-field_0">
+                            <label for="profiles-url-field_0">URL</label>
+                            <input type="url" id="profiles-url-field_0" value="https://github.not/john" />
                         </div>
-                        <div class="input-field" id="profiles-tags">
-                            <label for="profiles-tags-field">Tags</label>
-                            <input type="text" id="profiles-tags-field" required pattern="[A-Za-z, ]+" value="tech" />
+                        <div class="input-field" id="profiles-tags-input-field_0">
+                            <label for="profiles-tags-field_0">Tags</label>
+                            <input type="text" id="profiles-tags-field_0" pattern="[A-Za-z, ]+" value="tech" />
                         </div>
 
                     </div>
@@ -141,33 +142,33 @@
                 <h4>Work History: </h4>
                 <button type="button" class="add-button" id="work-form-entry">Add Entry</button>
                 <div class="work-form-entry form-entry">
-                    <div class="input-field" id="work-name">
-                        <label for="work-name-field">Name</label>
-                        <input type="text" id="work-name-field" required pattern="[A-Za-z]+" value="techie name" />
+                    <div class="input-field" id="work-name-input-field_0">
+                        <label for="work-name-field_0">Name</label>
+                        <input type="text" id="work-name-field_0" pattern="[A-Za-z]+" value="techie name" />
                     </div>
-                    <div class="input-field" id="work-position">
-                        <label for="work-position-field">Position</label>
-                        <input type="text" id="work-position-field" required pattern="[A-Za-z]+" value="President" />
+                    <div class="input-field" id="work-position-input-field_0">
+                        <label for="work-position-field_0">Position</label>
+                        <input type="text" id="work-position-field_0" pattern="[A-Za-z]+" value="President" />
                     </div>
-                    <div class="input-field" id="work-url">
-                        <label for="work-url-field">URL</label>
-                        <input type="url" id="work-url-field" required value="https://company.not" />
+                    <div class="input-field" id="work-url-input-field_0">
+                        <label for="work-url-field_0">URL</label>
+                        <input type="url" id="work-url-field_0" value="https://company.not" />
                     </div>
-                    <div class="input-field" id="work-startDate">
-                        <label for="work-startDate-field">Start Date</label>
-                        <input type="date" id="work-startDate-field" required value="2013-01-01" />
+                    <div class="input-field" id="work-startDate-input-field_0">
+                        <label for="work-startDate-field_0">Start Date</label>
+                        <input type="date" id="work-startDate-field_0" value="2013-01-01" />
                     </div>
-                    <div class="input-field" id="work-endDate">
-                        <label for="work-endDate-field">End Date</label>
-                        <input type="date" id="work-endDate-field" required value="2014-01-01" />
+                    <div class="input-field" id="work-endDate-input-field_0">
+                        <label for="work-endDate-field_0">End Date</label>
+                        <input type="date" id="work-endDate-field_0" value="2014-01-01" />
                     </div>
-                    <div class="input-field" id="work-summary">
-                        <label for="work-summary-field">Summary</label>
-                        <textarea id="work-summary-field" required>Description…</textarea>
+                    <div class="input-field" id="work-summary-input-field_0">
+                        <label for="work-summary-field_0">Summary</label>
+                        <textarea id="work-summary-field_0">Description…</textarea>
                     </div>
-                    <div class="input-field" id="work-highlights">
-                        <label for="work-highlights-field">Highlights</label>
-                        <input type="text" id="work-highlights-field" required pattern="[A-Za-z, ]+" value="Started techie name" />
+                    <div class="input-field" id="work-highlights-input-field_0">
+                        <label for="work-highlights-field_0">Highlights</label>
+                        <input type="text" id="work-highlights-field_0" pattern="[A-Za-z, ]+" value="Started techie name" />
                     </div>
                 </div>
             </div>
@@ -180,33 +181,33 @@
                 <h4>Charitable Gigs:</h4>
                 <button type="button" class="add-button" id="volunteer-form-entry">Add Entry</button>
                 <div class="volunteer-form-entry form-entry">
-                    <div class="input-field" id="volunteer-organization">
-                        <label for="volunteer-organization-field">Organization</label>
-                        <input type="text" id="volunteer-organization-field" required pattern="[A-Za-z]+" value="Organization" />
+                    <div class="input-field" id="volunteer-organization-input-field_0">
+                        <label for="volunteer-organization-field_0">Organization</label>
+                        <input type="text" id="volunteer-organization-field_0" pattern="[A-Za-z]+" value="Organization" />
                     </div>
-                    <div class="input-field" id="volunteer-position">
-                        <label for="volunteer-position-field">Position</label>
-                        <input type="text" id="volunteer-position-field" required pattern="[A-Za-z]+" value="Volunteer" />
+                    <div class="input-field" id="volunteer-position-input-field_0">
+                        <label for="volunteer-position-field_0">Position</label>
+                        <input type="text" id="volunteer-position-field_0" pattern="[A-Za-z]+" value="Volunteer" />
                     </div>
-                    <div class="input-field" id="volunteer-url">
-                        <label for="volunteer-url-field">URL</label>
-                        <input type="url" id="volunteer-url-field" required value="https://organization.com/" />
+                    <div class="input-field" id="volunteer-url-input-field_0">
+                        <label for="volunteer-url-field_0">URL</label>
+                        <input type="url" id="volunteer-url-field_0" value="https://organization.com/" />
                     </div>
-                    <div class="input-field" id="volunteer-startDate">
-                        <label for="volunteer-startDate-field">Start Date</label>
-                        <input type="date" id="volunteer-startDate-field" required value="2012-01-01" />
+                    <div class="input-field" id="volunteer-startDate-input-field_0">
+                        <label for="volunteer-startDate-field_0">Start Date</label>
+                        <input type="date" id="volunteer-startDate-field_0" value="2012-01-01" />
                     </div>
-                    <div class="input-field" id="volunteer-endDate">
-                        <label for="volunteer-endDate-field">End Date</label>
-                        <input type="date" id="volunteer-endDate-field" required value="2013-01-01" />
+                    <div class="input-field" id="volunteer-endDate-input-field_0">
+                        <label for="volunteer-endDate-field_0">End Date</label>
+                        <input type="date" id="volunteer-endDate-field_0" value="2013-01-01" />
                     </div>
-                    <div class="input-field" id="volunteer-summary">
-                        <label for="volunteer-summary-field">Summary</label>
-                        <textarea id="volunteer-summary-field" required>Description…</textarea>
+                    <div class="input-field" id="volunteer-summary-input-field_0">
+                        <label for="volunteer-summary-field_0">Summary</label>
+                        <textarea id="volunteer-summary-field_0">Description…</textarea>
                     </div>
-                    <div class="input-field" id="volunteer-highlights">
-                        <label for="volunteer-highlights-field">Highlights</label>
-                        <input type="text" id="volunteer-highlights-field" required pattern="[A-Za-z, ]+" value="Awarded 'Volunteer of the Month'" />
+                    <div class="input-field" id="volunteer-highlights-input-field_0">
+                        <label for="volunteer-highlights-field_0">Highlights</label>
+                        <input type="text" id="volunteer-highlights-field_0" pattern="[A-Za-z, ]+" value="Awarded 'Volunteer of the Month'" />
                     </div>
                 </div>
             </div>
@@ -219,37 +220,37 @@
                 <h4>Institutions:</h4>
                 <button type="button" class="add-button" id="education-form-entry">Add Entry</button>
                 <div class="education-form-entry form-entry">
-                    <div class="input-field" id="education-institution">
-                        <label for="education-institution-field">Institution</label>
-                        <input type="text" id="education-institution-field" required pattern="[A-Za-z ]+" value="Totally Tech the institution" />
+                    <div class="input-field" id="education-institution-input-field_0">
+                        <label for="education-institution-field_0">Institution</label>
+                        <input type="text" id="education-institution-field_0" pattern="[A-Za-z ]+" value="Totally Tech the institution" />
                     </div>
-                    <div class="input-field" id="education-url">
-                        <label for="education-url-field">URL</label>
-                        <input type="url" id="education-url-field" required value="https://tech.not/" />
+                    <div class="input-field" id="education-url-input-field_0">
+                        <label for="education-url-field_0">URL</label>
+                        <input type="url" id="education-url-field_0" value="https://tech.not/" />
                     </div>
-                    <div class="input-field" id="education-area">
-                        <label for="education-area-field">Area</label>
-                        <input type="text" id="education-area-field" required pattern="[A-Za-z ]+" value="Software Development" />
+                    <div class="input-field" id="education-area-input-field_0">
+                        <label for="education-area-field_0">Area</label>
+                        <input type="text" id="education-area-field_0" pattern="[A-Za-z ]+" value="Software Development" />
                     </div>
-                    <div class="input-field" id="education-studyType">
-                        <label for="education-studyType-field">Study Type</label>
-                        <input type="text" id="education-studyType-field" required pattern="[A-Za-z ]+" value="Bachelor" />
+                    <div class="input-field" id="education-studyType-input-field_0">
+                        <label for="education-studyType-field_0">Study Type</label>
+                        <input type="text" id="education-studyType-field_0" pattern="[A-Za-z ]+" value="Bachelor" />
                     </div>
-                    <div class="input-field" id="education-startDate">
-                        <label for="education-startDate-field">Start Date</label>
-                        <input type="date" id="education-startDate-field" required value="2011-01-01" />
+                    <div class="input-field" id="education-startDate-input-field_0">
+                        <label for="education-startDate-field_0">Start Date</label>
+                        <input type="date" id="education-startDate-field_0" value="2011-01-01" />
                     </div>
-                    <div class="input-field" id="education-endDate">
-                        <label for="education-endDate-field">End Date</label>
-                        <input type="date" id="education-endDate-field" required value="2013-01-01" />
+                    <div class="input-field" id="education-endDate-input-field_0">
+                        <label for="education-endDate-field_0">End Date</label>
+                        <input type="date" id="education-endDate-field_0" value="2013-01-01" />
                     </div>
-                    <div class="input-field" id="education-score">
-                        <label for="education-score-field">Score</label>
-                        <input type="number" id="education-score-field" required value="4.0" />
+                    <div class="input-field" id="education-score-input-field_0">
+                        <label for="education-score-field_0">Score</label>
+                        <input type="number" id="education-score-field_0" value="4.0" />
                     </div>
-                    <div class="input-field" id="education-courses">
-                        <label for="education-courses-field">Courses</label>
-                        <input type="text" id="education-courses-field" required value="DB1101 - Basic SQL" />
+                    <div class="input-field" id="education-courses-input-field_0">
+                        <label for="education-courses-field_0">Courses</label>
+                        <input type="text" id="education-courses-field_0" value="DB1101 - Basic SQL" />
                     </div>
                 </div>
             </div>
@@ -262,21 +263,21 @@
                 <h4>Awards:</h4>
                 <button type="button" class="add-button" id="award-form-entry">Add Entry</button>
                 <div class="award-form-entry form-entry">
-                    <div class="input-field" id="awards-title">
-                        <label for="awards-title-field">Title</label>
-                        <input type="text" id="awards-title-field" required pattern="[A-Za-z ]+" value="wudward" />
+                    <div class="input-field" id="awards-title-input-field_0">
+                        <label for="awards-title-field_0">Title</label>
+                        <input type="text" id="awards-title-field_0" pattern="[A-Za-z ]+" value="wudward" />
                     </div>
-                    <div class="input-field" id="awards-date">
-                        <label for="awards-date-field">Date</label>
-                        <input type="date" id="awards-date-field" required value="2014-11-01" />
+                    <div class="input-field" id="awards-date-input-field_0">
+                        <label for="awards-date-field_0">Date</label>
+                        <input type="date" id="awards-date-field_0" value="2014-11-01" />
                     </div>
-                    <div class="input-field" id="awards-awarder">
-                        <label for="awards-awarder-field">Awarder</label>
-                        <input type="text" id="awards-awarder-field" required pattern="[A-Za-z ]+" value="theBigWood" />
+                    <div class="input-field" id="awards-awarder-input-field_0">
+                        <label for="awards-awarder-field_0">Awarder</label>
+                        <input type="text" id="awards-awarder-field_0" pattern="[A-Za-z ]+" value="theBigWood" />
                     </div>
-                    <div class="input-field" id="awards-summary">
-                        <label for="awards-summary-field">Summary</label>
-                        <textarea id="awards-summary-field" required>There is only wood.</textarea>
+                    <div class="input-field" id="awards-summary-input-field_0">
+                        <label for="awards-summary-field_0">Summary</label>
+                        <textarea id="awards-summary-field_0">There is only wood.</textarea>
                     </div>
                 </div>
             </div>
@@ -289,21 +290,21 @@
                 <h4>Certificates and Licenses:</h4>
                 <button type="button" class="add-button" id="certificate-form-entry">Add Entry</button>
                 <div class="certificate-form-entry form-entry">
-                    <div class="input-field" id="certificates-name">
-                        <label for="certificates-name-field">Name</label>
-                        <input type="text" id="certificates-name-field" required pattern="[A-Za-z ]+" value="Certified Nerd" />
+                    <div class="input-field" id="certificates-name-input-field_0">
+                        <label for="certificates-name-field_0">Name</label>
+                        <input type="text" id="certificates-name-field_0" pattern="[A-Za-z ]+" value="Certified Nerd" />
                     </div>
-                    <div class="input-field" id="certificates-date">
-                        <label for="certificates-date-field">Date</label>
-                        <input type="date" id="certificates-date-field" required value="2021-11-07" />
+                    <div class="input-field" id="certificates-date-input-field_0">
+                        <label for="certificates-date-field_0">Date</label>
+                        <input type="date" id="certificates-date-field_0" value="2021-11-07" />
                     </div>
-                    <div class="input-field" id="certificates-issuer">
-                        <label for="certificates-issuer-field">Issuer</label>
-                        <input type="text" id="certificates-issuer-field" required pattern="[A-Za-z ]+" value="Nerdify" />
+                    <div class="input-field" id="certificates-issuer-input-field_0">
+                        <label for="certificates-issuer-field_0">Issuer</label>
+                        <input type="text" id="certificates-issuer-field_0" pattern="[A-Za-z ]+" value="Nerdify" />
                     </div>
-                    <div class="input-field" id="certificates-url">
-                        <label for="certificates-url-field">URL</label>
-                        <input type="url" id="certificates-url-field" required value="https://certificate.not" />
+                    <div class="input-field" id="certificates-url-input-field_0">
+                        <label for="certificates-url-field_0">URL</label>
+                        <input type="url" id="certificates-url-field_0" value="https://certificate.not" />
                     </div>
                 </div>
             </div>
@@ -316,25 +317,25 @@
                 <h4>Publications:</h4>
                 <button type="button" class="add-button" id="publication-form-entry">Add Entry</button>
                 <div class="publication-form-entry form-entry">
-                    <div class="input-field" id="publications-name">
-                        <label for="publications-name-field">Name</label>
-                        <input type="text" id="publications-name-field" required pattern="[A-Za-z ]+" value="Publication" />
+                    <div class="input-field" id="publications-name-input-field_0">
+                        <label for="publications-name-field_0">Name</label>
+                        <input type="text" id="publications-name-field_0" pattern="[A-Za-z ]+" value="Publication" />
                     </div>
-                    <div class="input-field" id="publications-publisher">
-                        <label for="publications-publisher-field">Publisher</label>
-                        <input type="text" id="publications-publisher-field" required pattern="[A-Za-z ]+" value="Company" />
+                    <div class="input-field" id="publications-publisher-input-field_0">
+                        <label for="publications-publisher-field_0">Publisher</label>
+                        <input type="text" id="publications-publisher-field_0" pattern="[A-Za-z ]+" value="Company" />
                     </div>
-                    <div class="input-field" id="publications-releaseDate">
-                        <label for="publications-releaseDate-field">Release Date</label>
-                        <input type="date" id="publications-releaseDate-field" required value="2014-10-01" />
+                    <div class="input-field" id="publications-releaseDate-input-field_0">
+                        <label for="publications-releaseDate-field_0">Release Date</label>
+                        <input type="date" id="publications-releaseDate-field_0" value="2014-10-01" />
                     </div>
-                    <div class="input-field" id="publications-url">
-                        <label for="publications-url-field">URL</label>
-                        <input type="url" id="publications-url-field" required value="https://publication.com" />
+                    <div class="input-field" id="publications-url-input-field_0">
+                        <label for="publications-url-field_0">URL</label>
+                        <input type="url" id="publications-url-field_0" value="https://publication.com" />
                     </div>
-                    <div class="input-field" id="publications-summary">
-                        <label for="publications-summary-field">Summary</label>
-                        <textarea id="publications-summary-field" required>I think this menas books or papers?</textarea>
+                    <div class="input-field" id="publications-summary-input-field_0">
+                        <label for="publications-summary-field_0">Summary</label>
+                        <textarea id="publications-summary-field_0">I think this menas books or papers?</textarea>
                     </div>
                 </div>
             </div>
@@ -347,17 +348,17 @@
                 <h4>Skills:</h4>
                 <button type="button" class="add-button" id="skill-form-entry">Add Entry</button>
                 <div class="skill-form-entry form-entry">
-                    <div class="input-field" id="skills-name">
-                        <label for="skills-name-field">Name</label>
-                        <input type="text" id="skills-name-field" required pattern="[A-Za-z ]+" value="Web Development" />
+                    <div class="input-field" id="skills-name-input-field_0">
+                        <label for="skills-name-field_0">Name</label>
+                        <input type="text" id="skills-name-field_0" pattern="[A-Za-z ]+" value="Web Development" />
                     </div>
-                    <div class="input-field" id="skills-level">
-                        <label for="skills-level-field">Level</label>
-                        <input type="text" id="skills-level-field" required pattern="[A-Za-z ]+" value="Master" />
+                    <div class="input-field" id="skills-level-input-field_0">
+                        <label for="skills-level-field_0">Level</label>
+                        <input type="text" id="skills-level-field_0" pattern="[A-Za-z ]+" value="Master" />
                     </div>
-                    <div class="input-field" id="skills-keywords">
-                        <label for="skills-keywords-field">Keywords</label>
-                        <input type="text" id="skills-keywords-field" required value="HTML, CSS, JavaScript, puppets" />
+                    <div class="input-field" id="skills-keywords-input-field_0">
+                        <label for="skills-keywords-field_0">Keywords</label>
+                        <input type="text" id="skills-keywords-field_0" value="HTML, CSS, JavaScript, puppets" />
                     </div>
                 </div>
             </div>
@@ -370,13 +371,13 @@
                 <h4>Professional References:</h4>
                 <button type="button" class="add-button" id="reference-form-entry">Add Entry</button>
                 <div class="reference-form-entry form-entry">
-                    <div class="input-field" id="references-name">
-                        <label for="references-name-field">Name</label>
-                        <input type="text" id="references-name-field" required pattern="[A-Za-z ]+" value="Smarty nerd" />
+                    <div class="input-field" id="references-name-input-field_0">
+                        <label for="references-name-field_0">Name</label>
+                        <input type="text" id="references-name-field_0" pattern="[A-Za-z ]+" value="Smarty nerd" />
                     </div>
-                    <div class="input-field" id="references-reference">
-                        <label for="references-reference-field">Reference</label>
-                        <input type="text" id="references-reference-field" required value="is good" />
+                    <div class="input-field" id="references-reference-input-field_0">
+                        <label for="references-reference-field_0">Reference</label>
+                        <input type="text" id="references-reference-field_0" value="is good" />
                     </div>
                 </div>
             </div>
@@ -389,29 +390,29 @@
                 <h4>Project Portfolio:</h4>
                 <button type="button" class="add-button" id="project-form-entry">Add Entry</button>
                 <div class="project-form-entry form-entry">
-                    <div class="input-field" id="projects-name">
-                        <label for="projects-name-field">Name</label>
-                        <input type="text" id="projects-name-field" required pattern="[A-Za-z ]+" value="ultimate hacker ai" />
+                    <div class="input-field" id="projects-name-input-field_0">
+                        <label for="projects-name-field_0">Name</label>
+                        <input type="text" id="projects-name-field_0" pattern="[A-Za-z ]+" value="ultimate hacker ai" />
                     </div>
-                    <div class="input-field" id="projects-startDate">
-                        <label for="projects-startDate-field">Start Date</label>
-                        <input type="date" id="projects-startDate-field" required value="2019-01-01" />
+                    <div class="input-field" id="projects-startDate-input-field_0">
+                        <label for="projects-startDate-field_0">Start Date</label>
+                        <input type="date" id="projects-startDate-field_0" value="2019-01-01" />
                     </div>
-                    <div class="input-field" id="projects-endDate">
-                        <label for="projects-endDate-field">End Date</label>
-                        <input type="date" id="projects-endDate-field" required value="2021-01-01" />
+                    <div class="input-field" id="projects-endDate-input-field_0">
+                        <label for="projects-endDate-field_0">End Date</label>
+                        <input type="date" id="projects-endDate-field_0" value="2021-01-01" />
                     </div>
-                    <div class="input-field" id="projects-description">
-                        <label for="projects-description-field">Description</label>
-                        <textarea id="projects-description-field" required>is kinda scary and might eat you.</textarea>
+                    <div class="input-field" id="projects-description-input-field_0">
+                        <label for="projects-description-field_0">Description</label>
+                        <textarea id="projects-description-field_0">is kinda scary and might eat you.</textarea>
                     </div>
-                    <div class="input-field" id="projects-highlights">
-                        <label for="projects-highlights-field">Highlights</label>
-                        <input type="text" id="projects-highlights-field" required pattern="[A-Za-z, ]+" value="Won award at AIHacks 2016" />
+                    <div class="input-field" id="projects-highlights-input-field_0">
+                        <label for="projects-highlights-field_0">Highlights</label>
+                        <input type="text" id="projects-highlights-field_0" pattern="[A-Za-z, ]+" value="Won award at AIHacks 2016" />
                     </div>
-                    <div class="input-field" id="projects-url">
-                        <label for="projects-url-field">URL</label>
-                        <input type="url" id="projects-url-field" required value="https://project.not/" />
+                    <div class="input-field" id="projects-url-input-field_0">
+                        <label for="projects-url-field_0">URL</label>
+                        <input type="url" id="projects-url-field_0" value="https://project.not/" />
                     </div>
                 </div>
             </div>
@@ -423,13 +424,13 @@
                 <h4>Languages and Fluency:</h4>
                 <button type="button" class="add-button" id="language-form-entry">Add Entry</button>
                 <div class="language-form-entry form-entry">
-                    <div class="input-field" id="language-name">
-                        <label for="language-name-field">Language</label>
-                        <input type="text" id="language-name-field" required pattern="[A-Za-z]" value="Ex: English" />
+                    <div class="input-field" id="language-name-input-field_0">
+                        <label for="language-name-field_0">Language</label>
+                        <input type="text" id="language-name-field_0" pattern="[A-Za-z]" value="Ex: English" />
                     </div>
-                    <div class="input-field" id="fluency">
-                        <label for="fluency-field">Fluency</label>
-                        <input type="text" id="fluency-field" required value="Ex: Toddler" />
+                    <div class="input-field" id="fluency-input-field_0">
+                        <label for="fluency-field_0">Fluency</label>
+                        <input type="text" id="fluency-field_0" value="Ex: Toddler" />
                     </div>
                 </div>
             </div>
@@ -441,13 +442,13 @@
                 <h4>Interests and Hobbies:</h4>
                 <button type="button" class="add-button" id="interest-form-entry">Add Entry</button>
                 <div class="interest-form-entry">
-                    <div class="input-field" id="interest-name">
-                        <label for="interest-name-field">Interest</label>
-                        <input type="text" id="interest-name-field" required pattern="[A-Za-z]+" value="Ex: Wildlife" />
+                    <div class="input-field" id="interest-name-input-field_0">
+                        <label for="interest-name-field_0">Interest</label>
+                        <input type="text" id="interest-name-field_0" pattern="[A-Za-z]+" value="Ex: Wildlife" />
                     </div>
-                    <div class="input-field" id="keywords">
-                        <label for="interest-keyword-field">Keywords</label>
-                        <input type="text" id="interest-keyword-field" required pattern="[A-Za-z0-9, ]+" value="Ex: Ferrets" />
+                    <div class="input-field" id="keywords-input-field_0">
+                        <label for="interest-keyword-field_0">Keywords</label>
+                        <input type="text" id="interest-keyword-field_0" pattern="[A-Za-z0-9, ]+" value="Ex: Ferrets" />
                     </div>
                 </div>
             </div>
@@ -459,278 +460,278 @@
 <footer>
 <div class="resume-form-entries prototypes" id="element-prototypes">           
     <div class="label-form-entry form-entry">
-        <div class="input-field" id="label-label">
-            <label for="label-label-field">Position</label>
-            <input type="text" id="label-label-field" required pattern="[A-Za-z ]+" value="Programmer" />
+        <div class="input-field" id="label-label-input-field_0">
+            <label for="label-label-field_0">Position</label>
+            <input type="text" id="label-label-field_0" pattern="[A-Za-z ]+" value="Programmer" />
         </div>
-        <div class="input-field" id="label-tags">
-            <label for="label-tags-field">Tags</label>
-            <input type="text" id="label-tags-field" required pattern="[A-Za-z, ]+" value="tech" />
+        <div class="input-field" id="label-tags-input-field_0">
+            <label for="label-tags-field_0">Tags</label>
+            <input type="text" id="label-tags-field_0" pattern="[A-Za-z, ]+" value="tech" />
         </div>
     </div>
 
     <div class="summary-form-entry form-entry">
-        <div class="input-field" id="summary-summary">
-            <label for="summary-summary-field">Summary</label>
-            <textarea id="summary-summary-field" required>From a wee lad to an ax man...</textarea>
+        <div class="input-field" id="summary-summary-input-field_0">
+            <label for="summary-summary-field_0">Summary</label>
+            <textarea id="summary-summary-field_0">From a wee lad to an ax man...</textarea>
         </div>
-        <div class="input-field" id="summary-tags">
-            <label for="summary-tags-field">Tags</label>
-            <input type="text" id="summary-tags-field" required pattern="[A-Za-z, ]+" value="craft" />
+        <div class="input-field" id="summary-tags-input-field_0">
+            <label for="summary-tags-field_0">Tags</label>
+            <input type="text" id="summary-tags-field_0" pattern="[A-Za-z, ]+" value="craft" />
         </div>
     </div>
 
     <div class="profile-form-entry form-entry">
-        <div class="input-field" id="profiles-network">
-            <label for="profiles-network-field">Network</label>
-            <input type="text" id="profiles-network-field" required pattern="[A-Za-z ]+" value="github" />
+        <div class="input-field" id="profiles-network-input-field_0">
+            <label for="profiles-network-field_0">Network</label>
+            <input type="text" id="profiles-network-field_0" pattern="[A-Za-z ]+" value="github" />
         </div>
-        <div class="input-field" id="profiles-username">
-            <label for="profiles-username-field">Username</label>
-            <input type="text" id="profiles-username-field" required pattern="[A-Za-z0-9]+" value="Test" />
+        <div class="input-field" id="profiles-username-input-field_0">
+            <label for="profiles-username-field_0">Username</label>
+            <input type="text" id="profiles-username-field_0" pattern="[A-Za-z0-9]+" value="Test" />
         </div>
-        <div class="input-field" id="profiles-url">
-            <label for="profiles-url-field">URL</label>
-            <input type="url" id="profiles-url-field" required value="https://github.not/john" />
+        <div class="input-field" id="profiles-url-input-field_0">
+            <label for="profiles-url-field_0">URL</label>
+            <input type="url" id="profiles-url-field_0" value="https://github.not/john" />
         </div>
-        <div class="input-field" id="profiles-tags">
-            <label for="profiles-tags-field">Tags</label>
-            <input type="text" id="profiles-tags-field" required pattern="[A-Za-z, ]+" value="tech" />
+        <div class="input-field" id="profiles-tags-input-field_0">
+            <label for="profiles-tags-field_0">Tags</label>
+            <input type="text" id="profiles-tags-field_0" pattern="[A-Za-z, ]+" value="tech" />
         </div>
 
     </div>
         
     <div class="work-form-entry form-entry">
-        <div class="input-field" id="work-name">
-            <label for="work-name-field">Name</label>
-            <input type="text" id="work-name-field" required pattern="[A-Za-z]+" value="techie name" />
+        <div class="input-field" id="work-name-input-field_0">
+            <label for="work-name-field_0">Name</label>
+            <input type="text" id="work-name-field_0" pattern="[A-Za-z]+" value="techie name" />
         </div>
-        <div class="input-field" id="work-position">
-            <label for="work-position-field">Position</label>
-            <input type="text" id="work-position-field" required pattern="[A-Za-z]+" value="President" />
+        <div class="input-field" id="work-position-input-field_0">
+            <label for="work-position-field_0">Position</label>
+            <input type="text" id="work-position-field_0" pattern="[A-Za-z]+" value="President" />
         </div>
-        <div class="input-field" id="work-url">
-            <label for="work-url-field">URL</label>
-            <input type="url" id="work-url-field" required value="https://company.not" />
+        <div class="input-field" id="work-url-input-field_0">
+            <label for="work-url-field_0">URL</label>
+            <input type="url" id="work-url-field_0" value="https://company.not" />
         </div>
-        <div class="input-field" id="work-startDate">
-            <label for="work-startDate-field">Start Date</label>
-            <input type="date" id="work-startDate-field" required value="2013-01-01" />
+        <div class="input-field" id="work-startDate-input-field_0">
+            <label for="work-startDate-field_0">Start Date</label>
+            <input type="date" id="work-startDate-field_0" value="2013-01-01" />
         </div>
-        <div class="input-field" id="work-endDate">
-            <label for="work-endDate-field">End Date</label>
-            <input type="date" id="work-endDate-field" required value="2014-01-01" />
+        <div class="input-field" id="work-endDate-input-field_0">
+            <label for="work-endDate-field_0">End Date</label>
+            <input type="date" id="work-endDate-field_0" value="2014-01-01" />
         </div>
-        <div class="input-field" id="work-summary">
-            <label for="work-summary-field">Summary</label>
-            <textarea id="work-summary-field" required>Description…</textarea>
+        <div class="input-field" id="work-summary-input-field_0">
+            <label for="work-summary-field_0">Summary</label>
+            <textarea id="work-summary-field_0">Description…</textarea>
         </div>
-        <div class="input-field" id="work-highlights">
-            <label for="work-highlights-field">Highlights</label>
-            <input type="text" id="work-highlights-field" required pattern="[A-Za-z, ]+" value="Started techie name" />
+        <div class="input-field" id="work-highlights-input-field_0">
+            <label for="work-highlights-field_0">Highlights</label>
+            <input type="text" id="work-highlights-field_0" pattern="[A-Za-z, ]+" value="Started techie name" />
         </div>
     </div>
     
     <div class="volunteer-form-entry form-entry">
-        <div class="input-field" id="volunteer-organization">
-            <label for="volunteer-organization-field">Organization</label>
-            <input type="text" id="volunteer-organization-field" required pattern="[A-Za-z]+" value="Organization" />
+        <div class="input-field" id="volunteer-organization-input-field_0">
+            <label for="volunteer-organization-field_0">Organization</label>
+            <input type="text" id="volunteer-organization-field_0" pattern="[A-Za-z]+" value="Organization" />
         </div>
-        <div class="input-field" id="volunteer-position">
-            <label for="volunteer-position-field">Position</label>
-            <input type="text" id="volunteer-position-field" required pattern="[A-Za-z]+" value="Volunteer" />
+        <div class="input-field" id="volunteer-position-input-field_0">
+            <label for="volunteer-position-field_0">Position</label>
+            <input type="text" id="volunteer-position-field_0" pattern="[A-Za-z]+" value="Volunteer" />
         </div>
-        <div class="input-field" id="volunteer-url">
-            <label for="volunteer-url-field">URL</label>
-            <input type="url" id="volunteer-url-field" required value="https://organization.com/" />
+        <div class="input-field" id="volunteer-url-input-field_0">
+            <label for="volunteer-url-field_0">URL</label>
+            <input type="url" id="volunteer-url-field_0" value="https://organization.com/" />
         </div>
-        <div class="input-field" id="volunteer-startDate">
-            <label for="volunteer-startDate-field">Start Date</label>
-            <input type="date" id="volunteer-startDate-field" required value="2012-01-01" />
+        <div class="input-field" id="volunteer-startDate-input-field_0">
+            <label for="volunteer-startDate-field_0">Start Date</label>
+            <input type="date" id="volunteer-startDate-field_0" value="2012-01-01" />
         </div>
-        <div class="input-field" id="volunteer-endDate">
-            <label for="volunteer-endDate-field">End Date</label>
-            <input type="date" id="volunteer-endDate-field" required value="2013-01-01" />
+        <div class="input-field" id="volunteer-endDate-input-field_0">
+            <label for="volunteer-endDate-field_0">End Date</label>
+            <input type="date" id="volunteer-endDate-field_0" value="2013-01-01" />
         </div>
-        <div class="input-field" id="volunteer-summary">
-            <label for="volunteer-summary-field">Summary</label>
-            <textarea id="volunteer-summary-field" required>Description…</textarea>
+        <div class="input-field" id="volunteer-summary-input-field_0">
+            <label for="volunteer-summary-field_0">Summary</label>
+            <textarea id="volunteer-summary-field_0">Description…</textarea>
         </div>
-        <div class="input-field" id="volunteer-highlights">
-            <label for="volunteer-highlights-field">Highlights</label>
-            <input type="text" id="volunteer-highlights-field" required pattern="[A-Za-z, ]+" value="Awarded 'Volunteer of the Month'" />
+        <div class="input-field" id="volunteer-highlights-input-field_0">
+            <label for="volunteer-highlights-field_0">Highlights</label>
+            <input type="text" id="volunteer-highlights-field_0" pattern="[A-Za-z, ]+" value="Awarded 'Volunteer of the Month'" />
         </div>
     </div>
 
     <div class="education-form-entry form-entry">
-        <div class="input-field" id="education-institution">
-            <label for="education-institution-field">Institution</label>
-            <input type="text" id="education-institution-field" required pattern="[A-Za-z ]+" value="Totally Tech the institution" />
+        <div class="input-field" id="education-institution-input-field_0">
+            <label for="education-institution-field_0">Institution</label>
+            <input type="text" id="education-institution-field_0" pattern="[A-Za-z ]+" value="Totally Tech the institution" />
         </div>
-        <div class="input-field" id="education-url">
-            <label for="education-url-field">URL</label>
-            <input type="url" id="education-url-field" required value="https://tech.not/" />
+        <div class="input-field" id="education-url-input-field_0">
+            <label for="education-url-field_0">URL</label>
+            <input type="url" id="education-url-field_0" value="https://tech.not/" />
         </div>
-        <div class="input-field" id="education-area">
-            <label for="education-area-field">Area</label>
-            <input type="text" id="education-area-field" required pattern="[A-Za-z ]+" value="Software Development" />
+        <div class="input-field" id="education-area-input-field_0">
+            <label for="education-area-field_0">Area</label>
+            <input type="text" id="education-area-field_0" pattern="[A-Za-z ]+" value="Software Development" />
         </div>
-        <div class="input-field" id="education-studyType">
-            <label for="education-studyType-field">Study Type</label>
-            <input type="text" id="education-studyType-field" required pattern="[A-Za-z ]+" value="Bachelor" />
+        <div class="input-field" id="education-studyType-input-field_0">
+            <label for="education-studyType-field_0">Study Type</label>
+            <input type="text" id="education-studyType-field_0" pattern="[A-Za-z ]+" value="Bachelor" />
         </div>
-        <div class="input-field" id="education-startDate">
-            <label for="education-startDate-field">Start Date</label>
-            <input type="date" id="education-startDate-field" required value="2011-01-01" />
+        <div class="input-field" id="education-startDate-input-field_0">
+            <label for="education-startDate-field_0">Start Date</label>
+            <input type="date" id="education-startDate-field_0" value="2011-01-01" />
         </div>
-        <div class="input-field" id="education-endDate">
-            <label for="education-endDate-field">End Date</label>
-            <input type="date" id="education-endDate-field" required value="2013-01-01" />
+        <div class="input-field" id="education-endDate-input-field_0">
+            <label for="education-endDate-field_0">End Date</label>
+            <input type="date" id="education-endDate-field_0" value="2013-01-01" />
         </div>
-        <div class="input-field" id="education-score">
-            <label for="education-score-field">Score</label>
-            <input type="number" id="education-score-field" required value="4.0" />
+        <div class="input-field" id="education-score-input-field_0">
+            <label for="education-score-field_0">Score</label>
+            <input type="number" id="education-score-field_0" value="4.0" />
         </div>
-        <div class="input-field" id="education-courses">
-            <label for="education-courses-field">Courses</label>
-            <input type="text" id="education-courses-field" required value="DB1101 - Basic SQL" />
+        <div class="input-field" id="education-courses-input-field_0">
+            <label for="education-courses-field_0">Courses</label>
+            <input type="text" id="education-courses-field_0" value="DB1101 - Basic SQL" />
         </div>
     </div>
 
     <div class="award-form-entry form-entry">
-        <div class="input-field" id="awards-title">
-            <label for="awards-title-field">Title</label>
-            <input type="text" id="awards-title-field" required pattern="[A-Za-z ]+" value="wudward" />
+        <div class="input-field" id="awards-title-input-field_0">
+            <label for="awards-title-field_0">Title</label>
+            <input type="text" id="awards-title-field_0" pattern="[A-Za-z ]+" value="wudward" />
         </div>
-        <div class="input-field" id="awards-date">
-            <label for="awards-date-field">Date</label>
-            <input type="date" id="awards-date-field" required value="2014-11-01" />
+        <div class="input-field" id="awards-date-input-field_0">
+            <label for="awards-date-field_0">Date</label>
+            <input type="date" id="awards-date-field_0" value="2014-11-01" />
         </div>
-        <div class="input-field" id="awards-awarder">
-            <label for="awards-awarder-field">Awarder</label>
-            <input type="text" id="awards-awarder-field" required pattern="[A-Za-z ]+" value="theBigWood" />
+        <div class="input-field" id="awards-awarder-input-field_0">
+            <label for="awards-awarder-field_0">Awarder</label>
+            <input type="text" id="awards-awarder-field_0" pattern="[A-Za-z ]+" value="theBigWood" />
         </div>
-        <div class="input-field" id="awards-summary">
-            <label for="awards-summary-field">Summary</label>
-            <textarea id="awards-summary-field" required>There is only wood.</textarea>
+        <div class="input-field" id="awards-summary-input-field_0">
+            <label for="awards-summary-field_0">Summary</label>
+            <textarea id="awards-summary-field_0">There is only wood.</textarea>
         </div>
     </div>
 
 
     <div class="certificate-form-entry form-entry">
-        <div class="input-field" id="certificates-name">
-            <label for="certificates-name-field">Name</label>
-            <input type="text" id="certificates-name-field" required pattern="[A-Za-z ]+" value="Certified Nerd" />
+        <div class="input-field" id="certificates-name-input-field_0">
+            <label for="certificates-name-field_0">Name</label>
+            <input type="text" id="certificates-name-field_0" pattern="[A-Za-z ]+" value="Certified Nerd" />
         </div>
-        <div class="input-field" id="certificates-date">
-            <label for="certificates-date-field">Date</label>
-            <input type="date" id="certificates-date-field" required value="2021-11-07" />
+        <div class="input-field" id="certificates-date-input-field_0">
+            <label for="certificates-date-field_0">Date</label>
+            <input type="date" id="certificates-date-field_0" value="2021-11-07" />
         </div>
-        <div class="input-field" id="certificates-issuer">
-            <label for="certificates-issuer-field">Issuer</label>
-            <input type="text" id="certificates-issuer-field" required pattern="[A-Za-z ]+" value="Nerdify" />
+        <div class="input-field" id="certificates-issuer-input-field_0">
+            <label for="certificates-issuer-field_0">Issuer</label>
+            <input type="text" id="certificates-issuer-field_0" pattern="[A-Za-z ]+" value="Nerdify" />
         </div>
-        <div class="input-field" id="certificates-url">
-            <label for="certificates-url-field">URL</label>
-            <input type="url" id="certificates-url-field" required value="https://certificate.not" />
+        <div class="input-field" id="certificates-url-input-field_0">
+            <label for="certificates-url-field_0">URL</label>
+            <input type="url" id="certificates-url-field_0" value="https://certificate.not" />
         </div>
     </div>
 
     <div class="publication-form-entry form-entry">
-        <div class="input-field" id="publications-name">
-            <label for="publications-name-field">Name</label>
-            <input type="text" id="publications-name-field" required pattern="[A-Za-z ]+" value="Publication" />
+        <div class="input-field" id="publications-name-input-field_0">
+            <label for="publications-name-field_0">Name</label>
+            <input type="text" id="publications-name-field_0" pattern="[A-Za-z ]+" value="Publication" />
         </div>
-        <div class="input-field" id="publications-publisher">
-            <label for="publications-publisher-field">Publisher</label>
-            <input type="text" id="publications-publisher-field" required pattern="[A-Za-z ]+" value="Company" />
+        <div class="input-field" id="publications-publisher-input-field_0">
+            <label for="publications-publisher-field_0">Publisher</label>
+            <input type="text" id="publications-publisher-field_0" pattern="[A-Za-z ]+" value="Company" />
         </div>
-        <div class="input-field" id="publications-releaseDate">
-            <label for="publications-releaseDate-field">Release Date</label>
-            <input type="date" id="publications-releaseDate-field" required value="2014-10-01" />
+        <div class="input-field" id="publications-releaseDate-input-field_0">
+            <label for="publications-releaseDate-field_0">Release Date</label>
+            <input type="date" id="publications-releaseDate-field_0" value="2014-10-01" />
         </div>
-        <div class="input-field" id="publications-url">
-            <label for="publications-url-field">URL</label>
-            <input type="url" id="publications-url-field" required value="https://publication.com" />
+        <div class="input-field" id="publications-url-input-field_0">
+            <label for="publications-url-field_0">URL</label>
+            <input type="url" id="publications-url-field_0" value="https://publication.com" />
         </div>
-        <div class="input-field" id="publications-summary">
-            <label for="publications-summary-field">Summary</label>
-            <textarea id="publications-summary-field" required>I think this menas books or papers?</textarea>
+        <div class="input-field" id="publications-summary-input-field_0">
+            <label for="publications-summary-field_0">Summary</label>
+            <textarea id="publications-summary-field_0">I think this menas books or papers?</textarea>
         </div>
     </div>
 
     <div class="skill-form-entry form-entry">
-        <div class="input-field" id="skills-name">
-            <label for="skills-name-field">Name</label>
-            <input type="text" id="skills-name-field" required pattern="[A-Za-z ]+" value="Web Development" />
+        <div class="input-field" id="skills-name-input-field_0">
+            <label for="skills-name-field_0">Name</label>
+            <input type="text" id="skills-name-field_0" pattern="[A-Za-z ]+" value="Web Development" />
         </div>
-        <div class="input-field" id="skills-level">
-            <label for="skills-level-field">Level</label>
-            <input type="text" id="skills-level-field" required pattern="[A-Za-z ]+" value="Master" />
+        <div class="input-field" id="skills-level-input-field_0">
+            <label for="skills-level-field_0">Level</label>
+            <input type="text" id="skills-level-field_0" pattern="[A-Za-z ]+" value="Master" />
         </div>
-        <div class="input-field" id="skills-keywords">
-            <label for="skills-keywords-field">Keywords</label>
-            <input type="text" id="skills-keywords-field" required value="HTML, CSS, JavaScript, puppets" />
+        <div class="input-field" id="skills-keywords-input-field_0">
+            <label for="skills-keywords-field_0">Keywords</label>
+            <input type="text" id="skills-keywords-field_0" value="HTML, CSS, JavaScript, puppets" />
         </div>
     </div>
 
     <div class="reference-form-entry form-entry">
-        <div class="input-field" id="references-name">
-            <label for="references-name-field">Name</label>
-            <input type="text" id="references-name-field" required pattern="[A-Za-z ]+" value="Smarty nerd" />
+        <div class="input-field" id="references-name-input-field_0">
+            <label for="references-name-field_0">Name</label>
+            <input type="text" id="references-name-field_0" pattern="[A-Za-z ]+" value="Smarty nerd" />
         </div>
-        <div class="input-field" id="references-reference">
-            <label for="references-reference-field">Reference</label>
-            <input type="text" id="references-reference-field" required value="is good" />
+        <div class="input-field" id="references-reference-input-field_0">
+            <label for="references-reference-field_0">Reference</label>
+            <input type="text" id="references-reference-field_0" value="is good" />
         </div>
     </div>
 
     <div class="project-form-entry form-entry">
-        <div class="input-field" id="projects-name">
-            <label for="projects-name-field">Name</label>
-            <input type="text" id="projects-name-field" required pattern="[A-Za-z ]+" value="ultimate hacker ai" />
+        <div class="input-field" id="projects-name-input-field_0">
+            <label for="projects-name-field_0">Name</label>
+            <input type="text" id="projects-name-field_0" pattern="[A-Za-z ]+" value="ultimate hacker ai" />
         </div>
-        <div class="input-field" id="projects-startDate">
-            <label for="projects-startDate-field">Start Date</label>
-            <input type="date" id="projects-startDate-field" required value="2019-01-01" />
+        <div class="input-field" id="projects-startDate-input-field_0">
+            <label for="projects-startDate-field_0">Start Date</label>
+            <input type="date" id="projects-startDate-field_0" value="2019-01-01" />
         </div>
-        <div class="input-field" id="projects-endDate">
-            <label for="projects-endDate-field">End Date</label>
-            <input type="date" id="projects-endDate-field" required value="2021-01-01" />
+        <div class="input-field" id="projects-endDate-input-field_0">
+            <label for="projects-endDate-field_0">End Date</label>
+            <input type="date" id="projects-endDate-field_0" value="2021-01-01" />
         </div>
-        <div class="input-field" id="projects-description">
-            <label for="projects-description-field">Description</label>
-            <textarea id="projects-description-field" required>is kinda scary and might eat you.</textarea>
+        <div class="input-field" id="projects-description-input-field_0">
+            <label for="projects-description-field_0">Description</label>
+            <textarea id="projects-description-field_0">is kinda scary and might eat you.</textarea>
         </div>
-        <div class="input-field" id="projects-highlights">
-            <label for="projects-highlights-field">Highlights</label>
-            <input type="text" id="projects-highlights-field" required pattern="[A-Za-z, ]+" value="Won award at AIHacks 2016" />
+        <div class="input-field" id="projects-highlights-input-field_0">
+            <label for="projects-highlights-field_0">Highlights</label>
+            <input type="text" id="projects-highlights-field_0" pattern="[A-Za-z, ]+" value="Won award at AIHacks 2016" />
         </div>
-        <div class="input-field" id="projects-url">
-            <label for="projects-url-field">URL</label>
-            <input type="url" id="projects-url-field" required value="https://project.not/" />
+        <div class="input-field" id="projects-url-input-field_0">
+            <label for="projects-url-field_0">URL</label>
+            <input type="url" id="projects-url-field_0" value="https://project.not/" />
         </div>
     </div>
 
     <div class="language-form-entry form-entry">
-        <div class="input-field" id="language-name">
-            <label for="language-name-field">Language</label>
-            <input type="text" id="language-name-field" required pattern="[A-Za-z]" value="Ex: English" />
+        <div class="input-field" id="language-name-input-field_0">
+            <label for="language-name-field_0">Language</label>
+            <input type="text" id="language-name-field_0" pattern="[A-Za-z]" value="Ex: English" />
         </div>
-        <div class="input-field" id="fluency">
-            <label for="fluency-field">Fluency</label>
-            <input type="text" id="fluency-field" required value="Ex: Toddler" />
+        <div class="input-field" id="fluency-input-field_0">
+            <label for="fluency-field_0">Fluency</label>
+            <input type="text" id="fluency-field_0" value="Ex: Toddler" />
         </div>
     </div>
 
     <div class="interest-form-entry">
-        <div class="input-field" id="interest-name">
-            <label for="interest-name-field">Interest</label>
-            <input type="text" id="interest-name-field" required pattern="[A-Za-z]+" value="Ex: Wildlife" />
+        <div class="input-field" id="interest-name-input-field_0">
+            <label for="interest-name-field_0">Interest</label>
+            <input type="text" id="interest-name-field_0" pattern="[A-Za-z]+" value="Ex: Wildlife" />
         </div>
-        <div class="input-field" id="keywords">
-            <label for="interest-keyword-field">Keywords</label>
-            <input type="text" id="interest-keyword-field" required pattern="[A-Za-z0-9, ]+" value="Ex: Ferrets" />
+        <div class="input-field" id="keywords-input-field_0">
+            <label for="interest-keyword-field_0">Keywords</label>
+            <input type="text" id="interest-keyword-field_0" pattern="[A-Za-z0-9, ]+" value="Ex: Ferrets" />
         </div>
     </div>
 </div>
