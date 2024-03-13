@@ -1,6 +1,11 @@
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: #fff1d0;
+}
+
+.title {
+    padding: 0.5rem;
 }
 
 .topnav {
@@ -42,4 +47,3 @@ body {
 .title-line {
     padding: 3rem;
 }
-
