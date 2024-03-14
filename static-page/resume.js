@@ -144,12 +144,10 @@ function loadEntry(entry,className) {
                 }
                 if(fields[1].tagName=="DIV"){
                     let thisDiv = fields[1]
-                    let listElement = thisDiv.children[0]
+                    let addItemButton = thisDiv.children[2]
                     let listLoad = entry[i][key]
                     for(k=0;k<listLoad.length;k++){
-                        let listItem = document.createElement("li")
-                        listItem.textContent = listLoad[k]
-                        listElement.appendChild(listItem)
+                        addListItem(addItemButton,listLoad[k]);
                     }
                 }
                 else{
@@ -170,12 +168,16 @@ function loadEntry(entry,className) {
     }
 }
 
-function addListItem(addItemButton) {
-    const parentDiv = addItemButton.parentNode
-    const inputField = parentDiv.children[1]
-    const list = parentDiv.children[0]
-    const newItem = inputField.value
-    if(newItem.lenght>3){
+function addListItem(addItemButton, data=1) {
+    const parentDiv = addItemButton.parentNode;
+    const inputField = parentDiv.children[1];
+    const list = parentDiv.children[0];
+    let newItem = inputField.value;
+    if(data!=1){
+        newItem=data;
+    }
+    if(newItem.length>0){
+        console.log(newItem)
         newItem.value = "";
         const listItem = document.createElement("li");
         listItem.textContent = newItem;
