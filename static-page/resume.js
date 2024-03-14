@@ -1,9 +1,10 @@
-var collapseButton = document.getElementsByClassName("collapse-button");
+var mainDiv = document.getElementsByTagName("main")[0]
+var collapseButton = mainDiv.getElementsByClassName("collapse-button");
 for (i = 0; i < collapseButton.length; i++) {
     collapseButton[i].addEventListener("click", function() {
-        var toClose = document.getElementsByClassName("collapsible-element")
+        var toClose = mainDiv.getElementsByClassName("collapsible-element")
         var content = this.nextElementSibling;
-        for (j = 0; j < toClose.length; j++) {
+        for (j = 0; j < collapseButton.length; j++) {
             collapseButton[j].classList.remove("open")
             if (toClose[j] != content) {
                 toClose[j].style.display = "none";
@@ -83,25 +84,29 @@ function collectEntries(className) {
         }
         entries.push(entry);
     }
-    console.log(entries);
-
     return entries;
 }
 
 
 
+function collectResume(){
+    let resume = {}
+    resume["basics"]=collectEntries("name-form-entry")[0]
+    resume["basics"]["location"]=collectEntries("location-form-entry")[0]
+    resume["basics"]["label"]=collectEntries("label-form-entry")
+    resume["basics"]["summary"]=collectEntries("summary-form-entry")
+    resume["basics"]["profile"]=collectEntries("profile-form-entry")
+    resume["work"]=collectEntries("work-form-entry")
+    resume["volunteer"]=collectEntries("volunteer-form-entry")
+    resume["education"]=collectEntries("education-form-entry")
+    resume["awards"]=collectEntries("award-form-entry")
+    resume["certificates"]=collectEntries("certificate-form-entry")
+    resume["publications"]=collectEntries("publication-form-entry")
+    resume["skills"]=collectEntries("skill-form-entry")
+    resume["references"]=collectEntries("reference-form-entry")
+    resume["projects"]=collectEntries("project-form-entry")
+    resume["languages"]=collectEntries("language-form-entry")
+    resume["interests"]=collectEntries("interest-form-entry")
+    return resume
+}
 
-collectEntries("label-form-entry")
-collectEntries("summary-form-entry")
-collectEntries("profile-form-entry")
-collectEntries("work-form-entry")
-collectEntries("volunteer-form-entry")
-collectEntries("education-form-entry")
-collectEntries("award-form-entry")
-collectEntries("certificate-form-entry")
-collectEntries("publication-form-entry")
-collectEntries("skill-form-entry")
-collectEntries("reference-form-entry")
-collectEntries("project-form-entry")
-collectEntries("language-form-entry")
-collectEntries("interest-form-entry")
