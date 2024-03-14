@@ -146,11 +146,13 @@ function loadEntry(entry,className) {
                     fields[1].innerText=entry[i][key]
                 }
                 if(fields[1].className=="list-input"){
+		    console.log(fields[1])
+
                     let thisDiv = fields[1]
                     let addItemButton = thisDiv.children[2]
                     let listLoad = entry[i][key]
                     for(k=0;k<listLoad.length;k++){
-                        addListItem(addItemButton,listLoad[k]);
+       	                addListItem(addItemButton,listLoad[k]);
                     }
                 }
                 else{
@@ -173,8 +175,7 @@ function loadEntry(entry,className) {
 
 async function loadResume(){
     let token = JSON.stringify({"token":localStorage.getItem("token")})
-    token=JSON.stringify({"token":"461fa38264b0205862a783cd019f1d03fbff7e29de92ed7721a0ab24f9a7336f"})
-    let resume = await fetch("https://autoresumed.com/resume/get",{
+    let resume = await fetch("https://autoresumed.com/api/resume/get",{
         method:"POST",
         headers:{
             "Content-Type":"application/json"
@@ -183,7 +184,6 @@ async function loadResume(){
     }).then(function(response){
         return response.json();
     });
-    console.log(resume)
 
 
     loadEntry(resume["work"],"work-form-entry");
@@ -209,10 +209,8 @@ async function loadResume(){
 async function updateResume(){
     let resume = collectResume();
     let req={"resume":resume,"token":localStorage.getItem("token")};
-    req["token"]='461fa38264b0205862a783cd019f1d03fbff7e29de92ed7721a0ab24f9a7336f';
     req = JSON.stringify(req);
-    console.log(req)
-    let response = await fetch("https://autoresumed.com/resume/update",{
+    let response = await fetch("https://autoresumed.com/api/resume/update",{
         method:"PUT",
         headers:{
             "Content-Type":"application/json"
@@ -345,7 +343,7 @@ async function testLoad(){
 
 }
 
-//testLoad();
+testLoad();
 loadResume()
 
 //isAuthorized.redirect();
