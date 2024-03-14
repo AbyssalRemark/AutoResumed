@@ -25,7 +25,7 @@ async function generate() {
 
     if (response.ok) {
         const resume = (await response.json())["resume"];
-        document.getElementById("resume").innerHTML = resume;
+        document.getElementById("resume").srcdoc = resume;
     }
 
 }

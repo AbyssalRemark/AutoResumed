@@ -3,6 +3,7 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="generate.css">
     <title>Generate Resume - AutoResumed</title>
 </head>
 
@@ -20,7 +21,7 @@
         </div>
     </header>
     <main>
-        <div id="resume-creator">
+        <div class="resume-creator" id="resume-creator">
             <select id="template-selector">
                 <option value="even">Even</option>
                 <option value="latte">Latte</option>
@@ -30,7 +31,9 @@
             </select>
             <button id="generate-button" type="button">Generate</button>
         </div>
-        <div id="resume"></div>
+        <div class="resume-container">
+            <iframe class="resume" id="resume"></iframe>
+        </div>
     </main>
 </body>
 

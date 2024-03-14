@@ -1,0 +1,16 @@
+.resume-creator {
+    padding: 1rem;
+}
+
+.resume-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.resume {
+    width: 90rem;
+    height: 40rem;
+}
