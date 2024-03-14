@@ -34,9 +34,12 @@ for (k = 0; k < addButton.length; k++) {
         buttonParent.remove()
     })
     initAddable.appendChild(initRemoveButton)
-
     addButton[k].addEventListener("click", function() {
         var className = this.id.slice(0, -4)
+        addEntry(className)
+
+/*      Yay put this outside so its reusable by another funcation!
+
         var toAddProto = prototypes.getElementsByClassName(className)[0];
         var toAdd = toAddProto.cloneNode(true);
         var newId = toAdd.id
@@ -62,12 +65,43 @@ for (k = 0; k < addButton.length; k++) {
             var buttonParent = this.parentElement;
             buttonParent.remove()
         })
+        */
+    })
+}
+
+function addEntry(className) {
+    var elementId = className.concat("-add")
+    var thisElement = document.getElementById(elementId);
+    var parentElement = thisElement.parentElement
+    var toAddProto = prototypes.getElementsByClassName(className)[0];
+    var toAdd = toAddProto.cloneNode(true);
+    var newId = toAdd.id
+    var splitId = newId.split("_")
+    var siblings = parentElement.children
+    var lastElement = siblings[siblings.length - 1]
+    var nextCount = parseInt(lastElement.id.split("_")[1]) + 1
+    if (isNaN(nextCount)) {
+        nextCount = 0
+    }
+    splitId[1] = nextCount.toString()
+    newId = splitId.join("_")
+    toAdd.id = newId
+    var addTo = parentElement;
+    var removeButton = document.createElement("button")
+    removeButton.type = "button"
+    removeButton.class = 'remove-button'
+    removeButton.innerText = "Remove"
+    toAdd.appendChild(removeButton)
+    addTo.appendChild(toAdd);
+
+    removeButton.addEventListener("click", function() {
+        var buttonParent = this.parentElement;
+        buttonParent.remove()
     })
 }
 
 function collectEntries(className) {
     let resumeForm = document.getElementById("resume-form");
-    // TODO: This isn't named right
     let elements = resumeForm.getElementsByClassName(className);
     let entries = [];
     for (a = 0; a < elements.length; a++) {
@@ -87,6 +121,9 @@ function collectEntries(className) {
     return entries;
 }
 
+function loadEntry(entry,className){
+
+}
 
 
 function collectResume(){
@@ -110,3 +147,6 @@ function collectResume(){
     return resume
 }
 
+function loadResume(resunme){
+
+}
