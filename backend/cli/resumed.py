@@ -27,7 +27,7 @@ def to_html(resume: dict, template: str, keep_html_file: bool = False) -> str:
             "-o",
             output_file_path,
             "-t",
-            template,
+            "jsonresume-theme-" + template,
         ],
         capture_output=True,
         text=True,
