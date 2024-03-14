@@ -1,10 +1,6 @@
-import {url} from './env.js';
-
-url=url()
-
 export async function isAuthorized() {
     let token = { 'token': localStorage.getItem('token') };
-    let isAuthorized = await fetch(url+"/auth/is_authorized", {
+    let isAuthorized = await fetch("https://autoresumed.com/auth/is_authorized", {
         method: "POST",
         body: JSON.stringify(token)
     });
@@ -19,14 +15,14 @@ export async function isAuthorized() {
 
 export function redirect(bool){
     if(!bool()){
-        window.location.replace("https://autoresumed.com/login.html")
+        window.location.replace("https://autoresumed.com/index.html")
     }
 }
 
 export function viewControl(bool){
     var loggedIn = document.getElementById("logged-in");
     var loggedOut = document.getElementById("logged-out");
-    if(bool()){
+    if(bool){
         loggedIn.style.display="block";
         loggedOut.style.display="none";
     }
@@ -35,3 +31,8 @@ export function viewControl(bool){
         loggedOut.style.display="block";
     }
 }
+
+let isAuth=isAuthorized()
+
+viewControl(isAuth)
+redirect(isAuth)
