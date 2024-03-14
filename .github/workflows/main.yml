@@ -28,12 +28,19 @@ jobs:
           username: ${{ secrets.GH_USERNAME }}
           password: ${{ secrets.GH_TOKEN }}
 
+      - name: Sanitize repo slug
+        uses: actions/github-script@v6
+        id: repo_slug
+        with:
+          result-encoding: string
+          script: return 'ghcr.io/${{ github.repository }}'.toLowerCase()
+
       - name: Build and push my toolbox image
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: Containerfile
+          file: Dockerfile
           platforms: linux/amd64
           push: true
           no-cache: true
-          tags: ghcr.io/autoresumed:latest
+          tags: ${{ steps.repo_slug.outputs.result }}:latest
