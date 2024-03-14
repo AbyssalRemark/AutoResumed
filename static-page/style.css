@@ -47,6 +47,8 @@ header a.active {
 
 .title-line {
     padding: 3rem;
+    padding-bottom:0;
+    padding-top:1rem;
 }
 
 #cowboy-ready:hover {

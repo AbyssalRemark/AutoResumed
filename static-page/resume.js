@@ -124,10 +124,69 @@ function collectEntries(className) {
 
 function loadEntry(entry,className) {
     let resumeForm = document.getElementById("resume-form");
-    let elements = resumeForm.getElementsByClassName(className);
-    while (entry.length > elements.length){
-        addEntry(className);
-        elements = resumeForm.getElementsByClassName(className);
+    let form = resumeForm.getElementsByClassName(className);
+    if(className!=="name-form-entry"&&className!=="location-form-entry"){
+        while (entry.length > form.length){
+            addEntry(className);
+            form = resumeForm.getElementsByClassName(className);
+        }
+
+        for(i=0;i<entry.length;i++){
+            let elements = form[i].children
+            for(j=0;j<elements.length-1;j++){
+                let fields = elements[j].children
+                let key = camelCase(fields[0].innerText)
+                if(className=="label-form-entry"&&key=="position"){
+                    key="label"
+                }
+                if(fields[1].type=="textarea"){
+                    fields[1].innerText=entry[i][key]
+                }
+                if(fields[1].tagName=="DIV"){
+                    let thisDiv = fields[1]
+                    let listElement = thisDiv.children[0]
+                    let listLoad = entry[i][key]
+                    for(k=0;k<listLoad.length;k++){
+                        let listItem = document.createElement("li")
+                        listItem.textContent = listLoad[k]
+                        listElement.appendChild(listItem)
+                    }
+                }
+                else{
+                    fields[1].value=entry[i][key]
+                }
+            }
+        }
+    }
+    else{
+        elements = form[0].children
+        for(i=0;i<elements.length;i++){
+            let field = elements[i]
+            let label = field.children[0]
+            let key = camelCase(label.innerText)
+            let content = entry[key]
+            field.children[1].value=content
+        }
+    }
+}
+
+function addListItem(addItemButton) {
+    const parentDiv = addItemButton.parentNode
+    const inputField = parentDiv.children[1]
+    const list = parentDiv.children[0]
+    const newItem = inputField.value
+    if(newItem.lenght>3){
+        newItem.value = "";
+        const listItem = document.createElement("li");
+        listItem.textContent = newItem;
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "[X]";
+        removeBtn.classList.add("list-remove-button");
+        removeBtn.addEventListener("click", function() {
+            listItem.remove();
+        });
+        listItem.appendChild(removeBtn);
+        list.appendChild(listItem);
     }
 }
 
@@ -165,13 +224,26 @@ function loadResume(resume){
 }
 
 async function testLoad(){
-    const options = {
-        method: 'GET',
-        mode: 'no-cors'
-      };
-    var testResume = await fetch("https://autoresumed.com/testResume.json",options)
-    console.log(testReusume)
-    loadEntry(testResume["projects"],"project-form-entry")
+    var testResume = await fetch("https://autoresumed.com/testResume.json") .then(function(response) {
+        return response.json();
+    })
+    loadEntry(testResume["work"],"work-form-entry");
+    loadEntry(testResume["volunteer"],"volunteer-form-entry");
+    loadEntry(testResume["education"],"education-form-entry");
+    loadEntry(testResume["awards"],"award-form-entry");
+    loadEntry(testResume["certificates"],"certificate-form-entry");
+    loadEntry(testResume["publications"],"publication-form-entry");
+    loadEntry(testResume["skills"],"skill-form-entry");
+    loadEntry(testResume["references"],"reference-form-entry");
+    loadEntry(testResume["projects"],"project-form-entry");
+    loadEntry(testResume["languages"],"language-form-entry");
+    loadEntry(testResume["interests"],"interest-form-entry");
+    loadEntry(testResume["basics"],"name-form-entry");
+    loadEntry(testResume["basics"]["location"],"location-form-entry");
+    loadEntry(testResume["basics"]["label"],"label-form-entry");
+    loadEntry(testResume["basics"]["summary"],"summary-form-entry");
+    loadEntry(testResume["basics"]["profiles"],"profile-form-entry");
+   
 
 }
 

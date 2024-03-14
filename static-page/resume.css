@@ -1,3 +1,7 @@
+button {
+    margin:.75rem;
+}
+
 .bolt-icon {
     font-size: 2.5rem;
     font-weight: bolder;
@@ -5,6 +9,7 @@
 
 .resume-form {
     padding: 3rem;
+    padding-top:0;
 }
 
 .add-button {
@@ -15,6 +20,10 @@
     padding-top: .2rem;
 }
 
+.list-remove.button{
+    padding:.5rem;
+    padding-left:1rem;
+}
 .collapse-button {
     background-color: #777;
     color: white;
@@ -25,10 +34,11 @@
     text-align: left;
     outline: none;
     font-size: 1.5rem;
+    margin:.1rem;
 }
 
 .open,
-.collapsible:hover {
+.collapse-button:hover {
     background-color: #555;
 }
 
@@ -42,6 +52,7 @@
     display: none;
     overflow: hidden;
     background-color: #f1f1f1;
+    margin-bottom:.15rem;
 }
 
 /* Prototypes live here */
