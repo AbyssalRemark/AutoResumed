@@ -262,10 +262,19 @@ async def get_resume(token,db=None):
         user = await user_from_token(token,db)
         resume_in_db = await db.resume.find_unique(
             where={
-               "belongs_to_id": user.belongs_to_id,
+               "belongs_to_id": user.id,
             }
         )
     return resume_in_db
+
+async def get_tags(token,db=None):
+    if db==None:
+        async with Prisma() as db:
+            tags = await get_tags(token,db)
+    else:
+        resume = await get_resume(token,db)
+        tags=resume.tags
+    return tags
 
 async def query_raw (fields,table,id_value,db=None):
     if db == None:

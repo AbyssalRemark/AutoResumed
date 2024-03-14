@@ -97,6 +97,9 @@ async def dbtest(argA, argB, argC):
         case "update_resume":
             updated_resume = await dbtool.update_resume(scratches.testy_resume(),arg1)
             return updated_resume
+        case "get_tags":
+            tags = await dbtool.get_tags(arg1)
+            return tags
         case _:
             return "incorrect function load"
 
