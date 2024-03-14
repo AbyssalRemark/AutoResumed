@@ -18,7 +18,7 @@ async function generate(type) {
     const template = document.getElementById("template-selector").value;
 
     const response = await fetch(
-        "http://127.0.0.1:5000/resume/generate",
+        "https://autoresumed.com/api/resume/generate",
         {
             method: "POST",
             headers: {

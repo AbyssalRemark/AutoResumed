@@ -9,7 +9,7 @@ document.getElementById("login-button").addEventListener("click", async function
 
 async function login(email, password) {
     const response = await fetch(
-        "http://127.0.0.1:5000/auth/login",
+        "https://autoresumed.com/api/auth/login",
         {
             method: "POST",
             headers: {

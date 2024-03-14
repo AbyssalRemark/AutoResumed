@@ -13,7 +13,7 @@ async function main() {
 
 async function isAuthorized() {
     let token = { 'token': localStorage.getItem('token') };
-    let isAuthorized = await fetch("https://autoresumed.com/auth/is_authorized", {
+    let isAuthorized = await fetch("https://autoresumed.com/api/auth/is_authorized", {
         method: "POST",
         body: JSON.stringify(token)
     });

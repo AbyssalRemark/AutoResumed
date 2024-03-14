@@ -40,34 +40,34 @@ for (k = 0; k < addButton.length; k++) {
         var className = this.id.slice(0, -4)
         addEntry(className)
 
-/*      Yay put this outside so its reusable by another funcation!
-
-        var toAddProto = prototypes.getElementsByClassName(className)[0];
-        var toAdd = toAddProto.cloneNode(true);
-        var newId = toAdd.id
-        var splitId = newId.split("_")
-        var siblings = this.parentElement.children
-        var lastElement = siblings[siblings.length - 1]
-        var nextCount = parseInt(lastElement.id.split("_")[1]) + 1
-        if (isNaN(nextCount)) {
-            nextCount = 0
-        }
-        splitId[1] = nextCount.toString()
-        newId = splitId.join("_")
-        toAdd.id = newId
-        var addTo = this.parentElement;
-        var removeButton = document.createElement("button")
-        removeButton.type = "button"
-        removeButton.class = 'remove-button'
-        removeButton.innerText = "Remove"
-        toAdd.appendChild(removeButton)
-        addTo.appendChild(toAdd);
-
-        removeButton.addEventListener("click", function() {
-            var buttonParent = this.parentElement;
-            buttonParent.remove()
-        })
-        */
+        /*      Yay put this outside so its reusable by another funcation!
+        
+                var toAddProto = prototypes.getElementsByClassName(className)[0];
+                var toAdd = toAddProto.cloneNode(true);
+                var newId = toAdd.id
+                var splitId = newId.split("_")
+                var siblings = this.parentElement.children
+                var lastElement = siblings[siblings.length - 1]
+                var nextCount = parseInt(lastElement.id.split("_")[1]) + 1
+                if (isNaN(nextCount)) {
+                    nextCount = 0
+                }
+                splitId[1] = nextCount.toString()
+                newId = splitId.join("_")
+                toAdd.id = newId
+                var addTo = this.parentElement;
+                var removeButton = document.createElement("button")
+                removeButton.type = "button"
+                removeButton.class = 'remove-button'
+                removeButton.innerText = "Remove"
+                toAdd.appendChild(removeButton)
+                addTo.appendChild(toAdd);
+        
+                removeButton.addEventListener("click", function() {
+                    var buttonParent = this.parentElement;
+                    buttonParent.remove()
+                })
+                */
     })
 }
 
@@ -102,15 +102,15 @@ function addEntry(className) {
     })
 }
 
-function addListItem(addItemButton, data=1) {
+function addListItem(addItemButton, data = 1) {
     const parentDiv = addItemButton.parentNode;
     const inputField = parentDiv.children[1];
     const list = parentDiv.children[0];
     let newItem = inputField.value;
-    if(data!=1){
-        newItem=data;
+    if (data != 1) {
+        newItem = data;
     }
-    if(newItem.length>0){
+    if (newItem.length > 0) {
         newItem.value = "";
         const listItem = document.createElement("li");
         listItem.textContent = newItem;
@@ -125,100 +125,100 @@ function addListItem(addItemButton, data=1) {
     }
 }
 
-function loadEntry(entry,className) {
+function loadEntry(entry, className) {
     let resumeForm = document.getElementById("resume-form");
     let form = resumeForm.getElementsByClassName(className);
-    if(className!=="name-form-entry"&&className!=="location-form-entry"){
-        while (entry.length > form.length){
+    if (className !== "name-form-entry" && className !== "location-form-entry") {
+        while (entry.length > form.length) {
             addEntry(className);
             form = resumeForm.getElementsByClassName(className);
         }
 
-        for(i=0;i<entry.length;i++){
+        for (i = 0; i < entry.length; i++) {
             let elements = form[i].children
-            for(j=0;j<elements.length-1;j++){
+            for (j = 0; j < elements.length - 1; j++) {
                 let fields = elements[j].children
                 let key = camelCase(fields[0].innerText)
-                if(className=="label-form-entry"&&key=="position"){
-                    key="label"
+                if (className == "label-form-entry" && key == "position") {
+                    key = "label"
                 }
-                if(fields[1].type=="textarea"){
-                    fields[1].innerText=entry[i][key]
+                if (fields[1].type == "textarea") {
+                    fields[1].innerText = entry[i][key]
                 }
-                if(fields[1].className=="list-input"){
+                if (fields[1].className == "list-input") {
                     let thisDiv = fields[1]
                     let addItemButton = thisDiv.children[2]
                     let listLoad = entry[i][key]
-                    for(k=0;k<listLoad.length;k++){
-                        addListItem(addItemButton,listLoad[k]);
+                    for (k = 0; k < listLoad.length; k++) {
+                        addListItem(addItemButton, listLoad[k]);
                     }
                 }
-                else{
-                    fields[1].value=entry[i][key]
+                else {
+                    fields[1].value = entry[i][key]
                 }
             }
         }
     }
-    else{
+    else {
         elements = form[0].children
-        for(i=0;i<elements.length;i++){
+        for (i = 0; i < elements.length; i++) {
             let field = elements[i]
             let label = field.children[0]
             let key = camelCase(label.innerText)
             let content = entry[key]
-            field.children[1].value=content
+            field.children[1].value = content
         }
     }
 }
 
-async function loadResume(){
-    let token = JSON.stringify({"token":localStorage.getItem("token")})
-    token=JSON.stringify({"token":"461fa38264b0205862a783cd019f1d03fbff7e29de92ed7721a0ab24f9a7336f"})
-    let resume = await fetch("https://autoresumed.com/resume/get",{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json"
+async function loadResume() {
+    let token = JSON.stringify({ "token": localStorage.getItem("token") })
+    token = JSON.stringify({ "token": "461fa38264b0205862a783cd019f1d03fbff7e29de92ed7721a0ab24f9a7336f" })
+    let resume = await fetch("https://autoresumed.com/api/resume/get", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
         },
-        body:token
-    }).then(function(response){
+        body: token
+    }).then(function(response) {
         return response.json();
     });
     console.log(resume)
 
 
-    loadEntry(resume["work"],"work-form-entry");
-    loadEntry(resume["volunteer"],"volunteer-form-entry");
-    loadEntry(resume["education"],"education-form-entry");
-    loadEntry(resume["awards"],"award-form-entry");
-    loadEntry(resume["certificates"],"certificate-form-entry");
-    loadEntry(resume["publications"],"publication-form-entry");
-    loadEntry(resume["skills"],"skill-form-entry");
-    loadEntry(resume["references"],"reference-form-entry");
-    loadEntry(resume["projects"],"project-form-entry");
-    loadEntry(resume["languages"],"language-form-entry");
-    loadEntry(resume["interests"],"interest-form-entry");
-    loadEntry(resume["basics"],"name-form-entry");
-    loadEntry(resume["basics"]["location"],"location-form-entry");
-    loadEntry(resume["basics"]["label"],"label-form-entry");
-    loadEntry(resume["basics"]["summary"],"summary-form-entry");
-    loadEntry(resume["basics"]["profiles"],"profile-form-entry");
+    loadEntry(resume["work"], "work-form-entry");
+    loadEntry(resume["volunteer"], "volunteer-form-entry");
+    loadEntry(resume["education"], "education-form-entry");
+    loadEntry(resume["awards"], "award-form-entry");
+    loadEntry(resume["certificates"], "certificate-form-entry");
+    loadEntry(resume["publications"], "publication-form-entry");
+    loadEntry(resume["skills"], "skill-form-entry");
+    loadEntry(resume["references"], "reference-form-entry");
+    loadEntry(resume["projects"], "project-form-entry");
+    loadEntry(resume["languages"], "language-form-entry");
+    loadEntry(resume["interests"], "interest-form-entry");
+    loadEntry(resume["basics"], "name-form-entry");
+    loadEntry(resume["basics"]["location"], "location-form-entry");
+    loadEntry(resume["basics"]["label"], "label-form-entry");
+    loadEntry(resume["basics"]["summary"], "summary-form-entry");
+    loadEntry(resume["basics"]["profiles"], "profile-form-entry");
 
 }
 
 
-async function updateResume(){
+async function updateResume() {
     let resume = collectResume();
-    let req={"resume":resume,"token":localStorage.getItem("token")};
-    req["token"]='461fa38264b0205862a783cd019f1d03fbff7e29de92ed7721a0ab24f9a7336f';
+    let req = { "resume": resume, "token": localStorage.getItem("token") };
+    req["token"] = '461fa38264b0205862a783cd019f1d03fbff7e29de92ed7721a0ab24f9a7336f';
     req = JSON.stringify(req);
     console.log(req)
-    let response = await fetch("https://autoresumed.com/resume/update",{
-        method:"PUT",
-        headers:{
-            "Content-Type":"application/json"
+    let response = await fetch("https://autoresumed.com/api/resume/update", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
         },
-        body:req
-    }).then(function(response){
+        body: req
+    }).then(function(response) {
         ret = response.json()
         return ret
     });
@@ -239,30 +239,30 @@ function collectEntries(className) {
                 let content = fieldChildren[1].innerText;
                 entry[key] = content;
             }
-            if (fieldChildren[1].className=="list-input"){
+            if (fieldChildren[1].className == "list-input") {
                 let list = fieldChildren[1].children[0]
                 let innerList = []
-                for(c=0;c<list.children.length;c++){
+                for (c = 0; c < list.children.length; c++) {
                     let item = list.children[c].firstChild.data
                     innerList.push(item)
                 }
-                entry[key]=innerList
+                entry[key] = innerList
             }
-            if(key=="tags"){
+            if (key == "tags") {
                 let tags = fieldChildren[1].value;
-                let tagList = tags.split(',') 
-                for(o=0;o<tagList.length;o++){
-                    tagList[o] = tagList[o].replace(' ','');
+                let tagList = tags.split(',')
+                for (o = 0; o < tagList.length; o++) {
+                    tagList[o] = tagList[o].replace(' ', '');
 
                 }
-                entry[key]=tagList
+                entry[key] = tagList
             }
             else {
-                if(className=="label-form-entry"&&key=="position"){
-                    key="label"
+                if (className == "label-form-entry" && key == "position") {
+                    key = "label"
                 }
-                if(className=="interest-form-entry"&&key=="interest"){
-                    key='name'
+                if (className == "interest-form-entry" && key == "interest") {
+                    key = 'name'
                 }
                 let content = fieldChildren[1].value;
                 entry[key] = content;
@@ -274,25 +274,25 @@ function collectEntries(className) {
 }
 
 
-function collectResume(){
+function collectResume() {
     let resume = {};
-    resume["basics"]=collectEntries("name-form-entry")[0];
-    resume["basics"]["location"]=collectEntries("location-form-entry")[0];
-    resume["basics"]["label"]=collectEntries("label-form-entry");
-    resume["basics"]["summary"]=collectEntries("summary-form-entry");
-    resume["basics"]["profiles"]=collectEntries("profile-form-entry");
-    resume["work"]=collectEntries("work-form-entry");
-    resume["volunteer"]=collectEntries("volunteer-form-entry");
-    resume["education"]=collectEntries("education-form-entry");
-    resume["awards"]=collectEntries("award-form-entry");
-    resume["certificates"]=collectEntries("certificate-form-entry");
-    resume["publications"]=collectEntries("publication-form-entry");
-    resume["skills"]=collectEntries("skill-form-entry");
-    resume["references"]=collectEntries("reference-form-entry");
-    resume["projects"]=collectEntries("project-form-entry");
-    resume["languages"]=collectEntries("language-form-entry");
-    resume["interests"]=collectEntries("interest-form-entry");
-    resume["tags"]=getAllTags(resume)
+    resume["basics"] = collectEntries("name-form-entry")[0];
+    resume["basics"]["location"] = collectEntries("location-form-entry")[0];
+    resume["basics"]["label"] = collectEntries("label-form-entry");
+    resume["basics"]["summary"] = collectEntries("summary-form-entry");
+    resume["basics"]["profiles"] = collectEntries("profile-form-entry");
+    resume["work"] = collectEntries("work-form-entry");
+    resume["volunteer"] = collectEntries("volunteer-form-entry");
+    resume["education"] = collectEntries("education-form-entry");
+    resume["awards"] = collectEntries("award-form-entry");
+    resume["certificates"] = collectEntries("certificate-form-entry");
+    resume["publications"] = collectEntries("publication-form-entry");
+    resume["skills"] = collectEntries("skill-form-entry");
+    resume["references"] = collectEntries("reference-form-entry");
+    resume["projects"] = collectEntries("project-form-entry");
+    resume["languages"] = collectEntries("language-form-entry");
+    resume["interests"] = collectEntries("interest-form-entry");
+    resume["tags"] = getAllTags(resume)
     return resume
 }
 
@@ -315,33 +315,33 @@ function getAllTags(obj) {
 
 function camelCase(str) {
     let ans = str.toLowerCase();
-     return ans.split(" ").reduce((s, c) => s
+    return ans.split(" ").reduce((s, c) => s
         + (c.charAt(0).toUpperCase() + c.slice(1)));
- 
+
 }
 
 
-async function testLoad(){
+async function testLoad() {
     var testResume = await fetch("https://autoresumed.com/testResume.json").then(function(response) {
         return response.json();
     })
-    loadEntry(testResume["work"],"work-form-entry");
-    loadEntry(testResume["volunteer"],"volunteer-form-entry");
-    loadEntry(testResume["education"],"education-form-entry");
-    loadEntry(testResume["awards"],"award-form-entry");
-    loadEntry(testResume["certificates"],"certificate-form-entry");
-    loadEntry(testResume["publications"],"publication-form-entry");
-    loadEntry(testResume["skills"],"skill-form-entry");
-    loadEntry(testResume["references"],"reference-form-entry");
-    loadEntry(testResume["projects"],"project-form-entry");
-    loadEntry(testResume["languages"],"language-form-entry");
-    loadEntry(testResume["interests"],"interest-form-entry");
-    loadEntry(testResume["basics"],"name-form-entry");
-    loadEntry(testResume["basics"]["location"],"location-form-entry");
-    loadEntry(testResume["basics"]["label"],"label-form-entry");
-    loadEntry(testResume["basics"]["summary"],"summary-form-entry");
-    loadEntry(testResume["basics"]["profiles"],"profile-form-entry");
-   
+    loadEntry(testResume["work"], "work-form-entry");
+    loadEntry(testResume["volunteer"], "volunteer-form-entry");
+    loadEntry(testResume["education"], "education-form-entry");
+    loadEntry(testResume["awards"], "award-form-entry");
+    loadEntry(testResume["certificates"], "certificate-form-entry");
+    loadEntry(testResume["publications"], "publication-form-entry");
+    loadEntry(testResume["skills"], "skill-form-entry");
+    loadEntry(testResume["references"], "reference-form-entry");
+    loadEntry(testResume["projects"], "project-form-entry");
+    loadEntry(testResume["languages"], "language-form-entry");
+    loadEntry(testResume["interests"], "interest-form-entry");
+    loadEntry(testResume["basics"], "name-form-entry");
+    loadEntry(testResume["basics"]["location"], "location-form-entry");
+    loadEntry(testResume["basics"]["label"], "label-form-entry");
+    loadEntry(testResume["basics"]["summary"], "summary-form-entry");
+    loadEntry(testResume["basics"]["profiles"], "profile-form-entry");
+
 
 }
 

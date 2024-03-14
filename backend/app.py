@@ -13,7 +13,7 @@ def create_app() -> Flask:
     FlaskJSON(app)
     CORS(app)
 
-    app.register_blueprint(auth, url_prefix="/auth")
-    app.register_blueprint(resume, url_prefix="/resume")
+    app.register_blueprint(auth, url_prefix="/api/auth")
+    app.register_blueprint(resume, url_prefix="/api/resume")
 
     return app
