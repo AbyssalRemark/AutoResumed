@@ -188,4 +188,4 @@ async def is_authorized():
     if authorized:
         return json_response(200, authorized=True)
     else:
-        return json_response(401, authorized=False)
+        return json_response(200, authorized=False)
