@@ -1,10 +1,9 @@
 {
-  "dependencies": {
-    "jsonresume-theme-even": "^0.22.0",
-    "jsonresume-theme-latte": "^1.0.2",
-    "jsonresume-theme-macchiato": "^1.1.0",
-    "jsonresume-theme-moon": "^1.7.22",
-    "jsonresume-theme-orbit": "^2.0.0",
-    "resumed": "^3.0.1"
-  }
+    "dependencies": {
+        "jsonresume-theme-even": "^0.22.0",
+        "jsonresume-theme-latte": "^1.0.2",
+        "jsonresume-theme-macchiato": "^1.1.0",
+        "jsonresume-theme-orbit": "^2.0.0",
+        "resumed": "^3.0.1"
+    }
 }
