@@ -30,60 +30,64 @@
 
             <!-- Basics Form -->
             <div class="basics-form">
-                <button type="button" class="collapse-button">Basic Information<span id="bolt-icon">
-                        &#8623;</span></button>
-                <div class="collapsible-element" id="basic-info-collapsible">
+                <button type="button" class="collapse-button">Basic Information<span class="bolt-icon">
+                       &#8623;</span></button>
+                <div class="collapsible-element" id="basic-info">
                     <h4>Name and Contact:</h4>
-                    <div class="input-field basics-name-input-field">
-                        <label>Name</label>
-                        <input type="text" pattern="[A-Za-z ]+" value="Test McTest" />
-                    </div>
-                    <div class="input-field basics-image-input-field">
-                        <label>Image</label>
-                        <input type="text" value="image URL" />
-                    </div>
-                    <div class="input-field basics-email-field">
-                        <label>Email</label>
-                        <input type="email" value="Ex: user@example.com" />
-                    </div>
-                    <div class="input-field basics-phone-input-field">
-                        <label>Phone</label>
-                        <input type="tel" value="Ex: (555) 555-5555" />
-                    </div>
-                    <div class="input-field basics-url-input-field">
-                        <label>URL</label>
-                        <input type="url" value="https://johndoe.not" />
+                    <div class="name-form-entry form-entry" id="name-form-entry_0">
+                        <div class="input-field basics-name-input-field">
+                            <label>Name</label>
+                            <input type="text" pattern="[A-Za-z ]+" value="Test McTest" />
+                        </div>
+                        <div class="input-field basics-image-input-field">
+                            <label>Image</label>
+                            <input type="text" value="image URL" />
+                        </div>
+                        <div class="input-field basics-email-field">
+                            <label>Email</label>
+                            <input type="email" value="Ex: user@example.com" />
+                        </div>
+                        <div class="input-field basics-phone-input-field">
+                            <label>Phone</label>
+                            <input type="tel" value="Ex: (555) 555-5555" />
+                        </div>
+                        <div class="input-field basics-url-input-field">
+                            <label>URL</label>
+                            <input type="url" value="https://johndoe.not" />
+                        </div>
                     </div>
 
                     <div class="location-form">
                         <h4>Location and Address Info:</h4>
-                        <div class="input-field location-address-input-field">
-                            <label>Address</label>
-                            <input type="text" value="2712 Broadway St" />
-                        </div>
-                        <div class="input-field location-postalCode-input-field">
-                            <label>Postal Code</label>
-                            <input type="text" pattern="[A-Za-z0-9]+" value="CA 94115" />
-                        </div>
-                        <div class="input-field location-city-input-field">
-                            <label>City</label>
-                            <input type="text" pattern="[A-Za-z ]+" value="San Francisco" />
-                        </div>
-                        <div class="input-field location-countryCode-input-field">
-                            <label>Country Code</label>
-                            <input type="text" pattern="[A-Za-z]+" value="US" />
-                        </div>
-                        <div class="input-field location-region-input-field">
-                            <label>Region</label>
-                            <input type="text" pattern="[A-Za-z ]+" value="California" />
+                        <div class="location-form-entry form-entry" id="location-form-entry_0">
+                            <div class="input-field location-address-input-field">
+                                <label>Address</label>
+                                <input type="text" value="2712 Broadway St" />
+                            </div>
+                            <div class="input-field location-postalCode-input-field">
+                                <label>Postal Code</label>
+                                <input type="text" pattern="[A-Za-z0-9]+" value="CA 94115" />
+                            </div>
+                            <div class="input-field location-city-input-field">
+                                <label>City</label>
+                                <input type="text" pattern="[A-Za-z ]+" value="San Francisco" />
+                            </div>
+                            <div class="input-field location-countryCode-input-field">
+                                <label>Country Code</label>
+                                <input type="text" pattern="[A-Za-z]+" value="US" />
+                            </div>
+                            <div class="input-field location-region-input-field">
+                                <label>Region</label>
+                                <input type="text" pattern="[A-Za-z ]+" value="California" />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!--Job Description and Summary Form-->
-            <div class="description-and-summary-form>
-                <button type="button" class="collapse-button">Job Title and Summary<span id="bolt-icon">
+            <div class="description-and-summary-form">
+                <button type="button" class="collapse-button">Job Title and Summary<span class="bolt-icon">
                         &#8623;</span></button>
                 <div class="collapsible-element" id="description-and-summary">
                     <div class="label-form">
@@ -121,7 +125,7 @@
 
             <!--Profiles Form-->
             <div class="profiles-form">
-                <button type="button" class="collapse-button">Social Media<span id="bolt-icon">
+                <button type="button" class="collapse-button">Social Media<span class="bolt-icon">
                         &#8623;</span></button>
                 <div class="collapsible-element" id="profiles">
                     <h4>Profiles:</h4>
@@ -150,7 +154,7 @@
 
             <!--Work Form-->
             <div class="work-form">
-                <button type="button" class="collapse-button">Work Experience<span id="bolt-icon">
+                <button type="button" class="collapse-button">Work Experience<span class="bolt-icon">
                         &#8623;</span></button>
                 <div class="collapsible-element" id="work">
                     <h4>Work History: </h4>
@@ -184,13 +188,17 @@
                             <label>Highlights</label>
                             <input type="text" pattern="[A-Za-z, ]+" value="Started techie name" />
                         </div>
+                        <div class="input-field work-tags-input-field">
+                            <label>Tags</label>
+                            <input type="text" pattern="[A-Za-z, ]+" value="tech" />
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Volunteer Form -->
             <div class="volunteer-form">
-                <button type="button" class="collapse-button">Volunteer Experience<span id="bolt-icon">
+                <button type="button" class="collapse-button">Volunteer Experience<span class="bolt-icon">
                         &#8623;</span></button>
                 <div class="collapsible-element" id="volunteer">
                     <h4>Charitable Gigs:</h4>
@@ -224,13 +232,17 @@
                             <label>Highlights</label>
                             <input type="text" pattern="[A-Za-z, ]+" value="Awarded 'Volunteer of the Month'" />
                         </div>
+                        <div class="input-field volunteer-tags-input-field">
+                            <label>Tags</label>
+                            <input type="text" pattern="[A-Za-z, ]+" value="tech" />
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Education Form -->
             <div class="education-form">
-                <button type="button" class="collapse-button">Education History<span id="bolt-icon">
+                <button type="button" class="collapse-button">Education History<span class="bolt-icon">
                         &#8623;</span></button>
                 <div class="collapsible-element" id="education">
                     <h4>Institutions:</h4>
@@ -268,13 +280,17 @@
                             <label>Courses</label>
                             <input type="text" value="DB1101 - Basic SQL" />
                         </div>
+                        <div class="input-field education-tags-input-field">
+                            <label>Tags</label>
+                            <input type="text" pattern="[A-Za-z, ]+" value="tech" />
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Awards Form -->
             <div class="awards-form">
-                <button type="button" class="collapse-button">Official Accolades<span id="bolt-icon">
+                <button type="button" class="collapse-button">Official Accolades<span class="bolt-icon">
                         &#8623;</span></button>
                 <div class="collapsible-element" id="awards">
                     <h4>Awards:</h4>
@@ -296,13 +312,17 @@
                             <label>Summary</label>
                             <textarea>There is only wood.</textarea>
                         </div>
+                        <div class="input-field awards-tags-input-field">
+                            <label>Tags</label>
+                            <input type="text" pattern="[A-Za-z, ]+" value="tech" />
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Certificates Form -->
             <div class="certificates-form">
-                <button type="button" class="collapse-button">Certifications<span id="bolt-icon">
+                <button type="button" class="collapse-button">Certifications<span class="bolt-icon">
                         &#8623;</span></button>
                 <div class="collapsible-element" id="certificates">
                     <h4>Certificates and Licenses:</h4>
@@ -324,13 +344,17 @@
                             <label>URL</label>
                             <input type="url" value="https://certificate.not" />
                         </div>
+                        <div class="input-field certificates-tags-input-field">
+                            <label>Tags</label>
+                            <input type="text" pattern="[A-Za-z, ]+" value="tech" />
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Publications Form -->
             <div class="publications-form">
-                <button type="button" class="collapse-button">Published Works<span id="bolt-icon">
+                <button type="button" class="collapse-button">Published Works<span class="bolt-icon">
                         &#8623;</span></button>
                 <div class="collapsible-element" id="publications">
                     <h4>Publications:</h4>
@@ -356,13 +380,17 @@
                             <label>Summary</label>
                             <textarea>I think this means books or papers?</textarea>
                         </div>
+                        <div class="input-field publications-tags-input-field">
+                            <label>Tags</label>
+                            <input type="text" pattern="[A-Za-z, ]+" value="tech" />
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Skills Form -->
             <div class="skills-form">
-                <button type="button" class="collapse-button">Skills<span id="bolt-icon"> &#8623;</span></button>
+                <button type="button" class="collapse-button">Skills<span class="bolt-icon"> &#8623;</span></button>
                 <div class="collapsible-element" id="skills">
                     <h4>Skills:</h4>
                     <button type="button" class="add-button" id="skill-form-entry-add">Add Entry</button>
@@ -379,13 +407,17 @@
                             <label>Keywords</label>
                             <input type="text" value="HTML, CSS, JavaScript, puppets" />
                         </div>
+                        <div class="input-field skills-tags-input-field">
+                            <label>Tags</label>
+                            <input type="text" pattern="[A-Za-z, ]+" value="tech" />
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- References Form -->
             <div class="references-form">
-                <button type="button" class="collapse-button">References<span id="bolt-icon">
+                <button type="button" class="collapse-button">References<span class="bolt-icon">
                         &#8623;</span></button>
                 <div class="collapsible-element" id="references">
                     <h4>Professional References:</h4>
@@ -399,13 +431,17 @@
                             <label>Reference</label>
                             <input type="text" value="is good" />
                         </div>
+                        <div class="input-field references-tags-input-field">
+                            <label>Tags</label>
+                            <input type="text" pattern="[A-Za-z, ]+" value="tech" />
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Projects Form -->
             <div class="projects-form">
-                <button type="button" class="collapse-button">Projects<span id="bolt-icon"> &#8623;</span></button>
+                <button type="button" class="collapse-button">Projects<span class="bolt-icon"> &#8623;</span></button>
                 <div class="collapsible-element" id="projects">
                     <h4>Project Portfolio:</h4>
                     <button type="button" class="add-button" id="project-form-entry-add">Add Entry</button>
@@ -434,13 +470,17 @@
                             <label>URL</label>
                             <input type="url" value="https://project.not/" />
                         </div>
+                        <div class="input-field projects-tags-input-field">
+                            <label>Tags</label>
+                            <input type="text" pattern="[A-Za-z, ]+" value="tech" />
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!--Languages Form-->
             <div class="languages-form">
-                <button type="button" class="collapse-button">Languages<span id="bolt-icon"> &#8623;</span></button>
+                <button type="button" class="collapse-button">Languages<span class="bolt-icon"> &#8623;</span></button>
                 <div class="collapsible-element" id="languages">
                     <h4>Languages and Fluency:</h4>
                     <button type="button" class="add-button" id="language-form-entry-add">Add Entry</button>
@@ -453,13 +493,17 @@
                             <label class="fluency">Fluency</label>
                             <input type="text" value="Ex: Toddler" />
                         </div>
+                        <div class="input-field language-tags-input-field">
+                            <label>Tags</label>
+                            <input type="text" pattern="[A-Za-z, ]+" value="tech" />
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!--Interests Form-->
             <div class="interests-form">
-                <button type="button" class="collapse-button">Interests<span id="bolt-icon"> &#8623;</span></button>
+                <button type="button" class="collapse-button">Interests<span class="bolt-icon"> &#8623;</span></button>
                 <div class="collapsible-element form-entry" id="interests">
                     <h4>Interests and Hobbies:</h4>
                     <button type="button" class="add-button" id="interest-form-entry-add">Add Entry</button>
@@ -472,11 +516,15 @@
                             <label>Keywords</label>
                             <input type="text" pattern="[A-Za-z0-9, ]+" value="Ex: Ferrets" />
                         </div>
+                        <div class="input-field interest-tags-input-field">
+                            <label>Tags</label>
+                            <input type="text" pattern="[A-Za-z, ]+" value="tech" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
     </main>
     <footer>
         <div class="resume-form-entries prototypes" id="element-prototypes">
@@ -550,6 +598,10 @@
                     <label>Highlights</label>
                     <input type="text" pattern="[A-Za-z, ]+" value="Started techie name" />
                 </div>
+                <div class="input-field work-tags-input-field">
+                    <label>Tags</label>
+                    <input type="text" pattern="[A-Za-z, ]+" value="tech" />
+                </div>
             </div>
 
             <div class="volunteer-form-entry form-entry" id="volunteer-form-entry_0">
@@ -580,6 +632,10 @@
                 <div class="input-field volunteer-highlights-input-field">
                     <label>Highlights</label>
                     <input type="text" pattern="[A-Za-z, ]+" value="Awarded 'Volunteer of the Month'" />
+                </div>
+                <div class="input-field volunteer-tags-input-field">
+                    <label>Tags</label>
+                    <input type="text" pattern="[A-Za-z, ]+" value="tech" />
                 </div>
             </div>
 
@@ -616,6 +672,10 @@
                     <label>Courses</label>
                     <input type="text" value="DB1101 - Basic SQL" />
                 </div>
+                <div class="input-field education-tags-input-field">
+                    <label>Tags</label>
+                    <input type="text" pattern="[A-Za-z, ]+" value="tech" />
+                </div>
             </div>
 
             <div class="award-form-entry form-entry" id="award-form-entry_0">
@@ -634,6 +694,10 @@
                 <div class="input-field awards-summary-input-field">
                     <label>Summary</label>
                     <textarea>There is only wood.</textarea>
+                </div>
+                <div class="input-field awards-tags-input-field">
+                    <label>Tags</label>
+                    <input type="text" pattern="[A-Za-z, ]+" value="tech" />
                 </div>
             </div>
 
@@ -654,6 +718,10 @@
                 <div class="input-field certificates-url-input-field">
                     <label>URL</label>
                     <input type="url" value="https://certificate.not" />
+                </div>
+                <div class="input-field certificates-tags-input-field">
+                    <label>Tags</label>
+                    <input type="text" pattern="[A-Za-z, ]+" value="tech" />
                 </div>
             </div>
 
@@ -678,6 +746,10 @@
                     <label>Summary</label>
                     <textarea>I think this means books or papers?</textarea>
                 </div>
+                <div class="input-field publications-tags-input-field">
+                    <label>Tags</label>
+                    <input type="text" pattern="[A-Za-z, ]+" value="tech" />
+                </div>
             </div>
 
             <div class="skill-form-entry form-entry" id="skill-form">
@@ -693,6 +765,10 @@
                     <label>Keywords</label>
                     <input type="text" value="HTML, CSS, JavaScript, puppets" />
                 </div>
+                <div class="input-field skills-tags-input-field">
+                    <label>Tags</label>
+                    <input type="text" pattern="[A-Za-z, ]+" value="tech" />
+                </div>
             </div>
 
             <div class="reference-form-entry form-entry" id="reference-form-entry_0">
@@ -703,6 +779,10 @@
                 <div class="input-field references-reference-input-field">
                     <label>Reference</label>
                     <input type="text" value="is good" />
+                </div>
+                <div class="input-field references-tags-input-field">
+                    <label>Tags</label>
+                    <input type="text" pattern="[A-Za-z, ]+" value="tech" />
                 </div>
             </div>
 
@@ -731,7 +811,10 @@
                     <label>URL</label>
                     <input type="url" value="https://project.not/" />
                 </div>
-
+                <div class="input-field projects-tags-input-field">
+                    <label>Tags</label>
+                    <input type="text" pattern="[A-Za-z, ]+" value="tech" />
+                </div>
             </div>
 
             <div class="language-form-entry form-entry" id="language-form-entry_0">
@@ -739,9 +822,13 @@
                     <label>Language</label>
                     <input type="text" pattern="[A-Za-z]" value="Ex: English" />
                 </div>
-                <div class="input-field fluency-input-field">
+                <div class="input-field language-fluency-input-field">
                     <label>Fluency</label>
                     <input type="text" value="Ex: Toddler" />
+                </div>
+                <div class="input-field language-tags-input-field">
+                    <label>Tags</label>
+                    <input type="text" pattern="[A-Za-z, ]+" value="tech" />
                 </div>
             </div>
 
@@ -753,6 +840,10 @@
                 <div class="input-field keywords-input-field">
                     <label>Keywords</label>
                     <input type="text" pattern="[A-Za-z0-9, ]+" value="Ex: Ferrets" />
+                </div>
+                <div class="input-field interest-tags-input-field">
+                    <label>Tags</label>
+                    <input type="text" pattern="[A-Za-z, ]+" value="tech" />
                 </div>
             </div>
         </div>
