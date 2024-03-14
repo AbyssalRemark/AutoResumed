@@ -19,7 +19,6 @@ for (i = 0; i < collapseButton.length; i++) {
 }
 
 var addButton = document.getElementsByClassName("add-button");
-console.log(addButton)
 var prototypes = document.getElementById("element-prototypes")
 for (k = 0; k < addButton.length; k++) {
     addableId = addButton[k].id
@@ -65,3 +64,24 @@ for (k = 0; k < addButton.length; k++) {
     })
 }
 
+function collectEntries(className){
+  let resumeForm = document.getElementById("resume-form")
+  let languageEntries = resumeForm.getElementsByClassName(className)
+  let languages = []
+  for (a = 0 ; a < languageEntries.length; a++) {
+    let language = {}
+    let fields = languageEntries[a].getElementsByClassName("input-field")
+    for(b=0;b<fields.length;b++) {
+      let fieldChildren = fields[b].children
+      if (fieldChildren[1].tagName == "textarea"){
+        language[fieldChildren[0].innerText.toLowerCase()]=fieldChildren[1].innerText
+      }
+      else{
+        language[fieldChildren[0].innerText.toLowerCase()]=fieldChildren[1].value
+      }
+    }
+    languages.push(language)
+  }
+  console.log(languages)
+}
+collectEntries("language-form-entry")
