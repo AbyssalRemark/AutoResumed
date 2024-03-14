@@ -1,3 +1,4 @@
+
 var mainDiv = document.getElementsByTagName("main")[0]
 var collapseButton = mainDiv.getElementsByClassName("collapse-button");
 for (i = 0; i < collapseButton.length; i++) {
@@ -70,33 +71,33 @@ for (k = 0; k < addButton.length; k++) {
 }
 
 function addEntry(className) {
-    var elementId = className.concat("-add")
+    var elementId = className.concat("-add");
     var thisElement = document.getElementById(elementId);
-    var parentElement = thisElement.parentElement
+    var parentElement = thisElement.parentElement;
     var toAddProto = prototypes.getElementsByClassName(className)[0];
     var toAdd = toAddProto.cloneNode(true);
-    var newId = toAdd.id
-    var splitId = newId.split("_")
-    var siblings = parentElement.children
-    var lastElement = siblings[siblings.length - 1]
-    var nextCount = parseInt(lastElement.id.split("_")[1]) + 1
+    var newId = toAdd.id;
+    var splitId = newId.split("_");
+    var siblings = parentElement.children;
+    var lastElement = siblings[siblings.length - 1];
+    var nextCount = parseInt(lastElement.id.split("_")[1]) + 1;
     if (isNaN(nextCount)) {
-        nextCount = 0
+        nextCount = 0;
     }
-    splitId[1] = nextCount.toString()
-    newId = splitId.join("_")
-    toAdd.id = newId
+    splitId[1] = nextCount.toString();
+    newId = splitId.join("_");
+    toAdd.id = newId;
     var addTo = parentElement;
-    var removeButton = document.createElement("button")
-    removeButton.type = "button"
-    removeButton.class = 'remove-button'
-    removeButton.innerText = "Remove"
-    toAdd.appendChild(removeButton)
+    var removeButton = document.createElement("button");
+    removeButton.type = "button";
+    removeButton.class = 'remove-button';
+    removeButton.innerText = "Remove";
+    toAdd.appendChild(removeButton);
     addTo.appendChild(toAdd);
 
     removeButton.addEventListener("click", function() {
         var buttonParent = this.parentElement;
-        buttonParent.remove()
+        buttonParent.remove();
     })
 }
 
@@ -110,10 +111,10 @@ function collectEntries(className) {
         for (b = 0; b < fields.length; b++) {
             let fieldChildren = fields[b].children;
             if (fieldChildren[1].tagName == "textarea") {
-                entry[fieldChildren[0].innerText.toLowerCase()] = fieldChildren[1].innerText;
+                entry[camelCase(fieldChildren[0].innerText)] = fieldChildren[1].innerText;
             }
             else {
-                entry[fieldChildren[0].innerText.toLowerCase()] = fieldChildren[1].value;
+                entry[camelCase(fieldChildren[0].innerText.toLowerCase())] = fieldChildren[1].value;
             }
         }
         entries.push(entry);
@@ -121,32 +122,57 @@ function collectEntries(className) {
     return entries;
 }
 
-function loadEntry(entry,className){
-
+function loadEntry(entry,className) {
+    let resumeForm = document.getElementById("resume-form");
+    let elements = resumeForm.getElementsByClassName(className);
+    while (entry.length > elements.length){
+        addEntry(className);
+        elements = resumeForm.getElementsByClassName(className);
+    }
 }
 
 
 function collectResume(){
-    let resume = {}
-    resume["basics"]=collectEntries("name-form-entry")[0]
-    resume["basics"]["location"]=collectEntries("location-form-entry")[0]
-    resume["basics"]["label"]=collectEntries("label-form-entry")
-    resume["basics"]["summary"]=collectEntries("summary-form-entry")
-    resume["basics"]["profile"]=collectEntries("profile-form-entry")
-    resume["work"]=collectEntries("work-form-entry")
-    resume["volunteer"]=collectEntries("volunteer-form-entry")
-    resume["education"]=collectEntries("education-form-entry")
-    resume["awards"]=collectEntries("award-form-entry")
-    resume["certificates"]=collectEntries("certificate-form-entry")
-    resume["publications"]=collectEntries("publication-form-entry")
-    resume["skills"]=collectEntries("skill-form-entry")
-    resume["references"]=collectEntries("reference-form-entry")
-    resume["projects"]=collectEntries("project-form-entry")
-    resume["languages"]=collectEntries("language-form-entry")
-    resume["interests"]=collectEntries("interest-form-entry")
+    let resume = {};
+    resume["basics"]=collectEntries("name-form-entry")[0];
+    resume["basics"]["location"]=collectEntries("location-form-entry")[0];
+    resume["basics"]["label"]=collectEntries("label-form-entry");
+    resume["basics"]["summary"]=collectEntries("summary-form-entry");
+    resume["basics"]["profile"]=collectEntries("profile-form-entry");
+    resume["work"]=collectEntries("work-form-entry");
+    resume["volunteer"]=collectEntries("volunteer-form-entry");
+    resume["education"]=collectEntries("education-form-entry");
+    resume["awards"]=collectEntries("award-form-entry");
+    resume["certificates"]=collectEntries("certificate-form-entry");
+    resume["publications"]=collectEntries("publication-form-entry");
+    resume["skills"]=collectEntries("skill-form-entry");
+    resume["references"]=collectEntries("reference-form-entry");
+    resume["projects"]=collectEntries("project-form-entry");
+    resume["languages"]=collectEntries("language-form-entry");
+    resume["interests"]=collectEntries("interest-form-entry");
     return resume
 }
 
-function loadResume(resunme){
+function camelCase(str) {
+    let ans = str.toLowerCase();
+     return ans.split(" ").reduce((s, c) => s
+        + (c.charAt(0).toUpperCase() + c.slice(1)));
+ 
+}
+
+function loadResume(resume){
+    alert(resume)
+}
+
+async function testLoad(){
+    const options = {
+        method: 'GET',
+        mode: 'no-cors'
+      };
+    var testResume = await fetch("https://autoresumed.com/testResume.json",options)
+    console.log(testReusume)
+    loadEntry(testResume["projects"],"project-form-entry")
 
 }
+
+testLoad()
