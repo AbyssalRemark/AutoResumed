@@ -8,7 +8,13 @@ body {
     padding: 0.5rem;
 }
 
+.logo {
+    width: 3rem;
+    height: 3rem;
+}
+
 .topnav {
+    display: flex;
     overflow: hidden;
     background-color: #333;
 }
@@ -27,11 +33,6 @@ body {
     padding-bottom: 1rem;
     text-decoration: none;
     font-size: 1rem;
-}
-
-#bolt-icon {
-    font-size: 2.5rem;
-    font-weight: bolder;
 }
 
 .topnav a:hover {
