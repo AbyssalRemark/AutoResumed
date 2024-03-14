@@ -69,6 +69,8 @@ async def update():
 async def generate():
     """
     Generate an HTML resume, given a token, a set of tags, a resume template, and whether to output HTML or PDF.
+
+    Returns the name of the generate HTML document or PDF.
     """
 
     data = request.get_json()
@@ -131,7 +133,7 @@ async def generate():
 
     if type == "html":
         try:
-            html_resume = resumed.to_html(flattened_resume, template)
+            html_resume_name = resumed.to_html(flattened_resume, template)
         except InvalidTemplate:
             raise JsonError(
                 400,
@@ -140,10 +142,10 @@ async def generate():
                 detail="Make sure the given template exists."
             )
 
-        return json_response(status="200", resume=html_resume)
+        return json_response(status="200", resume=html_resume_name)
     elif type == "pdf":
         try:
-            resumed.to_html(flattened_resume, template, True)
+            resume_name = resumed.to_html(flattened_resume, template)
         except InvalidTemplate:
             raise JsonError(
                 400,
@@ -152,13 +154,12 @@ async def generate():
                 detail="Make sure the given template exists."
             )
 
-        tmp_dir = tempfile.gettempdir()
-        html_file_path = os.path.join(tmp_dir, "resume.html")
-        output_file_path = os.path.join(tmp_dir, "resume.pdf")
+        html_file_path = os.path.join("/var/www/html/html-resumes", resume_name + ".html")
+        output_file_path = os.path.join("/var/www/html/pdf-resumes", resume_name + ".pdf")
 
         subprocess.run(["html2pdf", html_file_path, "-o", output_file_path])
 
-        return send_file(output_file_path)
+        return json_response(status="200", resume=resume_name)
     else:
         raise JsonError(
             400,
