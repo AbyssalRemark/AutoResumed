@@ -1,5 +1,3 @@
-
-
 document.getElementById("register-button").addEventListener("click", async function(event) {
     event.preventDefault();
     const email = document.getElementById("email").value;

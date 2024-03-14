@@ -32,7 +32,7 @@ function viewControl(bool){
     }
 }
 
-let isAuth=isAuthorized()
+let isAuth= await isAuthorized()
 
 const currentUrl = window.location.href;
 
