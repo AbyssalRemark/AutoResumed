@@ -1,5 +1,9 @@
 document.getElementById("generate-button").addEventListener("click", async function() {
-    generate();
+    document.getElementById("resume").srcdoc = await generate();
+});
+
+document.getElementById("download-html-button").addEventListener("click", async function() {
+    html = await generate();
 });
 
 async function generate() {
@@ -24,8 +28,7 @@ async function generate() {
     );
 
     if (response.ok) {
-        const resume = (await response.json())["resume"];
-        document.getElementById("resume").srcdoc = resume;
+        return (await response.json())["resume"];
     }
 
 }
