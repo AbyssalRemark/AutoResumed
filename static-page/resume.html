@@ -3,7 +3,8 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="resume.css">
-    <link rel="stylesheet" type="text/css" href="style.css" </head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+ </head>
 
 <body>
     <header>
@@ -22,6 +23,8 @@
         <div class="title-line">
             <h1>Resume Editor - Autoresumed</h1>
         </div>
+
+        <!--Resume Form-->
         <div class="resume-form" id="resume-form">
             <h2>Edit your resume here:</h2>
 
@@ -76,7 +79,10 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
+            <!--Job Description and Summary Form-->
+            <div class="description-and-summary-form>
                 <button type="button" class="collapse-button">Job Title and Summary<span id="bolt-icon">
                         &#8623;</span></button>
                 <div class="collapsible-element" id="description-and-summary">
@@ -111,361 +117,366 @@
                         </div>
                     </div>
                 </div>
+            </div> 
 
-                <div class="profiles-form">
-                    <button type="button" class="collapse-button">Social Media<span id="bolt-icon">
-                            &#8623;</span></button>
-                    <div class="collapsible-element" id="profiles">
-                        <h4>Profiles:</h4>
-                        <button type="button" class="add-button" id="profile-form-entry-add">Add Entry</button>
-                        <div class="profile-form-entry form-entry" id="profile-form-entry_0">
-                            <div class="input-field profiles-network-input-field">
-                                <label>Network</label>
-                                <input type="text" pattern="[A-Za-z ]+" value="github" />
-                            </div>
-                            <div class="input-field profiles-username-input-field">
-                                <label>Username</label>
-                                <input type="text" pattern="[A-Za-z0-9]+" value="Test" />
-                            </div>
-                            <div class="input-field profiles-url-input-field">
-                                <label>URL</label>
-                                <input type="url" value="https://github.not/john" />
-                            </div>
-                            <div class="input-field profiles-tags-input-field">
-                                <label>Tags</label>
-                                <input type="text" pattern="[A-Za-z, ]+" value="tech" />
-                            </div>
+            <!--Profiles Form-->
+            <div class="profiles-form">
+                <button type="button" class="collapse-button">Social Media<span id="bolt-icon">
+                        &#8623;</span></button>
+                <div class="collapsible-element" id="profiles">
+                    <h4>Profiles:</h4>
+                    <button type="button" class="add-button" id="profile-form-entry-add">Add Entry</button>
+                    <div class="profile-form-entry form-entry" id="profile-form-entry_0">
+                        <div class="input-field profiles-network-input-field">
+                            <label>Network</label>
+                            <input type="text" pattern="[A-Za-z ]+" value="github" />
+                        </div>
+                        <div class="input-field profiles-username-input-field">
+                            <label>Username</label>
+                            <input type="text" pattern="[A-Za-z0-9]+" value="Test" />
+                        </div>
+                        <div class="input-field profiles-url-input-field">
+                            <label>URL</label>
+                            <input type="url" value="https://github.not/john" />
+                        </div>
+                        <div class="input-field profiles-tags-input-field">
+                            <label>Tags</label>
+                            <input type="text" pattern="[A-Za-z, ]+" value="tech" />
+                        </div>
 
+                    </div>
+                </div>
+            </div>
+
+            <!--Work Form-->
+            <div class="work-form">
+                <button type="button" class="collapse-button">Work Experience<span id="bolt-icon">
+                        &#8623;</span></button>
+                <div class="collapsible-element" id="work">
+                    <h4>Work History: </h4>
+                    <button type="button" class="add-button" id="work-form-entry-add">Add Entry</button>
+                    <div class="work-form-entry form-entry" id="work-form-entry_0">
+                        <div class="input-field work-name-input-field">
+                            <label>Name</label>
+                            <input type="text" pattern="[A-Za-z]+" value="techie name" />
+                        </div>
+                        <div class="input-field work-position-input-field">
+                            <label>Position</label>
+                            <input type="text" pattern="[A-Za-z]+" value="President" />
+                        </div>
+                        <div class="input-field work-url-input-field">
+                            <label>URL</label>
+                            <input type="url" value="https://company.not" />
+                        </div>
+                        <div class="input-field work-startDate-input-field">
+                            <label>Start Date</label>
+                            <input type="date" value="2013-01-01" />
+                        </div>
+                        <div class="input-field work-endDate-input-field">
+                            <label>End Date</label>
+                            <input type="date" value="2014-01-01" />
+                        </div>
+                        <div class="input-field work-summary-input-field">
+                            <label>Summary</label>
+                            <textarea>Description…</textarea>
+                        </div>
+                        <div class="input-field work-highlights-input-field">
+                            <label>Highlights</label>
+                            <input type="text" pattern="[A-Za-z, ]+" value="Started techie name" />
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="work-form">
-                    <button type="button" class="collapse-button">Work Experience<span id="bolt-icon">
-                            &#8623;</span></button>
-                    <div class="collapsible-element" id="work">
-                        <h4>Work History: </h4>
-                        <button type="button" class="add-button" id="work-form-entry-add">Add Entry</button>
-                        <div class="work-form-entry form-entry" id="work-form-entry_0">
-                            <div class="input-field work-name-input-field">
-                                <label>Name</label>
-                                <input type="text" pattern="[A-Za-z]+" value="techie name" />
-                            </div>
-                            <div class="input-field work-position-input-field">
-                                <label>Position</label>
-                                <input type="text" pattern="[A-Za-z]+" value="President" />
-                            </div>
-                            <div class="input-field work-url-input-field">
-                                <label>URL</label>
-                                <input type="url" value="https://company.not" />
-                            </div>
-                            <div class="input-field work-startDate-input-field">
-                                <label>Start Date</label>
-                                <input type="date" value="2013-01-01" />
-                            </div>
-                            <div class="input-field work-endDate-input-field">
-                                <label>End Date</label>
-                                <input type="date" value="2014-01-01" />
-                            </div>
-                            <div class="input-field work-summary-input-field">
-                                <label>Summary</label>
-                                <textarea>Description…</textarea>
-                            </div>
-                            <div class="input-field work-highlights-input-field">
-                                <label>Highlights</label>
-                                <input type="text" pattern="[A-Za-z, ]+" value="Started techie name" />
-                            </div>
+            <!-- Volunteer Form -->
+            <div class="volunteer-form">
+                <button type="button" class="collapse-button">Volunteer Experience<span id="bolt-icon">
+                        &#8623;</span></button>
+                <div class="collapsible-element" id="volunteer">
+                    <h4>Charitable Gigs:</h4>
+                    <button type="button" class="add-button" id="volunteer-form-entry-add">Add Entry</button>
+                    <div class="volunteer-form-entry form-entry" id="volunteer-form-entry_0">
+                        <div class="input-field volunteer-organization-input-field">
+                            <label>Organization</label>
+                            <input type="text" pattern="[A-Za-z]+" value="Organization" />
+                        </div>
+                        <div class="input-field volunteer-position-input-field">
+                            <label>Position</label>
+                            <input type="text" pattern="[A-Za-z]+" value="Volunteer" />
+                        </div>
+                        <div class="input-field volunteer-url-input-field">
+                            <label>URL</label>
+                            <input type="url" value="https://organization.com/" />
+                        </div>
+                        <div class="input-field volunteer-startDate-input-field">
+                            <label>Start Date</label>
+                            <input type="date" value="2012-01-01" />
+                        </div>
+                        <div class="input-field volunteer-endDate-input-field">
+                            <label>End Date</label>
+                            <input type="date" value="2013-01-01" />
+                        </div>
+                        <div class="input-field volunteer-summary-input-field">
+                            <label>Summary</label>
+                            <textarea>Description…</textarea>
+                        </div>
+                        <div class="input-field volunteer-highlights-input-field">
+                            <label>Highlights</label>
+                            <input type="text" pattern="[A-Za-z, ]+" value="Awarded 'Volunteer of the Month'" />
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Volunteer Form -->
-                <div class="volunteer-form">
-                    <button type="button" class="collapse-button">Volunteer Experience<span id="bolt-icon">
-                            &#8623;</span></button>
-                    <div class="collapsible-element" id="volunteer">
-                        <h4>Charitable Gigs:</h4>
-                        <button type="button" class="add-button" id="volunteer-form-entry-add">Add Entry</button>
-                        <div class="volunteer-form-entry form-entry" id="volunteer-form-entry_0">
-                            <div class="input-field volunteer-organization-input-field">
-                                <label>Organization</label>
-                                <input type="text" pattern="[A-Za-z]+" value="Organization" />
-                            </div>
-                            <div class="input-field volunteer-position-input-field">
-                                <label>Position</label>
-                                <input type="text" pattern="[A-Za-z]+" value="Volunteer" />
-                            </div>
-                            <div class="input-field volunteer-url-input-field">
-                                <label>URL</label>
-                                <input type="url" value="https://organization.com/" />
-                            </div>
-                            <div class="input-field volunteer-startDate-input-field">
-                                <label>Start Date</label>
-                                <input type="date" value="2012-01-01" />
-                            </div>
-                            <div class="input-field volunteer-endDate-input-field">
-                                <label>End Date</label>
-                                <input type="date" value="2013-01-01" />
-                            </div>
-                            <div class="input-field volunteer-summary-input-field">
-                                <label>Summary</label>
-                                <textarea>Description…</textarea>
-                            </div>
-                            <div class="input-field volunteer-highlights-input-field">
-                                <label>Highlights</label>
-                                <input type="text" pattern="[A-Za-z, ]+" value="Awarded 'Volunteer of the Month'" />
-                            </div>
+            <!-- Education Form -->
+            <div class="education-form">
+                <button type="button" class="collapse-button">Education History<span id="bolt-icon">
+                        &#8623;</span></button>
+                <div class="collapsible-element" id="education">
+                    <h4>Institutions:</h4>
+                    <button type="button" class="add-button" id="education-form-entry-add">Add Entry</button>
+                    <div class="education-form-entry form-entry" id="education-form-entry_0">
+                        <div class="input-field education-institution-input-field">
+                            <label>Institution</label>
+                            <input type="text" pattern="[A-Za-z ]+" value="Totally Tech the institution" />
+                        </div>
+                        <div class="input-field education-url-input-field">
+                            <label>URL</label>
+                            <input type="url" value="https://tech.not/" />
+                        </div>
+                        <div class="input-field education-area-input-field">
+                            <label>Area</label>
+                            <input type="text" pattern="[A-Za-z ]+" value="Software Development" />
+                        </div>
+                        <div class="input-field education-studyType-input-field">
+                            <label>Study Type</label>
+                            <input type="text" pattern="[A-Za-z ]+" value="Bachelor" />
+                        </div>
+                        <div class="input-field education-startDate-input-field">
+                            <label>Start Date</label>
+                            <input type="date" value="2011-01-01" />
+                        </div>
+                        <div class="input-field education-endDate-input-field">
+                            <label>End Date</label>
+                            <input type="date" value="2013-01-01" />
+                        </div>
+                        <div class="input-field education-score-input-field">
+                            <label>Score</label>
+                            <input type="number" value="4.0" />
+                        </div>
+                        <div class="input-field education-courses-input-field">
+                            <label>Courses</label>
+                            <input type="text" value="DB1101 - Basic SQL" />
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Education Form -->
-                <div class="education-form">
-                    <button type="button" class="collapse-button">Education History<span id="bolt-icon">
-                            &#8623;</span></button>
-                    <div class="collapsible-element" id="education">
-                        <h4>Institutions:</h4>
-                        <button type="button" class="add-button" id="education-form-entry-add">Add Entry</button>
-                        <div class="education-form-entry form-entry" id="education-form-entry_0">
-                            <div class="input-field education-institution-input-field">
-                                <label>Institution</label>
-                                <input type="text" pattern="[A-Za-z ]+" value="Totally Tech the institution" />
-                            </div>
-                            <div class="input-field education-url-input-field">
-                                <label>URL</label>
-                                <input type="url" value="https://tech.not/" />
-                            </div>
-                            <div class="input-field education-area-input-field">
-                                <label>Area</label>
-                                <input type="text" pattern="[A-Za-z ]+" value="Software Development" />
-                            </div>
-                            <div class="input-field education-studyType-input-field">
-                                <label>Study Type</label>
-                                <input type="text" pattern="[A-Za-z ]+" value="Bachelor" />
-                            </div>
-                            <div class="input-field education-startDate-input-field">
-                                <label>Start Date</label>
-                                <input type="date" value="2011-01-01" />
-                            </div>
-                            <div class="input-field education-endDate-input-field">
-                                <label>End Date</label>
-                                <input type="date" value="2013-01-01" />
-                            </div>
-                            <div class="input-field education-score-input-field">
-                                <label>Score</label>
-                                <input type="number" value="4.0" />
-                            </div>
-                            <div class="input-field education-courses-input-field">
-                                <label>Courses</label>
-                                <input type="text" value="DB1101 - Basic SQL" />
-                            </div>
+            <!-- Awards Form -->
+            <div class="awards-form">
+                <button type="button" class="collapse-button">Official Accolades<span id="bolt-icon">
+                        &#8623;</span></button>
+                <div class="collapsible-element" id="awards">
+                    <h4>Awards:</h4>
+                    <button type="button" class="add-button" id="award-form-entry-add">Add Entry</button>
+                    <div class="award-form-entry form-entry" id="award-form-entry_0">
+                        <div class="input-field awards-title-input-field">
+                            <label>Title</label>
+                            <input type="text" pattern="[A-Za-z ]+" value="wudward" />
+                        </div>
+                        <div class="input-field awards-date-input-field">
+                            <label>Date</label>
+                            <input type="date" value="2014-11-01" />
+                        </div>
+                        <div class="input-field awards-awarder-input-field">
+                            <label>Awarder</label>
+                            <input type="text" pattern="[A-Za-z ]+" value="theBigWood" />
+                        </div>
+                        <div class="input-field awards-summary-input-field">
+                            <label>Summary</label>
+                            <textarea>There is only wood.</textarea>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Awards Form -->
-                <div class="awards-form">
-                    <button type="button" class="collapse-button">Official Accolades<span id="bolt-icon">
-                            &#8623;</span></button>
-                    <div class="collapsible-element" id="awards">
-                        <h4>Awards:</h4>
-                        <button type="button" class="add-button" id="award-form-entry-add">Add Entry</button>
-                        <div class="award-form-entry form-entry" id="award-form-entry_0">
-                            <div class="input-field awards-title-input-field">
-                                <label>Title</label>
-                                <input type="text" pattern="[A-Za-z ]+" value="wudward" />
-                            </div>
-                            <div class="input-field awards-date-input-field">
-                                <label>Date</label>
-                                <input type="date" value="2014-11-01" />
-                            </div>
-                            <div class="input-field awards-awarder-input-field">
-                                <label>Awarder</label>
-                                <input type="text" pattern="[A-Za-z ]+" value="theBigWood" />
-                            </div>
-                            <div class="input-field awards-summary-input-field">
-                                <label>Summary</label>
-                                <textarea>There is only wood.</textarea>
-                            </div>
+            <!-- Certificates Form -->
+            <div class="certificates-form">
+                <button type="button" class="collapse-button">Certifications<span id="bolt-icon">
+                        &#8623;</span></button>
+                <div class="collapsible-element" id="certificates">
+                    <h4>Certificates and Licenses:</h4>
+                    <button type="button" class="add-button" id="certificate-form-entry-add">Add Entry</button>
+                    <div class="certificate-form-entry form-entry" id="certificate-form-entry_0">
+                        <div class="input-field certificates-name-input-field">
+                            <label>Name</label>
+                            <input type="text" pattern="[A-Za-z ]+" value="Certified Nerd" />
+                        </div>
+                        <div class="input-field certificates-date-input-field">
+                            <label>Date</label>
+                            <input type="date" value="2021-11-07" />
+                        </div>
+                        <div class="input-field certificates-issuer-input-field">
+                            <label>Issuer</label>
+                            <input type="text" pattern="[A-Za-z ]+" value="Nerdify" />
+                        </div>
+                        <div class="input-field certificates-url-input-field">
+                            <label>URL</label>
+                            <input type="url" value="https://certificate.not" />
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Certificates Form -->
-                <div class="certificates-form">
-                    <button type="button" class="collapse-button">Certifications<span id="bolt-icon">
-                            &#8623;</span></button>
-                    <div class="collapsible-element" id="certificates">
-                        <h4>Certificates and Licenses:</h4>
-                        <button type="button" class="add-button" id="certificate-form-entry-add">Add Entry</button>
-                        <div class="certificate-form-entry form-entry" id="certificate-form-entry_0">
-                            <div class="input-field certificates-name-input-field">
-                                <label>Name</label>
-                                <input type="text" pattern="[A-Za-z ]+" value="Certified Nerd" />
-                            </div>
-                            <div class="input-field certificates-date-input-field">
-                                <label>Date</label>
-                                <input type="date" value="2021-11-07" />
-                            </div>
-                            <div class="input-field certificates-issuer-input-field">
-                                <label>Issuer</label>
-                                <input type="text" pattern="[A-Za-z ]+" value="Nerdify" />
-                            </div>
-                            <div class="input-field certificates-url-input-field">
-                                <label>URL</label>
-                                <input type="url" value="https://certificate.not" />
-                            </div>
+            <!-- Publications Form -->
+            <div class="publications-form">
+                <button type="button" class="collapse-button">Published Works<span id="bolt-icon">
+                        &#8623;</span></button>
+                <div class="collapsible-element" id="publications">
+                    <h4>Publications:</h4>
+                    <button type="button" class="add-button" id="publication-form-entry-add">Add Entry</button>
+                    <div class="publication-form-entry form-entry" id="publication-form-entry_0">
+                        <div class="input-field publications-name-input-field">
+                            <label>Name</label>
+                            <input type="text" pattern="[A-Za-z ]+" value="Publication" />
+                        </div>
+                        <div class="input-field publications-publisher-input-field">
+                            <label>Publisher</label>
+                            <input type="text" pattern="[A-Za-z ]+" value="Company" />
+                        </div>
+                        <div class="input-field publications-releaseDate-input-field">
+                            <label>Release Date</label>
+                            <input type="date" value="2014-10-01" />
+                        </div>
+                        <div class="input-field publications-url-input-field">
+                            <label>URL</label>
+                            <input type="url" value="https://publication.com" />
+                        </div>
+                        <div class="input-field publications-summary-input-field">
+                            <label>Summary</label>
+                            <textarea>I think this means books or papers?</textarea>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Publications Form -->
-                <div class="publications-form">
-                    <button type="button" class="collapse-button">Published Works<span id="bolt-icon">
-                            &#8623;</span></button>
-                    <div class="collapsible-element" id="publications">
-                        <h4>Publications:</h4>
-                        <button type="button" class="add-button" id="publication-form-entry-add">Add Entry</button>
-                        <div class="publication-form-entry form-entry" id="publication-form-entry_0">
-                            <div class="input-field publications-name-input-field">
-                                <label>Name</label>
-                                <input type="text" pattern="[A-Za-z ]+" value="Publication" />
-                            </div>
-                            <div class="input-field publications-publisher-input-field">
-                                <label>Publisher</label>
-                                <input type="text" pattern="[A-Za-z ]+" value="Company" />
-                            </div>
-                            <div class="input-field publications-releaseDate-input-field">
-                                <label>Release Date</label>
-                                <input type="date" value="2014-10-01" />
-                            </div>
-                            <div class="input-field publications-url-input-field">
-                                <label>URL</label>
-                                <input type="url" value="https://publication.com" />
-                            </div>
-                            <div class="input-field publications-summary-input-field">
-                                <label>Summary</label>
-                                <textarea>I think this means books or papers?</textarea>
-                            </div>
+            <!-- Skills Form -->
+            <div class="skills-form">
+                <button type="button" class="collapse-button">Skills<span id="bolt-icon"> &#8623;</span></button>
+                <div class="collapsible-element" id="skills">
+                    <h4>Skills:</h4>
+                    <button type="button" class="add-button" id="skill-form-entry-add">Add Entry</button>
+                    <div class="skill-form-entry form-entry" id="skill-form-entry_0">
+                        <div class="input-field skills-name-input-field">
+                            <label>Name</label>
+                            <input type="text" pattern="[A-Za-z ]+" value="Web Development" />
+                        </div>
+                        <div class="input-field skills-level-input-field">
+                            <label>Level</label>
+                            <input type="text" pattern="[A-Za-z ]+" value="Master" />
+                        </div>
+                        <div class="input-field skills-keywords-input-field">
+                            <label>Keywords</label>
+                            <input type="text" value="HTML, CSS, JavaScript, puppets" />
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Skills Form -->
-                <div class="skills-form">
-                    <button type="button" class="collapse-button">Skills<span id="bolt-icon"> &#8623;</span></button>
-                    <div class="collapsible-element" id="skills">
-                        <h4>Skills:</h4>
-                        <button type="button" class="add-button" id="skill-form-entry-add">Add Entry</button>
-                        <div class="skill-form-entry form-entry" id="skill-form-entry_0">
-                            <div class="input-field skills-name-input-field">
-                                <label>Name</label>
-                                <input type="text" pattern="[A-Za-z ]+" value="Web Development" />
-                            </div>
-                            <div class="input-field skills-level-input-field">
-                                <label>Level</label>
-                                <input type="text" pattern="[A-Za-z ]+" value="Master" />
-                            </div>
-                            <div class="input-field skills-keywords-input-field">
-                                <label>Keywords</label>
-                                <input type="text" value="HTML, CSS, JavaScript, puppets" />
-                            </div>
+            <!-- References Form -->
+            <div class="references-form">
+                <button type="button" class="collapse-button">References<span id="bolt-icon">
+                        &#8623;</span></button>
+                <div class="collapsible-element" id="references">
+                    <h4>Professional References:</h4>
+                    <button type="button" class="add-button" id="reference-form-entry-add">Add Entry</button>
+                    <div class="reference-form-entry form-entry" id="reference-form-entry_0">
+                        <div class="input-field references-name-input-field">
+                            <label>Name</label>
+                            <input type="text" pattern="[A-Za-z ]+" value="Smarty nerd" />
+                        </div>
+                        <div class="input-field references-reference-input-field">
+                            <label>Reference</label>
+                            <input type="text" value="is good" />
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- References Form -->
-                <div class="references-form">
-                    <button type="button" class="collapse-button">References<span id="bolt-icon">
-                            &#8623;</span></button>
-                    <div class="collapsible-element" id="references">
-                        <h4>Professional References:</h4>
-                        <button type="button" class="add-button" id="reference-form-entry-add">Add Entry</button>
-                        <div class="reference-form-entry form-entry" id="reference-form-entry_0">
-                            <div class="input-field references-name-input-field">
-                                <label>Name</label>
-                                <input type="text" pattern="[A-Za-z ]+" value="Smarty nerd" />
-                            </div>
-                            <div class="input-field references-reference-input-field">
-                                <label>Reference</label>
-                                <input type="text" value="is good" />
-                            </div>
+            <!-- Projects Form -->
+            <div class="projects-form">
+                <button type="button" class="collapse-button">Projects<span id="bolt-icon"> &#8623;</span></button>
+                <div class="collapsible-element" id="projects">
+                    <h4>Project Portfolio:</h4>
+                    <button type="button" class="add-button" id="project-form-entry-add">Add Entry</button>
+                    <div class="project-form-entry form-entry" id="project-form-entry_0">
+                        <div class="input-field projects-name-input-field">
+                            <label>Name</label>
+                            <input type="text" pattern="[A-Za-z ]+" value="ultimate hacker ai" />
+                        </div>
+                        <div class="input-field projects-startDate-input-field">
+                            <label>Start Date</label>
+                            <input type="date" value="2019-01-01" />
+                        </div>
+                        <div class="input-field projects-endDate-input-field">
+                            <label>End Date</label>
+                            <input type="date" value="2021-01-01" />
+                        </div>
+                        <div class="input-field projects-description-input-field">
+                            <label>Description</label>
+                            <textarea>is kinda scary and might eat you.</textarea>
+                        </div>
+                        <div class="input-field projects-highlights-input-field">
+                            <label>Highlights</label>
+                            <input type="text" pattern="[A-Za-z, ]+" value="Won award at AIHacks 2016" />
+                        </div>
+                        <div class="input-field projects-url-input-field">
+                            <label>URL</label>
+                            <input type="url" value="https://project.not/" />
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Projects Form -->
-                <div class="projects-form">
-                    <button type="button" class="collapse-button">Projects<span id="bolt-icon"> &#8623;</span></button>
-                    <div class="collapsible-element" id="projects">
-                        <h4>Project Portfolio:</h4>
-                        <button type="button" class="add-button" id="project-form-entry-add">Add Entry</button>
-                        <div class="project-form-entry form-entry" id="project-form-entry_0">
-                            <div class="input-field projects-name-input-field">
-                                <label>Name</label>
-                                <input type="text" pattern="[A-Za-z ]+" value="ultimate hacker ai" />
-                            </div>
-                            <div class="input-field projects-startDate-input-field">
-                                <label>Start Date</label>
-                                <input type="date" value="2019-01-01" />
-                            </div>
-                            <div class="input-field projects-endDate-input-field">
-                                <label>End Date</label>
-                                <input type="date" value="2021-01-01" />
-                            </div>
-                            <div class="input-field projects-description-input-field">
-                                <label>Description</label>
-                                <textarea>is kinda scary and might eat you.</textarea>
-                            </div>
-                            <div class="input-field projects-highlights-input-field">
-                                <label>Highlights</label>
-                                <input type="text" pattern="[A-Za-z, ]+" value="Won award at AIHacks 2016" />
-                            </div>
-                            <div class="input-field projects-url-input-field">
-                                <label>URL</label>
-                                <input type="url" value="https://project.not/" />
-                            </div>
+            <!--Languages Form-->
+            <div class="languages-form">
+                <button type="button" class="collapse-button">Languages<span id="bolt-icon"> &#8623;</span></button>
+                <div class="collapsible-element" id="languages">
+                    <h4>Languages and Fluency:</h4>
+                    <button type="button" class="add-button" id="language-form-entry-add">Add Entry</button>
+                    <div class="language-form-entry form-entry" id="language-form-entry_0">
+                        <div class="input-field language-name-input-field">
+                            <label class="language">Language</label>
+                            <input type="text" pattern="[A-Za-z]" value="Ex: English" />
+                        </div>
+                        <div class="input-field language-fluency-input-field">
+                            <label class="fluency">Fluency</label>
+                            <input type="text" value="Ex: Toddler" />
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="languages-form">
-                    <button type="button" class="collapse-button">Languages<span id="bolt-icon"> &#8623;</span></button>
-                    <div class="collapsible-element" id="languages">
-                        <h4>Languages and Fluency:</h4>
-                        <button type="button" class="add-button" id="language-form-entry-add">Add Entry</button>
-                        <div class="language-form-entry form-entry" id="language-form-entry_0">
-                            <div class="input-field language-name-input-field">
-                                <label class="language">Language</label>
-                                <input type="text" pattern="[A-Za-z]" value="Ex: English" />
-                            </div>
-                            <div class="input-field language-fluency-input-field">
-                                <label class="fluency">Fluency</label>
-                                <input type="text" value="Ex: Toddler" />
-                            </div>
+            <!--Interests Form-->
+            <div class="interests-form">
+                <button type="button" class="collapse-button">Interests<span id="bolt-icon"> &#8623;</span></button>
+                <div class="collapsible-element form-entry" id="interests">
+                    <h4>Interests and Hobbies:</h4>
+                    <button type="button" class="add-button" id="interest-form-entry-add">Add Entry</button>
+                    <div class="interest-form-entry form-entry" id="interest-form-entry_0">
+                        <div class="input-field interest-name-input-field">
+                            <label>Interest</label>
+                            <input type="text" pattern="[A-Za-z]+" value="Ex: Wildlife" />
                         </div>
-                    </div>
-                </div>
-
-                <div class="interests-form">
-                    <button type="button" class="collapse-button">Interests<span id="bolt-icon"> &#8623;</span></button>
-                    <div class="collapsible-element form-entry" id="interests">
-                        <h4>Interests and Hobbies:</h4>
-                        <button type="button" class="add-button" id="interest-form-entry-add">Add Entry</button>
-                        <div class="interest-form-entry form-entry" id="interest-form-entry_0">
-                            <div class="input-field interest-name-input-field">
-                                <label>Interest</label>
-                                <input type="text" pattern="[A-Za-z]+" value="Ex: Wildlife" />
-                            </div>
-                            <div class="input-field keywords-input-field">
-                                <label>Keywords</label>
-                                <input type="text" pattern="[A-Za-z0-9, ]+" value="Ex: Ferrets" />
-                            </div>
+                        <div class="input-field keywords-input-field">
+                            <label>Keywords</label>
+                            <input type="text" pattern="[A-Za-z0-9, ]+" value="Ex: Ferrets" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
     </main>
     <footer>
         <div class="resume-form-entries prototypes" id="element-prototypes">

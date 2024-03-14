@@ -70,21 +70,38 @@ function collectEntries(className) {
     let elements = resumeForm.getElementsByClassName(className);
     let entries = [];
     for (a = 0; a < elements.length; a++) {
-        let language = {};
+        let entry = {};
         let fields = elements[a].getElementsByClassName("input-field");
         for (b = 0; b < fields.length; b++) {
             let fieldChildren = fields[b].children;
             if (fieldChildren[1].tagName == "textarea") {
-                language[fieldChildren[0].innerText.toLowerCase()] = fieldChildren[1].innerText;
+                entry[fieldChildren[0].innerText.toLowerCase()] = fieldChildren[1].innerText;
             }
             else {
-                language[fieldChildren[0].innerText.toLowerCase()] = fieldChildren[1].value;
+                entry[fieldChildren[0].innerText.toLowerCase()] = fieldChildren[1].value;
             }
         }
-        entries.push(language);
+        entries.push(entry);
     }
     console.log(entries);
 
     return entries;
 }
+
+
+
+
+collectEntries("label-form-entry")
+collectEntries("summary-form-entry")
+collectEntries("profile-form-entry")
+collectEntries("work-form-entry")
+collectEntries("volunteer-form-entry")
+collectEntries("education-form-entry")
+collectEntries("award-form-entry")
+collectEntries("certificate-form-entry")
+collectEntries("publication-form-entry")
+collectEntries("skill-form-entry")
+collectEntries("reference-form-entry")
+collectEntries("project-form-entry")
 collectEntries("language-form-entry")
+collectEntries("interest-form-entry")
