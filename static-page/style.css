@@ -48,3 +48,7 @@ body {
 .title-line {
     padding: 3rem;
 }
+
+#cowboy-ready:hover {
+    filter: brightness(70%);
+}
