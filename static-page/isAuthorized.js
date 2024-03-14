@@ -1,4 +1,4 @@
-export async function isAuthorized() {
+async function isAuthorized() {
     let token = { 'token': localStorage.getItem('token') };
     let isAuthorized = await fetch("https://autoresumed.com/auth/is_authorized", {
         method: "POST",
@@ -13,13 +13,13 @@ export async function isAuthorized() {
     }
 }
 
-export function redirect(bool){
+function redirect(bool){
     if(!bool()){
         window.location.replace("https://autoresumed.com/index.html")
     }
 }
 
-export function viewControl(bool){
+function viewControl(bool){
     var loggedIn = document.getElementById("logged-in");
     var loggedOut = document.getElementById("logged-out");
     if(bool){
@@ -34,5 +34,11 @@ export function viewControl(bool){
 
 let isAuth=isAuthorized()
 
+const currentUrl = window.location.href;
+
 viewControl(isAuth)
-redirect(isAuth)
+
+let redirectlist = ["https://autoresumed.com/resume.html","https://autoresumed.com/generate.html"]
+if(redirectlist.includes(currentUrl)){
+    redirect(isAuth)
+}
