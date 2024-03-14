@@ -1,5 +1,11 @@
 .resume-creator {
-    padding: 1rem;
+    padding-top: 0.5rem;
+    padding-left: 1rem;
+}
+
+.resume-downloader {
+    padding-top: 1rem;
+    padding-left: 1rem;
 }
 
 .resume-container {
