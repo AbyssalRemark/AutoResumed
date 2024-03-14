@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div class="topnav" id="topnav">
+    <header>
         <img class="logo" src="icon.svg" alt="AutoResumed icon">
         <div id="leftnav">
             <a href="index.html">Home</a>
@@ -20,32 +20,34 @@
             <a href="login.html">Login</a>
             <a class="active" href="register.html">Register</a>
         </div>
-    </div>
-    <div class="container">
-        <div class="register-form">
-            <div class="email-input" id="register-email">
-                <label id="email-label" for="email">E-Mail Address: </label>
-                <input id="email" type="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
-                    placeholder="E-Mail Address" required title="Please enter a valid email.">
-            </div>
-            <div class="password-input" id="register-password-enter">
-                <label id="passwordy-entry-label" for="password-enter">Password (6-24 Chars): </label>
-                <input type="password" id="password-enter" placeholder="Password" required minlength="6" maxlength="24"
-                    title="Password must be 6-24 characters">
-            </div>
-            <div class="password-input" id="register-password-verify">
-                <label id="password-confirm-label" for="password-verify">Enter Password Again: </label>
-                <input type="password" id="password-verify" placeholder="Password" required minlenght="6" maxlength="24"
-                    title="Password must be 6-24 characters">
-            </div>
-            <div class="error-text" id="register-error"></div>
-            <div class="register-button-container">
-                <button class="register-button" type="button">Register</button>
+    </header>
+    <main>
+        <div class="container">
+            <div class="register-form">
+                <div class="email-input" id="register-email">
+                    <label id="email-label" for="email">E-Mail Address: </label>
+                    <input id="email" type="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+                        placeholder="E-Mail Address" required title="Please enter a valid email.">
+                </div>
+                <div class="password-input" id="register-password-enter">
+                    <label id="passwordy-entry-label" for="password-enter">Password (6-24 Chars): </label>
+                    <input type="password" id="password-enter" placeholder="Password" required minlength="6"
+                        maxlength="24" title="Password must be 6-24 characters">
+                </div>
+                <div class="password-input" id="register-password-verify">
+                    <label id="password-confirm-label" for="password-verify">Enter Password Again: </label>
+                    <input type="password" id="password-verify" placeholder="Password" required minlenght="6"
+                        maxlength="24" title="Password must be 6-24 characters">
+                </div>
+                <div class="error-text" id="register-error"></div>
+                <div class="register-button-container">
+                    <button class="register-button" type="button">Register</button>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 </body>
+
 <script src="register.js"></script>
-</body>
 
 </html>

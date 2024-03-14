@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div class="topnav" id="topnav">
+    <header>
         <img class="logo" src="icon.svg" alt="AutoResumed icon">
         <div id="leftnav">
             <a href="index.html">Home</a>
@@ -20,25 +20,27 @@
             <a class="active" href="login.html">Login</a>
             <a href="register.html">Register</a>
         </div>
-    </div>
-    <div class="container">
-        <div class="login-form" id="login-form">
-            <div class="email-input" id="login-email">
-                <label for="email">E-Mail Address: </label>
-                <input id="email" type="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
-                    placeholder="E-Mail Address" required title="Please enter a valid email.">
-            </div>
-            <div class="password-input" id="login-password">
-                <label for="password">Password: </label>
-                <input type="password" id="password" placeholder="Password" required>
-            </div>
-            <div class="login-button-container">
-                <button class="login-button" type="button">Login</button>
+    </header>
+    <main>
+        <div class="container">
+            <div class="login-form" id="login-form">
+                <div class="email-input" id="login-email">
+                    <label for="email">E-Mail Address: </label>
+                    <input id="email" type="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+                        placeholder="E-Mail Address" required title="Please enter a valid email.">
+                </div>
+                <div class="password-input" id="login-password">
+                    <label for="password">Password: </label>
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <div class="login-button-container">
+                    <button class="login-button" type="button">Login</button>
+                </div>
             </div>
         </div>
-    </div>
-
-    <script src="login.js"></script>
+    </main>
 </body>
+
+<script src="login.js"></script>
 
 </html>

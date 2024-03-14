@@ -4,26 +4,13 @@ body {
     background-color: #fff1d0;
 }
 
-.title {
-    padding: 0.5rem;
-}
-
-.logo {
-    width: 3rem;
-    height: 3rem;
-}
-
-.topnav {
+header {
     display: flex;
     overflow: hidden;
     background-color: #333;
 }
 
-.navsection {
-    padding-left: 3rem;
-}
-
-.topnav a {
+header a {
     float: left;
     color: #f2f2f2;
     text-align: center;
@@ -35,14 +22,27 @@ body {
     font-size: 1rem;
 }
 
-.topnav a:hover {
+header a:hover {
     background-color: #ddd;
     color: black;
 }
 
-.topnav a.active {
+header a.active {
     background-color: #04AA6D;
     color: white;
+}
+
+.title {
+    padding: 0.5rem;
+}
+
+.logo {
+    width: 3rem;
+    height: 3rem;
+}
+
+.navsection {
+    padding-left: 3rem;
 }
 
 .title-line {
