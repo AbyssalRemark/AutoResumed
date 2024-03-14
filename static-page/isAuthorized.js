@@ -22,7 +22,7 @@ async function isAuthorized() {
         return ret
     }
     else {
-        return False;
+        return false;
     }
 }
 
