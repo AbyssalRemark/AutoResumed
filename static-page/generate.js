@@ -1,5 +1,5 @@
 document.getElementById("generate-button").addEventListener("click", async function() {
-    document.getElementById("resume").srcdoc = await generate();
+    document.getElementById("resume").srcdoc = await generate("html");
 });
 
 document.getElementById("download-html-button").addEventListener("click", async function() {
