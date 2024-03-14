@@ -1,5 +1,6 @@
 document.getElementById("generate-button").addEventListener("click", async function() {
-    document.getElementById("resume").srcdoc = await generate();
+    html_name = await generate()
+    document.getElementById("resume").src = "https://autoresumed.com/html-pdfs/" + html_name + ".html";
 });
 
 document.getElementById("download-html-button").addEventListener("click", async function() {
