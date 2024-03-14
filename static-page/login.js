@@ -1,4 +1,4 @@
-document.getElementById("login-form").addEventListener("submit", async function(event) {
+document.getElementById("login-button").addEventListener("click", async function(event) {
     event.preventDefault();
 
     const email = document.getElementById("email").value;
