@@ -30,7 +30,7 @@ async function isAuthorized() {
 }
 
 function redirect(bool) {
-    if (!bool()) {
+    if (!bool) {
         window.location.replace("https://autoresumed.com/index.html")
     }
 }
