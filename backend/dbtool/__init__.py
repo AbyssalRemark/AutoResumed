@@ -165,10 +165,10 @@ async def update_resume(resume, token, db=None):
         blank_resume = await create_resume_blank(user_id, db)
         resume_id = blank_resume.id
         resume = convert_to_snake(resume)
-        try:
-            await create_basics(resume["basics"], token, resume_id, db)
-        except:
-            print("basics failed")
+        #try:
+        await create_basics(resume["basics"], token, resume_id, db)
+        #except:
+        #    print("basic failed")
 
         try:
             for work in resume["work"]:
@@ -218,11 +218,11 @@ async def update_resume(resume, token, db=None):
         except:
             print("languages failed")
 
-        try:
-            for interest in resume["interests"]:
-                await create_interest(interest, resume_id, db)
-        except:
-            print("interests failed")
+        #try:
+        for interest in resume["interests"]:
+            await create_interest(interest, resume_id, db)
+       # except:
+        #    print("interests failed")
 
         try:
             for reference in resume["references"]:

@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import sys
 import asyncio
 import json
@@ -95,7 +96,10 @@ async def dbtest(argA, argB, argC):
             snake_case = dbtool.convert_to_snake(arg1)
             return snake_case
         case "update_resume":
-            updated_resume = await dbtool.update_resume(scratches.testy_resume(),arg1)
+            if arg2 == "":
+                updated_resume = await dbtool.update_resume(scratches.testy_resume(),arg1)
+            else:
+                updated_resume = await dbtool.update_resume(arg1,arg2)
             return updated_resume
         case "get_tags":
             tags = await dbtool.get_tags(arg1)

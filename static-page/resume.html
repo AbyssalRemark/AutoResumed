@@ -13,11 +13,15 @@
             <a href="about.html">About</a>
         </div>
         <div class="navsection" id="rightnav">
-            <a href="register.html">Register</a>
-            <a href="login.html">Login</a>
-            <a class="active" href="resume.html">Edit Resume</a>
-            <a href="generate.html">Generate Resume</a>
-            <a href="register.html">Logout</a>
+            <div id="logged-out">
+                <a href="register.html">Register</a>
+                <a href="login.html">Login</a>
+            </div>
+            <div id="logged-in">
+                <a class="active" href="resume.html">Edit Resume</a>
+                <a href="generate.html">Generate Resume</a>
+                <a href="logout.html">Logout</a>
+            </div>
         </div>
     </header>
     <main>
@@ -910,5 +914,6 @@
 </body>
 
 <script src="resume.js"></script>
+
 
 </html>

@@ -1,3 +1,4 @@
+//import "./isAuthorized.js"
 
 var mainDiv = document.getElementsByTagName("main")[0]
 var collapseButton = mainDiv.getElementsByClassName("collapse-button");
@@ -101,25 +102,27 @@ function addEntry(className) {
     })
 }
 
-function collectEntries(className) {
-    let resumeForm = document.getElementById("resume-form");
-    let elements = resumeForm.getElementsByClassName(className);
-    let entries = [];
-    for (a = 0; a < elements.length; a++) {
-        let entry = {};
-        let fields = elements[a].getElementsByClassName("input-field");
-        for (b = 0; b < fields.length; b++) {
-            let fieldChildren = fields[b].children;
-            if (fieldChildren[1].tagName == "textarea") {
-                entry[camelCase(fieldChildren[0].innerText)] = fieldChildren[1].innerText;
-            }
-            else {
-                entry[camelCase(fieldChildren[0].innerText.toLowerCase())] = fieldChildren[1].value;
-            }
-        }
-        entries.push(entry);
+function addListItem(addItemButton, data=1) {
+    const parentDiv = addItemButton.parentNode;
+    const inputField = parentDiv.children[1];
+    const list = parentDiv.children[0];
+    let newItem = inputField.value;
+    if(data!=1){
+        newItem=data;
     }
-    return entries;
+    if(newItem.length>0){
+        newItem.value = "";
+        const listItem = document.createElement("li");
+        listItem.textContent = newItem;
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "[X]";
+        removeBtn.classList.add("list-remove-button");
+        removeBtn.addEventListener("click", function() {
+            listItem.remove();
+        });
+        listItem.appendChild(removeBtn);
+        list.appendChild(listItem);
+    }
 }
 
 function loadEntry(entry,className) {
@@ -142,7 +145,7 @@ function loadEntry(entry,className) {
                 if(fields[1].type=="textarea"){
                     fields[1].innerText=entry[i][key]
                 }
-                if(fields[1].tagName=="DIV"){
+                if(fields[1].className=="list-input"){
                     let thisDiv = fields[1]
                     let addItemButton = thisDiv.children[2]
                     let listLoad = entry[i][key]
@@ -168,28 +171,106 @@ function loadEntry(entry,className) {
     }
 }
 
-function addListItem(addItemButton, data=1) {
-    const parentDiv = addItemButton.parentNode;
-    const inputField = parentDiv.children[1];
-    const list = parentDiv.children[0];
-    let newItem = inputField.value;
-    if(data!=1){
-        newItem=data;
+async function loadResume(){
+    let token = JSON.stringify({"token":localStorage.getItem("token")})
+    token=JSON.stringify({"token":"461fa38264b0205862a783cd019f1d03fbff7e29de92ed7721a0ab24f9a7336f"})
+    let resume = await fetch("https://autoresumed.com/resume/get",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:token
+    }).then(function(response){
+        return response.json();
+    });
+    console.log(resume)
+
+
+    loadEntry(resume["work"],"work-form-entry");
+    loadEntry(resume["volunteer"],"volunteer-form-entry");
+    loadEntry(resume["education"],"education-form-entry");
+    loadEntry(resume["awards"],"award-form-entry");
+    loadEntry(resume["certificates"],"certificate-form-entry");
+    loadEntry(resume["publications"],"publication-form-entry");
+    loadEntry(resume["skills"],"skill-form-entry");
+    loadEntry(resume["references"],"reference-form-entry");
+    loadEntry(resume["projects"],"project-form-entry");
+    loadEntry(resume["languages"],"language-form-entry");
+    loadEntry(resume["interests"],"interest-form-entry");
+    loadEntry(resume["basics"],"name-form-entry");
+    loadEntry(resume["basics"]["location"],"location-form-entry");
+    loadEntry(resume["basics"]["label"],"label-form-entry");
+    loadEntry(resume["basics"]["summary"],"summary-form-entry");
+    loadEntry(resume["basics"]["profiles"],"profile-form-entry");
+
+}
+
+
+async function updateResume(){
+    let resume = collectResume();
+    let req={"resume":resume,"token":localStorage.getItem("token")};
+    req["token"]='461fa38264b0205862a783cd019f1d03fbff7e29de92ed7721a0ab24f9a7336f';
+    req = JSON.stringify(req);
+    console.log(req)
+    let response = await fetch("https://autoresumed.com/resume/update",{
+        method:"PUT",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:req
+    }).then(function(response){
+        ret = response.json()
+        return ret
+    });
+    return response
+}
+
+function collectEntries(className) {
+    let resumeForm = document.getElementById("resume-form");
+    let elements = resumeForm.getElementsByClassName(className);
+    let entries = [];
+    for (a = 0; a < elements.length; a++) {
+        let entry = {};
+        let fields = elements[a].getElementsByClassName("input-field");
+        for (b = 0; b < fields.length; b++) {
+            let fieldChildren = fields[b].children;
+            let key = camelCase(fieldChildren[0].innerText)
+            if (fieldChildren[1].tagName == "textarea") {
+                let content = fieldChildren[1].innerText;
+                entry[key] = content;
+            }
+            if (fieldChildren[1].className=="list-input"){
+                let list = fieldChildren[1].children[0]
+                let innerList = []
+                for(c=0;c<list.children.length;c++){
+                    let item = list.children[c].firstChild.data
+                    innerList.push(item)
+                }
+                entry[key]=innerList
+            }
+            if(key=="tags"){
+                let tags = fieldChildren[1].value;
+                let tagList = tags.split(',') 
+                for(o=0;o<tagList.length;o++){
+                    tagList[o] = tagList[o].replace(' ','');
+
+                }
+                entry[key]=tagList
+            }
+            else {
+                if(className=="label-form-entry"&&key=="position"){
+                    key="label"
+                }
+                if(className=="interest-form-entry"&&key=="interest"){
+                    key='name'
+                }
+                let content = fieldChildren[1].value;
+                entry[key] = content;
+            }
+        }
+        entries.push(entry);
     }
-    if(newItem.length>0){
-        console.log(newItem)
-        newItem.value = "";
-        const listItem = document.createElement("li");
-        listItem.textContent = newItem;
-        const removeBtn = document.createElement("button");
-        removeBtn.textContent = "[X]";
-        removeBtn.classList.add("list-remove-button");
-        removeBtn.addEventListener("click", function() {
-            listItem.remove();
-        });
-        listItem.appendChild(removeBtn);
-        list.appendChild(listItem);
-    }
+    return entries;
 }
 
 
@@ -199,7 +280,7 @@ function collectResume(){
     resume["basics"]["location"]=collectEntries("location-form-entry")[0];
     resume["basics"]["label"]=collectEntries("label-form-entry");
     resume["basics"]["summary"]=collectEntries("summary-form-entry");
-    resume["basics"]["profile"]=collectEntries("profile-form-entry");
+    resume["basics"]["profiles"]=collectEntries("profile-form-entry");
     resume["work"]=collectEntries("work-form-entry");
     resume["volunteer"]=collectEntries("volunteer-form-entry");
     resume["education"]=collectEntries("education-form-entry");
@@ -211,7 +292,25 @@ function collectResume(){
     resume["projects"]=collectEntries("project-form-entry");
     resume["languages"]=collectEntries("language-form-entry");
     resume["interests"]=collectEntries("interest-form-entry");
+    resume["tags"]=getAllTags(resume)
     return resume
+}
+
+function getAllTags(obj) {
+    let tagsArray = [];
+
+    function extractTags(obj) {
+        for (let key in obj) {
+            if (key === 'tags' && Array.isArray(obj[key])) {
+                tagsArray = tagsArray.concat(obj[key]);
+            } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+                extractTags(obj[key]);
+            }
+        }
+    }
+
+    extractTags(obj);
+    return [...new Set(tagsArray)]
 }
 
 function camelCase(str) {
@@ -221,12 +320,9 @@ function camelCase(str) {
  
 }
 
-function loadResume(resume){
-    alert(resume)
-}
 
 async function testLoad(){
-    var testResume = await fetch("https://autoresumed.com/testResume.json") .then(function(response) {
+    var testResume = await fetch("https://autoresumed.com/testResume.json").then(function(response) {
         return response.json();
     })
     loadEntry(testResume["work"],"work-form-entry");
@@ -249,4 +345,8 @@ async function testLoad(){
 
 }
 
-testLoad()
+//testLoad();
+loadResume()
+
+//isAuthorized.redirect();
+//isAuthorized.viewControl();
