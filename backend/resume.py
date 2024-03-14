@@ -1,6 +1,5 @@
 import dbtool
 import subprocess
-import tempfile
 import os
 
 from cli import autoresumed, resumed
@@ -152,9 +151,9 @@ async def generate():
                 detail="Make sure the given template exists."
             )
 
-        tmp_dir = tempfile.gettempdir()
-        html_file_path = os.path.join(tmp_dir, "resume.html")
-        output_file_path = os.path.join(tmp_dir, "resume.pdf")
+        cwd = os.getcwd()
+        html_file_path = os.path.join(cwd, "resume.html")
+        output_file_path = os.path.join(cwd, "resume.pdf")
 
         subprocess.run(["html2pdf", html_file_path, "-o", output_file_path])
 

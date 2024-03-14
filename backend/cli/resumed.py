@@ -1,17 +1,16 @@
 import subprocess
 import json
 import os
-import tempfile
 
 
 def to_html(resume: dict, template: str, keep_html_file: bool = False) -> str:
     """
     Converts the given resume to HTML
     """
-    tmp_dir = tempfile.gettempdir()
+    cwd = os.getcwd()
 
-    input_file_path = os.path.join(tmp_dir, "resume.json")
-    output_file_path = os.path.join(tmp_dir, "resume.html")
+    input_file_path = os.path.join(cwd, "resume.json")
+    output_file_path = os.path.join(cwd, "resume.html")
 
     # Dump dictionary to /tmp/resume.json
     with open(input_file_path, "w") as json_file:
