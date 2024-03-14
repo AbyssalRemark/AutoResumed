@@ -14,7 +14,7 @@ document.getElementById("register-button").addEventListener("click", async funct
 
 async function register(email, password) {
     await fetch(
-        "https://autoresumed.com/api/auth/register",
+        "http://127.0.0.1:5000/auth/register",
         {
             method: "POST",
             headers: {

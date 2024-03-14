@@ -1,6 +1,6 @@
 async function logout(token) {
     await fetch(
-        "https://autoresumed.com/api/auth/logout",
+        "http://127.0.0.1:5000/auth/logout",
         {
             method: "POST",
             headers: {
