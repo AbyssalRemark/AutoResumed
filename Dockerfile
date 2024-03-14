@@ -1,6 +1,8 @@
 FROM python:3.11-buster as builder
 
+LABEL maintainer="PopeRigby <poperigby@mailbox.org>"
 LABEL org.opencontainers.image.source="https://github.com/AbyssalRemark/AutoResumed"
+LABEL org.opencontainers.image.description="AutoResumed Flask API server"
 
 RUN pip install poetry==1.4.2
 
