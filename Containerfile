@@ -1,5 +1,7 @@
 FROM python:3.11-buster as builder
 
+LABEL org.opencontainers.image.source="https://github.com/AbyssalRemark/AutoResumed"
+
 RUN pip install poetry==1.4.2
 
 ENV POETRY_NO_INTERACTION=1 \
