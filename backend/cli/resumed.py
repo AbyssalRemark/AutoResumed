@@ -33,8 +33,12 @@ def to_html(resume: dict, template: str, keep_html_file: bool = False) -> str:
         text=True,
     )
 
-    if "Could not load theme" in process.stderr:
-        raise InvalidTemplate
+    stderr = process.stderr
+    if stderr:
+        if "Could not load theme" in stderr:
+            raise InvalidTemplate
+        else:
+            print(stderr)
 
     # We no longer need resume.json
     os.remove(input_file_path)
