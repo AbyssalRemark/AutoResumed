@@ -23,5 +23,9 @@ async function generate() {
         }
     );
 
-    console.log(response);
+    if (response.ok) {
+        const resume = (await response.json())["resume"];
+        document.getElementById("resume").innerHTML = resume;
+    }
+
 }
