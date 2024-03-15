@@ -12,20 +12,26 @@ document.getElementById("download-pdf-button").addEventListener("click", async f
     downloadPdf("resume.pdf", pdf);
 });
 
-const tags = await getTags();
-const tagSelector = document.getElementById("tag-selector");
-for (let tag = 0; tag < tags.length; tag++) {
-    const div = document.createElement("div");
+setupTagSelector();
 
-    const checkbox = document.createElement("input");
-    checkbox.id = "checkbox-" + tag;
-    checkbox.type = "checkbox"
-    const label = document.createElement("label");
-    label.htmlFor = "checkbox-" + tag;
-    label.textContent = tags[tag];
+async function setupTagSelector() {
+    const tags = await getTags();
+    const tagSelector = document.getElementById("tag-selector");
+    for (let tag = 0; tag < tags.length; tag++) {
+        const div = document.createElement("div");
 
-    div.appendChild(checkbox);
-    div.appendChild(label);
+        const checkbox = document.createElement("input");
+        checkbox.id = "checkbox-" + tag;
+        checkbox.type = "checkbox"
+        const label = document.createElement("label");
+        label.htmlFor = "checkbox-" + tag;
+        label.textContent = tags[tag];
+
+        div.appendChild(checkbox);
+        div.appendChild(label);
+
+        tagSelector.appendChild(div);
+    }
 }
 
 async function generate(type) {
