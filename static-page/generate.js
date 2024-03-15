@@ -16,8 +16,9 @@ setupTagSelector();
 
 async function setupTagSelector() {
     const tags = await getTags();
+    console.log(tags);
     const tagSelector = document.getElementById("tag-selector");
-    for (let tag = 0; tag < tags.length - 1; tag++) {
+    for (let tag = 0; tag < tags.length; tag++) {
         const div = document.createElement("div");
 
         const checkbox = document.createElement("input");
