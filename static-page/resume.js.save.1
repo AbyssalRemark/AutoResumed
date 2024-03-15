@@ -130,11 +130,7 @@ function addListItem(addItemButton, data=1) {
 
 function loadEntry(entry,className) {
     let resumeForm = document.getElementById("resume-form");
-    let prototypes = document.getElementById("element-prototypes")
     let form = resumeForm.getElementsByClassName(className);
-    let prototype = prototypes.getElementsByClassName(className);
-    form[0] = prototype[0];
-
     if(className!=="name-form-entry"&&className!=="location-form-entry"){
         while (entry.length > form.length){
             addEntry(className);
@@ -179,6 +175,16 @@ function loadEntry(entry,className) {
         }
     }
 }
+
+clearEntry(){
+    
+
+}
+
+
+clearResume(){
+}
+
 
 async function loadResume(){
     let token = JSON.stringify({"token":localStorage.getItem("token")})
@@ -227,6 +233,7 @@ async function updateResume(){
         ret = response.json()
         return ret
     });
+    loadResume()
     return response
 }
 
@@ -245,14 +252,19 @@ function collectEntries(className) {
                 entry[key] = content;
             }
 
-            else if (key=="highlights" || key=="keywords" || key=="courses"){
+            else if (key=="highlights" || key=="keywords"){
+		console.log("running ")
                 let list = fieldChildren[1].childNodes[1]
                 let innerList = []
                 for(c=0;c<list.children.length;c++){
                     let item = list.children[c].firstChild.data
                     innerList.push(item)
                 }
+		console.log(entry)
+		console.log(key)
+		console.log(innerList)
                 entry[key]=innerList
+		console.log(entry)
             }
 
             else if(key=="tags"){
@@ -302,14 +314,6 @@ function collectResume(){
     resume["tags"]=getAllTags(resume)
     return resume
 }
-
-
-
-function clearResume(){
-   let resume = document.getElementById("resume-form")
-   resume.innerHTML=""
-}
-
 
 function getAllTags(obj) {
     let tagsArray = [];
