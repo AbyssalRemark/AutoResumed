@@ -38,7 +38,27 @@ async function generate(type) {
     } else if (response.ok && type == "pdf") {
         return await response.blob()
     }
+}
 
+async function getTags() {
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(
+        "https://autoresumed.com/api/resume/tags",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "token": token,
+            })
+        }
+    );
+
+    if (response.ok) {
+        return (await response.json())["tags"];
+    }
 }
 
 function downloadHtml(filename, text) {
