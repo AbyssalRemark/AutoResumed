@@ -566,6 +566,63 @@
     <!---WHY? BECAUSE I HAVEN'T MADE IT BETTER YET (github.com/aquinnallen---->
     <footer>
         <div class="resume-form-entries prototypes" id="element-prototypes">
+
+            <div class="basics-form">
+                <button type="button" class="collapse-button">Basic Information<span class="bolt-icon">
+                       &#8623;</span></button>
+                <div class="collapsible-element" id="basic-info">
+                    <h4>Name and Contact:</h4>
+                    <div class="name-form-entry form-entry" id="name-form-entry_0">
+                        <div class="input-field basics-name-input-field">
+                            <label>Name</label>
+                            <input type="text" pattern="[A-Za-z ]+" placeholder="Test McTest" />
+                        </div>
+                        <div class="input-field basics-image-input-field">
+                            <label>Image</label>
+                            <input type="text" placeholder="image URL" />
+                        </div>
+                        <div class="input-field basics-email-field">
+                            <label>Email</label>
+                            <input type="email" placeholder="Ex: user@example.com" />
+                        </div>
+                        <div class="input-field basics-phone-input-field">
+                            <label>Phone</label>
+                            <input type="tel" placeholder="Ex: (555) 555-5555" />
+                        </div>
+                        <div class="input-field basics-url-input-field">
+                            <label>URL</label>
+                            <input type="url" placeholder="https://johndoe.not" />
+                        </div>
+                    </div>
+
+                    <div class="location-form">
+                        <h4>Location and Address Info:</h4>
+                        <div class="location-form-entry form-entry" id="location-form-entry_0">
+                            <div class="input-field location-address-input-field">
+                                <label>Address</label>
+                                <input type="text" placeholder="2712 Broadway St" />
+                            </div>
+                            <div class="input-field location-postalCode-input-field">
+                                <label>Postal Code</label>
+                                <input type="text" pattern="[A-Za-z0-9]+" placeholder="CA 94115" />
+                            </div>
+                            <div class="input-field location-city-input-field">
+                                <label>City</label>
+                                <input type="text" pattern="[A-Za-z ]+" placeholder="San Francisco" />
+                            </div>
+                            <div class="input-field location-countryCode-input-field">
+                                <label>Country Code</label>
+                                <input type="text" pattern="[A-Za-z]+" placeholder="US" />
+                            </div>
+                            <div class="input-field location-region-input-field">
+                                <label>Region</label>
+                                <input type="text" pattern="[A-Za-z ]+" placeholder="California" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="label-form-entry form-entry" id="label-form-entry_0">
                 <div class="input-field label-label-input-field">
                     <label>Position</label>
