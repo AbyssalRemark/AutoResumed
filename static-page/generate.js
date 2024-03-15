@@ -19,19 +19,21 @@ async function setupTagSelector() {
     console.log(tags);
     const tagSelector = document.getElementById("tag-selector");
     for (let tag = 0; tag < tags.length; tag++) {
-        const div = document.createElement("div");
+        if (tags[tag].length != 0) {
+            const div = document.createElement("div");
 
-        const checkbox = document.createElement("input");
-        checkbox.id = "checkbox-" + tag;
-        checkbox.type = "checkbox"
-        const label = document.createElement("label");
-        label.htmlFor = "checkbox-" + tag;
-        label.textContent = tags[tag];
+            const checkbox = document.createElement("input");
+            checkbox.id = "checkbox-" + tag;
+            checkbox.type = "checkbox"
+            const label = document.createElement("label");
+            label.htmlFor = "checkbox-" + tag;
+            label.textContent = tags[tag];
 
-        div.appendChild(checkbox);
-        div.appendChild(label);
+            div.appendChild(checkbox);
+            div.appendChild(label);
 
-        tagSelector.appendChild(div);
+            tagSelector.appendChild(div);
+        }
     }
 }
 
