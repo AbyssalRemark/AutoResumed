@@ -22,4 +22,8 @@ Fleshing out this database was a nightmare, creddit to Quinn on that one. His wo
 ## Accomplishments that we're proud of
 Many pivots and shifts have lead this project to quite the undertaking. At current the CLI has been mostly stripped down in favor of a web interface. Many late nights and many constant hours have lead this to be the project it is today. 
 
+## What we learned
+Databases are quite a lot. Its clearer how people can work on them as a job exclusivly. a good reminder that the only bug free code is the code you dont write. Along with the usual "the internet is held together by duct tape" we get our own appriciation for how that duct tape gets there by needing to apply quite a lot of it ourselves. 
 
+## Whats next for AutoResumed?
+I think for this project to go forward it requires a lot of reimagining and refactoring. The CLI will be fleshed out (as right now it exists as more or less a string parser). Its really exploded in a lot of different areas and being able to structure this and set it up with nix flakes to both instance a server and install dependancies for the comand line tool would be an amazing feat turning this from a hacked together website to a flexable peice of equipment. 
