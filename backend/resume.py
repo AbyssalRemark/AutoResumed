@@ -165,3 +165,29 @@ async def generate():
             message="The given type is invalid.",
             detail="Try giving either 'html' or 'pdf'."
         )
+
+@resume.route("/tags", methods=["POST"])
+async def tags():
+    data = request.get_json()
+
+    try:
+        token = str(data["token"])
+    except (KeyError, TypeError, ValueError):
+        raise JsonError(
+            400,
+            error="invalid-json",
+            message="Invalid JSON data.",
+            detail="We expect { 'token': '<bearer-token>' }.",
+        )
+
+    if await dbtool.is_authorized(token) == False:
+        raise JsonError(
+            401,
+            error="unauthorized",
+            message="Token unauthorized.",
+            detail="The given token is not authorized. Try again with a different token."
+        )
+
+    tags = await dbtool.get_tags(token)
+
+    return json_response(status="200", tags=tags)
