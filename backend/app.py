@@ -17,3 +17,7 @@ def create_app() -> Flask:
     app.register_blueprint(resume, url_prefix="/resume")
 
     return app
+
+__name__ == "__main__":
+  app = create_app()
+  app.run(debug=True, port=42069)
