@@ -73,6 +73,15 @@ for (k = 0; k < addButton.length; k++) {
 }
 
 
+function displayMessage(message, duration) {
+    var popup = document.getElementById('messagePopup');
+    popup.textContent = message;
+    popup.style.display = 'block';
+    setTimeout(function() {
+        popup.style.display = 'none';
+    }, duration);
+}
+
 
 function addEntry(className) {
     var elementId = className.concat("-add");
@@ -214,6 +223,7 @@ async function loadResume(){
 
 
 async function updateResume(){
+    displayMessage("Shootin' that over to the server, pardner", 2000);
     let resume = collectResume();
     let req={"resume":resume,"token":localStorage.getItem("token")};
     req = JSON.stringify(req);

@@ -2,6 +2,19 @@ button {
     margin:.75rem;
 }
 
+.message-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    z-index: 9999;
+    display: none;
+}
+
 .bolt-icon {
     font-size: 2.5rem;
     font-weight: bolder;
