@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "autoresumed"
+version = "0.1.0"
+description = "Makes a resume from tags using resumed"
+authors = ["AbyssalRemark <dev.dominicsevere@gmail.com>"]
+readme = "README.md"
+license = "GPL"
+packages = [
+  { include = "auto_resumed" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
