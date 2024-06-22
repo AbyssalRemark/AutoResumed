@@ -1,6 +1,24 @@
-import subprocess
-import json
+#!/usr/bin/env python3
+
+"""
+This program is used to manipulate monolithic resumeon resumes to generate spesific 
+resumes off of taged entries for faster resume making.
+
+    * create defaults
+        *  
+    * manipulate basics
+    * add entries 
+    * add tags
+    * gen resume off of tags. 
+
+    *resumeon to data structure and back again. 
+    *
+
+"""
+#imports
 import os
+import json
+import subprocess
 
 
 def to_html(resume: dict, template: str, keep_html_file: bool = False) -> str:

@@ -19,8 +19,8 @@ resumes off of taged entries for faster resume making.
 import os
 import json
 from pprint import pprint as pprint
-from typing import Final
 from copy import deepcopy #python shallow copies by default. 
+from typing import Final  
 
 #const fields for talking about whats in the resume
 CONST_FIELDS: Final = ["basics", "work", "volunteer", "education", "awards", "certificates", 
@@ -28,7 +28,7 @@ CONST_FIELDS: Final = ["basics", "work", "volunteer", "education", "awards", "ce
 
 #==============================================================================#
 #
-#   Resume translating functions
+#   Resume functions
 #
 #==============================================================================#
 
@@ -102,7 +102,7 @@ def parseFirst(list, tags):
 
 #assumes its been loaded correctly.
 #   Does not remove tags. 
-#   Cassidy you probably want genResume not this.
+#   you probably want genResume not this.
 #   *Should* not modify resume in any way
 def parseResume(resume, tags):
     #where the new resume goes
