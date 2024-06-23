@@ -1,0 +1,16 @@
+{
+  "jsonresume-theme-full" :{
+    "owner"   : "jackkeller",
+    "version" : "unstable-2023-07-16",
+    "rev"     : "66e3d0673db9b436e4fb7cdf5d9dc336d1f3a0a4",
+    "hash"    : "sha256-ZYAExajB2BUXf17fOYnLFEZAeKCnCnjwym/VO1k2yk8=",
+    "npmHash" : "sha256-jqsrQaMth71kGk6NEyGgUbjVHhpXn2kIDi/T6tmbcZI="
+  },
+  "jsonresume-theme-fullmoon" :{
+    "owner"   : "IsFilimonov",
+    "version" : "0.1.2",
+    "rev"     : "v0.1.2",
+    "hash"    : "sha256-6zdqIE/DpuLhlQ6OFrOfNGu7Vq8w+0OAcMYCNQXD1xY=",
+    "npmHash" : "sha256-1DIxCiUWF46YSCjvIzrXwz0w6+TwdXndUgb0Pgd3kHI="
+  }
+}
