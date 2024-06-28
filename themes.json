@@ -12,5 +12,12 @@
     "rev"     : "v0.1.2",
     "hash"    : "sha256-6zdqIE/DpuLhlQ6OFrOfNGu7Vq8w+0OAcMYCNQXD1xY=",
     "npmHash" : "sha256-1DIxCiUWF46YSCjvIzrXwz0w6+TwdXndUgb0Pgd3kHI="
+  },
+  "jsonresume-theme-macchiato" :{
+    "owner"   : "biosan",
+    "version" : "2021-02-20",
+    "rev"     : "c783186d31c88924b7808bf65a892cef233099c4",
+    "hash"    : "sha256-ssqZBlVnEtOSldDrEAPsmTxAdGozeABdt98xSXv0Fe0=",
+    "npmHash" : "sha256-yK7Yp2580XiGv1nHmyBnnF7dLlADOP8NWLvuzAMclOo="
   }
 }

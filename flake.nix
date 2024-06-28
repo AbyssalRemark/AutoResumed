@@ -38,9 +38,14 @@
               inherit (value) rev hash owner;
               repo = pname;
             };
-  
+            
             npmDepsHash = value.npmHash;
             dontNpmBuild = true;
+            
+            #puppeteer is used for testing and is not needed and breaks things. 
+            #This tells it to go away
+            PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = 1;
+
           }
         ) themeSet;
       in pkgs.symlinkJoin {name = "json-resume-theme-pkgs"; paths = themeList;};
