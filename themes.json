@@ -19,5 +19,12 @@
     "rev"     : "c783186d31c88924b7808bf65a892cef233099c4",
     "hash"    : "sha256-ssqZBlVnEtOSldDrEAPsmTxAdGozeABdt98xSXv0Fe0=",
     "npmHash" : "sha256-yK7Yp2580XiGv1nHmyBnnF7dLlADOP8NWLvuzAMclOo="
+  },
+    "jsonresume-theme-macchiato-plus" :{
+    "owner"   : "brandonkylely",
+    "version" : "unstable-2024-03-29",
+    "rev"     : "f9e7a295d9da7a1f6df63a523248b6cd79bdb437",
+    "hash"    : "sha256-m/VHKkBGthkJ1qqLsJ1S29+PX9MlhLyyglOEO2+IxOI=",
+    "npmHash" : "sha256-vmsOAoThQTA3PdsmB6XwZEAOI+sKD8zZmfuRKk2oCn0="
   }
 }

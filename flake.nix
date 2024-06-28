@@ -23,8 +23,10 @@
       default = mkPoetryApplication { projectDir = self; };
       #creates shell script to execute Resumed
       runResumed = pkgs.writeShellScriptBin "resumed-wrap" ''
-        ${pkgs.resumed}/bin/resumed render --theme \
-          ${self.packages.${system}.themes}/lib/node_modules/$1/index.js  
+        JSON=''${1:-resume.json}
+        THEME=''${2:-jsonresume-theme-macchiato-plus}
+        ${pkgs.resumed}/bin/resumed render $JSON --theme \
+          ${self.packages.${system}.themes}/lib/node_modules/$THEME/index.js  
       '';
 
       themes = let 
