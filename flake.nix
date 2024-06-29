@@ -29,6 +29,8 @@
           ${self.packages.${system}.themes}/lib/node_modules/$THEME/index.js  
       '';
 
+      generatePdf = pkgs.callPackage ./tools/pdf-export {};
+
       themes = let 
         themeList = builtins.attrValues themePkgs;
         themePkgs = pkgs.lib.mapAttrs (pname: value: 
