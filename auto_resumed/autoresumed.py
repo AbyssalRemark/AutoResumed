@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 """
-This program is used to manipulate monolithic resumeon resumes to generate spesific 
-resumes off of taged entries for faster resume making.
+This program is used to manipulate monolithic resume resumes to generate specific 
+resumes off of tagged entries for faster resume making.
 
     * create defaults
         *  
@@ -11,7 +11,7 @@ resumes off of taged entries for faster resume making.
     * add tags
     * gen resume off of tags. 
 
-    *resumeon to data structure and back again. 
+    *resume to data structure and back again. 
     *
 
 """
@@ -57,17 +57,17 @@ def addEntry(resume, field, entry):
 
 #some notes for myself
 #not currently my job but will be later..
-#   not responsible for createion...?
+#   not responsible for creation...?
 #   add
 #   update
 #      add tags
-#      add entrys
+#      add entry
 #   not responsible for deletion...
 #   will need logic to sort by date...?
 
-#def parseResume(resumeon, tags):
-#def parseResume returns flatend resume
-#def parseList returns relivent parts of list.
+#def parseResume(resume, tags):
+#def parseResume returns flattened resume
+#def parseList returns tagged parts of list.
 
 #insertion into work history needs to be chronological I think but idk.
 
@@ -77,7 +77,7 @@ def addEntry(resume, field, entry):
 #
 #==============================================================================#
 #for lists
-def parseAll(list, tags): #knowing python this can probasbly be one line but idk
+def parseAll(list, tags): #knowing python this can probably be one line.
     parsed = [] 
     for i in list:
         for j in tags:
@@ -92,10 +92,10 @@ def parseFirst(list, tags):
             if j in i["tags"]: #any tag found
                 #same logic as above but returns the first one
                 return deepcopy(i)
-    #if that doesnt occure look for the special tag default.
+    #if that doesn't occur look for the special tag default.
     for i in list:
         if "default" in i["tags"]:
-            #if this doesnt exist something has gone wrong.
+            #if this doesn't exist something has gone wrong.
             #TODO throw error I guess
             return append(deepcopy(i))
 
@@ -107,14 +107,14 @@ def parseFirst(list, tags):
 def parseResume(resume, tags):
     #where the new resume goes
     res = {}
-    # "education", is not tagged and needs to be pulled seperately. 
+    # "education", is not tagged and needs to be pulled separately. 
     for field in (CONST_FIELDS):
-        # "education", is not tagged and needs to be pulled seperately. 
+        # "education", is not tagged and needs to be pulled separately. 
         match(field):
             case "basics":
                 #grabs tagged single fields because there special
 
-                #copys all entry to avoid indevidual copying, deep copy
+                #copy's all entry to avoid individual copying, deep copy
                 basics = deepcopy(resume["basics"]) #for easier reading further down
                 res["basics"] = basics
 
@@ -147,25 +147,25 @@ def parseResume(resume, tags):
     return res
 
 def stripTags(resume):
-    #sense python flip flops on weather things are passed by value or refference 
+    #sense python flip flops on weather things are passed by value or reference 
     #were not taking any chances with how this is used so we copy it manually
     #just in case to prevent the original from being stripped. 
     res = deepcopy(resume)
     for field in CONST_FIELDS:
         match(field):
             case "basics":
-                #basics is special but only a subfield profiles will still have tags
+                #basics is special but only a sub field profiles will still have tags
                 for profile in res["basics"]["profiles"]:
                     del profile["tags"]
             case "work" | "volunteer" | "education" | "awards" | "certificates" | "publications" | "skills" | "languages" | "interests" | "references" | "projects":
                 for entry in res[field]:
                     del entry["tags"]
             #case _:
-                #default behavior does nothing. as these are all untagged fields
+                #default behavior does nothing. as these are all un-tagged fields
     return res
 
 if __name__ == "__main__":
-    with open("test.resumeon", 'r') as file:
+    with open("test.json", 'r') as file:
         resume = json.load(file)
     #pprint(resume, sort_dicts=False)
     #print(type(resume))
